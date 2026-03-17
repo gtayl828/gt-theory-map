@@ -1,0 +1,22 @@
+{
+  "name": "G.T. Guitar Theory Map",
+  "short_name": "GT Theory",
+  "description": "Triad Visualizer, Circle of Fifths, and Full Theory Reference for Guitar",
+  "start_url": "./gregs-guitar-theory-map.html",
+  "display": "standalone",
+  "background_color": "#0e0d0b",
+  "theme_color": "#0e0d0b",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' fill='%230e0d0b' rx='20'/><text x='96' y='130' text-anchor='middle' font-size='110' font-family='Impact,sans-serif' fill='%23e8c84a'>G</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' fill='%230e0d0b' rx='50'/><text x='256' y='360' text-anchor='middle' font-size='300' font-family='Impact,sans-serif' fill='%23e8c84a'>G</text></svg>",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+  ]
+}
