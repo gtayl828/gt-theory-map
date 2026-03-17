@@ -2,7 +2,7 @@
   "name": "G.T. Guitar Theory Map",
   "short_name": "GT Theory",
   "description": "Triad Visualizer, Circle of Fifths, and Full Theory Reference for Guitar",
-  "start_url": "./gregs-guitar-theory-map.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0e0d0b",
   "theme_color": "#0e0d0b",
