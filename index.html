@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0062)file:///C:/Users/Greg/Downloads/gregs-guitar-theory-map_4.html -->
+<!-- saved from url=(0064)file:///C:/Users/gtayl/Downloads/gregs-guitar-theory-map_32.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -504,6 +504,7 @@ h1 {
 }
 .scale-btn:hover { color:var(--text); border-color:var(--text-dim); }
 .scale-btn.active-pent  { background:#0e2030; border-color:#40a8e0; color:#70d0ff; }
+.scale-btn.active-blues { background:#003028; border-color:#20c0b0; color:#60f0e0; }
 .scale-btn.active-maj   { background:#1a280e; border-color:#70b840; color:#a0e060; }
 .scale-btn.active-minor { background:#20102e; border-color:#9060d0; color:#c090ff; }
 
@@ -557,20 +558,24 @@ h1 {
 <!-- SCALE FORMULA PANEL — dynamic, clickable chords -->
 <div id="formulaPanel" style="width:100%;max-width:1740px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 24px;display:flex;gap:32px;flex-wrap:wrap;">
   <div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:260px;">
-    <div style="font-family:var(--display-font);font-size:15px;letter-spacing:3px;color:var(--accent)" id="majFormulaTitle">C MAJOR SCALE — CHORDS</div>
+    <div style="font-family:var(--display-font);font-size:15px;letter-spacing:3px;color:var(--accent)" id="majFormulaTitle">MAJOR SCALE FORMULA</div>
     <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
       <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:60px;">Steps:</span>
       <div class="tr-step tr-step-W">W</div><div class="tr-step tr-step-W">W</div><div class="tr-step tr-step-H">H</div><div class="tr-step tr-step-W">W</div><div class="tr-step tr-step-W">W</div><div class="tr-step tr-step-W">W</div><div class="tr-step tr-step-H">H</div>
     </div>
-    <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;" id="majChordStrip"><span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:60px;align-self:center;">Chords:</span><div class="tr-chord-q tr-cq-maj formula-chip-btn" title="Click to show C triads on neck">I C</div><div class="tr-chord-q tr-cq-min formula-chip-btn" title="Click to show Dm triads on neck">ii Dm</div><div class="tr-chord-q tr-cq-min formula-chip-btn" title="Click to show Em triads on neck">iii Em</div><div class="tr-chord-q tr-cq-maj formula-chip-btn" title="Click to show F triads on neck">IV F</div><div class="tr-chord-q tr-cq-maj formula-chip-btn" title="Click to show G triads on neck">V G</div><div class="tr-chord-q tr-cq-min formula-chip-btn" title="Click to show Am triads on neck">vi Am</div><div class="tr-chord-q tr-cq-dim formula-chip-btn" title="Click to show B° triads on neck">vii° B°</div></div>
+    <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;" id="majChordStrip">
+      <!-- populated by JS -->
+    </div>
   </div>
   <div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:260px;">
-    <div style="font-family:var(--display-font);font-size:15px;letter-spacing:3px;color:#9a78e8" id="minFormulaTitle">C MINOR SCALE — CHORDS</div>
+    <div style="font-family:var(--display-font);font-size:15px;letter-spacing:3px;color:#9a78e8" id="minFormulaTitle">MINOR SCALE FORMULA</div>
     <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
       <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:60px;">Steps:</span>
       <div class="tr-step tr-step-W">W</div><div class="tr-step tr-step-H">H</div><div class="tr-step tr-step-W">W</div><div class="tr-step tr-step-W">W</div><div class="tr-step tr-step-H">H</div><div class="tr-step tr-step-W">W</div><div class="tr-step tr-step-W">W</div>
     </div>
-    <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;" id="minChordStrip"><span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:60px;align-self:center;">Chords:</span><div class="tr-chord-q tr-cq-min formula-chip-btn" title="Click to show Cm triads on neck">i Cm</div><div class="tr-chord-q tr-cq-dim formula-chip-btn" title="Click to show D° triads on neck">ii° D°</div><div class="tr-chord-q tr-cq-maj formula-chip-btn" title="Click to show D♯ triads on neck">III D♯</div><div class="tr-chord-q tr-cq-min formula-chip-btn" title="Click to show Fm triads on neck">iv Fm</div><div class="tr-chord-q tr-cq-min formula-chip-btn" title="Click to show Gm triads on neck">v Gm</div><div class="tr-chord-q tr-cq-maj formula-chip-btn" title="Click to show G♯ triads on neck">VI G♯</div><div class="tr-chord-q tr-cq-maj formula-chip-btn" title="Click to show A♯ triads on neck">VII A♯</div></div>
+    <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;" id="minChordStrip">
+      <!-- populated by JS -->
+    </div>
   </div>
 </div>
 
@@ -659,9 +664,10 @@ h1 {
 <!-- SCALE MODE + FLAT TOGGLE -->
 <div class="scale-mode-wrap">
   <span class="scale-mode-label">Scale View:</span>
-  <button class="scale-btn" id="btnPent" onclick="toggleScale(&#39;pent&#39;)">Pentatonic</button>
-  <button class="scale-btn" id="btnMaj" onclick="toggleScale(&#39;major&#39;)">Major Scale</button>
-  <button class="scale-btn" id="btnMinor" onclick="toggleScale(&#39;minor&#39;)">Minor Scale</button>
+  <button class="scale-btn" id="btnPent"  onclick="toggleScale('pent')">Pentatonic</button>
+  <button class="scale-btn" id="btnBlues" onclick="toggleScale('blues')">Blues Scale</button>
+  <button class="scale-btn" id="btnMaj"   onclick="toggleScale('major')">Major Scale</button>
+  <button class="scale-btn" id="btnMinor" onclick="toggleScale('minor')">Minor Scale</button>
   <div class="flat-toggle-wrap" id="flatToggle" onclick="toggleFlats()">
     <span class="flat-toggle-label">Show Flats</span>
     <div class="flat-toggle-switch"><div class="flat-toggle-knob"></div></div>
@@ -671,11 +677,11 @@ h1 {
 <!-- NECK -->
 <div class="neck-zoom-wrap" id="neckZoomWrap">
   <span class="neck-zoom-label">Neck Zoom:</span>
-  <input class="neck-zoom-slider" id="neckZoom" type="range" min="30" max="100" value="60" oninput="updateNeckZoom(this.value)" style="background: linear-gradient(to right, var(--accent) 0%, var(--accent) 42.857142857142854%, #383630 42.857142857142854%, #383630 100%);">
+  <input class="neck-zoom-slider" id="neckZoom" type="range" min="30" max="100" value="60" oninput="updateNeckZoom(this.value)">
   <span class="neck-zoom-val" id="neckZoomVal">60%</span>
 </div>
 
-<div class="neck-wrap" id="neckWrap" style="min-height: 214.2px;"><svg width="1402" height="357" viewBox="0 0 1402 357" xmlns="http://www.w3.org/2000/svg" style="transform: scale(0.6); transform-origin: left top;"><rect width="1402" height="357" fill="#0e0d0b" rx="6"></rect><rect x="56" y="38" width="1318" height="289" fill="#181610" rx="3"></rect><circle cx="286.5" cy="235.5" r="7" fill="#222018"></circle><text x="286.5" y="30" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">3</text><circle cx="460.5" cy="235.5" r="7" fill="#222018"></circle><text x="460.5" y="30" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">5</text><circle cx="634.5" cy="235.5" r="7" fill="#222018"></circle><text x="634.5" y="30" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">7</text><circle cx="808.5" cy="235.5" r="7" fill="#222018"></circle><text x="808.5" y="30" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">9</text><circle cx="1069.5" cy="262" r="7" fill="#222018"></circle><circle cx="1069.5" cy="103" r="7" fill="#222018"></circle><text x="1069.5" y="30" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">12</text><circle cx="1330.5" cy="235.5" r="7" fill="#222018"></circle><text x="1330.5" y="30" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">15</text><rect x="56" y="40" width="13" height="285" fill="#b0a060" rx="2"></rect><line x1="156" y1="40" x2="156" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="243" y1="40" x2="243" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="330" y1="40" x2="330" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="417" y1="40" x2="417" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="504" y1="40" x2="504" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="591" y1="40" x2="591" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="678" y1="40" x2="678" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="765" y1="40" x2="765" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="852" y1="40" x2="852" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="939" y1="40" x2="939" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="1026" y1="40" x2="1026" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="1113" y1="40" x2="1113" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="1200" y1="40" x2="1200" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="1287" y1="40" x2="1287" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="1374" y1="40" x2="1374" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="56" y1="315" x2="1374" y2="315" stroke="#484030" stroke-width="0.8999999999999999"></line><text x="46" y="320" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">E</text><line x1="56" y1="262" x2="1374" y2="262" stroke="#484030" stroke-width="1.32"></line><text x="46" y="267" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">A</text><line x1="56" y1="209" x2="1374" y2="209" stroke="#484030" stroke-width="1.74"></line><text x="46" y="214" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">D</text><line x1="56" y1="156" x2="1374" y2="156" stroke="#484030" stroke-width="2.16"></line><text x="46" y="161" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">G</text><line x1="56" y1="103" x2="1374" y2="103" stroke="#484030" stroke-width="2.58"></line><text x="46" y="108" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">B</text><line x1="56" y1="50" x2="1374" y2="50" stroke="#484030" stroke-width="3"></line><text x="46" y="55" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">e</text><rect x="446.5" y="195" width="289" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="881.5" y="195" width="202" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="185.5" y="195" width="115" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="1229.5" y="195" width="115" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="28" y="142" width="272.5" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="1055.5" y="142" width="289" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="446.5" y="142" width="202" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="794.5" y="142" width="115" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="707.5" y="89" width="202" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="28" y="89" width="185.5" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="1055.5" y="89" width="202" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="446.5" y="89" width="28" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="1490.5" y="89" width="28" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="272.5" y="36" width="202" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="1316.5" y="36" width="202" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="707.5" y="36" width="115" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="28" y="36" width="98.5" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="1055.5" y="36" width="115" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><circle cx="721.5" cy="315" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="721.5" y="320" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">8</text><circle cx="634.5" cy="262" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="634.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">7</text><circle cx="460.5" cy="209" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="460.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">5</text><circle cx="1069.5" cy="315" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1069.5" y="320" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">12</text><circle cx="895.5" cy="262" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="895.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">10</text><circle cx="895.5" cy="209" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="895.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">10</text><circle cx="286.5" cy="315" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="286.5" y="320" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">3</text><circle cx="286.5" cy="262" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="286.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">3</text><circle cx="199.5" cy="209" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="199.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">2</text><circle cx="1330.5" cy="315" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="1330.5" y="320" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">15</text><circle cx="1330.5" cy="262" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="1330.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">15</text><circle cx="1243.5" cy="209" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1243.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">14</text><circle cx="286.5" cy="262" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="286.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">3</text><circle cx="199.5" cy="209" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="199.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">2</text><circle cx="42" cy="156" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="42" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">O</text><circle cx="1330.5" cy="262" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="1330.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">15</text><circle cx="1243.5" cy="209" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1243.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">14</text><circle cx="1069.5" cy="156" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="1069.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">12</text><circle cx="634.5" cy="262" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="634.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">7</text><circle cx="460.5" cy="209" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="460.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">5</text><circle cx="460.5" cy="156" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="460.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">5</text><circle cx="895.5" cy="262" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="895.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">10</text><circle cx="895.5" cy="209" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="895.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">10</text><circle cx="808.5" cy="156" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="808.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">9</text><circle cx="895.5" cy="209" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="895.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">10</text><circle cx="808.5" cy="156" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="808.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">9</text><circle cx="721.5" cy="103" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="721.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">8</text><circle cx="199.5" cy="209" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="199.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">2</text><circle cx="42" cy="156" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="42" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">O</text><circle cx="112.5" cy="103" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="112.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">1</text><circle cx="1243.5" cy="209" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1243.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">14</text><circle cx="1069.5" cy="156" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="1069.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">12</text><circle cx="1156.5" cy="103" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="1156.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">13</text><circle cx="460.5" cy="209" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="460.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">5</text><circle cx="460.5" cy="156" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="460.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">5</text><circle cx="460.5" cy="103" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="460.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">5</text><circle cx="1504.5" cy="209" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="1504.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">17</text><circle cx="1504.5" cy="156" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="1504.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">17</text><circle cx="1504.5" cy="103" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1504.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">17</text><circle cx="460.5" cy="156" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="460.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">5</text><circle cx="460.5" cy="103" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="460.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">5</text><circle cx="286.5" cy="50" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="286.5" y="55" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">3</text><circle cx="1504.5" cy="156" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="1504.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">17</text><circle cx="1504.5" cy="103" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1504.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">17</text><circle cx="1330.5" cy="50" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="1330.5" y="55" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">15</text><circle cx="808.5" cy="156" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="808.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">9</text><circle cx="721.5" cy="103" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="721.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">8</text><circle cx="721.5" cy="50" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="721.5" y="55" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">8</text><circle cx="42" cy="156" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="42" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">O</text><circle cx="112.5" cy="103" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="112.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">1</text><circle cx="42" cy="50" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="42" y="55" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">O</text><circle cx="1069.5" cy="156" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="1069.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">12</text><circle cx="1156.5" cy="103" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="1156.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">13</text><circle cx="1069.5" cy="50" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1069.5" y="55" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">12</text></svg></div>
+<div class="neck-wrap" id="neckWrap"><svg width="1402" height="357" viewBox="0 0 1402 357" xmlns="http://www.w3.org/2000/svg"><rect width="1402" height="357" fill="#0e0d0b" rx="6"></rect><rect x="56" y="38" width="1318" height="289" fill="#181610" rx="3"></rect><circle cx="286.5" cy="235.5" r="7" fill="#222018"></circle><text x="286.5" y="30" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">3</text><circle cx="460.5" cy="235.5" r="7" fill="#222018"></circle><text x="460.5" y="30" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">5</text><circle cx="634.5" cy="235.5" r="7" fill="#222018"></circle><text x="634.5" y="30" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">7</text><circle cx="808.5" cy="235.5" r="7" fill="#222018"></circle><text x="808.5" y="30" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">9</text><circle cx="1069.5" cy="262" r="7" fill="#222018"></circle><circle cx="1069.5" cy="103" r="7" fill="#222018"></circle><text x="1069.5" y="30" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">12</text><circle cx="1330.5" cy="235.5" r="7" fill="#222018"></circle><text x="1330.5" y="30" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">15</text><rect x="56" y="40" width="13" height="285" fill="#b0a060" rx="2"></rect><line x1="156" y1="40" x2="156" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="243" y1="40" x2="243" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="330" y1="40" x2="330" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="417" y1="40" x2="417" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="504" y1="40" x2="504" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="591" y1="40" x2="591" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="678" y1="40" x2="678" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="765" y1="40" x2="765" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="852" y1="40" x2="852" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="939" y1="40" x2="939" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="1026" y1="40" x2="1026" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="1113" y1="40" x2="1113" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="1200" y1="40" x2="1200" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="1287" y1="40" x2="1287" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="1374" y1="40" x2="1374" y2="325" stroke="#2a2820" stroke-width="1.5"></line><line x1="56" y1="315" x2="1374" y2="315" stroke="#484030" stroke-width="0.8999999999999999"></line><text x="46" y="320" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">E</text><line x1="56" y1="262" x2="1374" y2="262" stroke="#484030" stroke-width="1.32"></line><text x="46" y="267" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">A</text><line x1="56" y1="209" x2="1374" y2="209" stroke="#484030" stroke-width="1.74"></line><text x="46" y="214" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">D</text><line x1="56" y1="156" x2="1374" y2="156" stroke="#484030" stroke-width="2.16"></line><text x="46" y="161" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">G</text><line x1="56" y1="103" x2="1374" y2="103" stroke="#484030" stroke-width="2.58"></line><text x="46" y="108" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">B</text><line x1="56" y1="50" x2="1374" y2="50" stroke="#484030" stroke-width="3"></line><text x="46" y="55" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">e</text><rect x="446.5" y="195" width="289" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="881.5" y="195" width="202" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="185.5" y="195" width="115" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="1229.5" y="195" width="115" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="28" y="142" width="272.5" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="1055.5" y="142" width="289" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="446.5" y="142" width="202" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="794.5" y="142" width="115" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="707.5" y="89" width="202" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="28" y="89" width="185.5" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="1055.5" y="89" width="202" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="446.5" y="89" width="28" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="1490.5" y="89" width="28" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="272.5" y="36" width="202" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="1316.5" y="36" width="202" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="707.5" y="36" width="115" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="28" y="36" width="98.5" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><rect x="1055.5" y="36" width="115" height="134" fill="rgba(255,255,255,0.015)" stroke="rgba(255,255,255,0.05)" stroke-width="1" rx="5"></rect><circle cx="721.5" cy="315" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="721.5" y="320" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">8</text><circle cx="634.5" cy="262" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="634.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">7</text><circle cx="460.5" cy="209" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="460.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">5</text><circle cx="1069.5" cy="315" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1069.5" y="320" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">12</text><circle cx="895.5" cy="262" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="895.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">10</text><circle cx="895.5" cy="209" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="895.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">10</text><circle cx="286.5" cy="315" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="286.5" y="320" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">3</text><circle cx="286.5" cy="262" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="286.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">3</text><circle cx="199.5" cy="209" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="199.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">2</text><circle cx="1330.5" cy="315" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="1330.5" y="320" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">15</text><circle cx="1330.5" cy="262" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="1330.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">15</text><circle cx="1243.5" cy="209" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1243.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">14</text><circle cx="286.5" cy="262" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="286.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">3</text><circle cx="199.5" cy="209" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="199.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">2</text><circle cx="42" cy="156" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="42" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">O</text><circle cx="1330.5" cy="262" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="1330.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">15</text><circle cx="1243.5" cy="209" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1243.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">14</text><circle cx="1069.5" cy="156" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="1069.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">12</text><circle cx="634.5" cy="262" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="634.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">7</text><circle cx="460.5" cy="209" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="460.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">5</text><circle cx="460.5" cy="156" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="460.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">5</text><circle cx="895.5" cy="262" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="895.5" y="267" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">10</text><circle cx="895.5" cy="209" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="895.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">10</text><circle cx="808.5" cy="156" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="808.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">9</text><circle cx="895.5" cy="209" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="895.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">10</text><circle cx="808.5" cy="156" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="808.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">9</text><circle cx="721.5" cy="103" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="721.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">8</text><circle cx="199.5" cy="209" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="199.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">2</text><circle cx="42" cy="156" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="42" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">O</text><circle cx="112.5" cy="103" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="112.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">1</text><circle cx="1243.5" cy="209" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1243.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">14</text><circle cx="1069.5" cy="156" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="1069.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">12</text><circle cx="1156.5" cy="103" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="1156.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">13</text><circle cx="460.5" cy="209" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="460.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">5</text><circle cx="460.5" cy="156" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="460.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">5</text><circle cx="460.5" cy="103" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="460.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">5</text><circle cx="1504.5" cy="209" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="1504.5" y="214" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">17</text><circle cx="1504.5" cy="156" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="1504.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">17</text><circle cx="1504.5" cy="103" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1504.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">17</text><circle cx="460.5" cy="156" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="460.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">5</text><circle cx="460.5" cy="103" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="460.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">5</text><circle cx="286.5" cy="50" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="286.5" y="55" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">3</text><circle cx="1504.5" cy="156" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="1504.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">17</text><circle cx="1504.5" cy="103" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1504.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">17</text><circle cx="1330.5" cy="50" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="1330.5" y="55" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">15</text><circle cx="808.5" cy="156" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="808.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">9</text><circle cx="721.5" cy="103" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="721.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">8</text><circle cx="721.5" cy="50" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="721.5" y="55" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">8</text><circle cx="42" cy="156" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="42" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">O</text><circle cx="112.5" cy="103" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="112.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">1</text><circle cx="42" cy="50" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="42" y="55" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">O</text><circle cx="1069.5" cy="156" r="17" fill="#0e1e38" stroke="#2a5898" stroke-width="2.5"></circle><text x="1069.5" y="161" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#5a9ce0">12</text><circle cx="1156.5" cy="103" r="17" fill="#35290a" stroke="#c8a830" stroke-width="2.5"></circle><text x="1156.5" y="108" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#e8c84a">13</text><circle cx="1069.5" cy="50" r="17" fill="#0d2e1c" stroke="#2a8058" stroke-width="2.5"></circle><text x="1069.5" y="55" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="#52c48a">12</text></svg></div>
 
 
 <!-- SCALE LEGEND (shown only in scale mode) -->
@@ -1181,30 +1187,32 @@ function noteName(chrIdx) {
 // ── SCALE VISUALIZER ─────────────────────────────────────────────────
 // Scale intervals (semitones from root)
 const SCALE_INTERVALS = {
-  pent:  [0, 2, 4, 7, 9],            // major pentatonic: 1 2 3 5 6
-  major: [0, 2, 4, 5, 7, 9, 11],     // major scale:      1 2 3 4 5 6 7
-  minor: [0, 2, 3, 5, 7, 8, 10],     // natural minor:    1 2 b3 4 5 b6 b7
+  pent:  [0, 3, 5, 7, 10],              // minor pentatonic: 1 b3 4 5 b7
+  blues: [0, 3, 5, 6, 7, 10],           // minor blues:      1 b3 4 b5 5 b7
+  major: [0, 2, 4, 5, 7, 9, 11],        // major scale:      1 2 3 4 5 6 7
+  minor: [0, 2, 3, 5, 7, 8, 10],        // natural minor:    1 2 b3 4 5 b6 b7
 };
 const SCALE_DEGREE_LABELS = {
-  pent:  {0:'1', 2:'2', 4:'3', 7:'5', 9:'6'},
+  pent:  {0:'1', 3:'b3', 5:'4', 7:'5', 10:'b7'},
+  blues: {0:'1', 3:'b3', 5:'4', 6:'b5', 7:'5', 10:'b7'},
   major: {0:'1', 2:'2', 4:'3', 5:'4', 7:'5', 9:'6', 11:'7'},
   minor: {0:'1', 2:'2', 3:'b3', 5:'4', 7:'5', 8:'b6', 10:'b7'},
 };
-// Colors per scale degree (major / pent palette)
+// Colors per scale degree
 const SCALE_DOT_COLORS = {
-  '1':  {fill:'#35290a', stroke:'#e8c84a', text:'#ffe080'},
-  '2':  {fill:'#0e1e38', stroke:'#5a9ce0', text:'#80c0ff'},
-  '3':  {fill:'#0d2e1c', stroke:'#40b870', text:'#80e8a0'},
-  '4':  {fill:'#1c1038', stroke:'#9a78e8', text:'#c0a0ff'},
-  '5':  {fill:'#302008', stroke:'#e09030', text:'#ffc060'},
-  '6':  {fill:'#300820', stroke:'#d060a0', text:'#ff90d0'},
-  '7':  {fill:'#300808', stroke:'#c03030', text:'#ff6060'},
-  // minor-specific degrees get their own shades
-  'b3': {fill:'#200840', stroke:'#9060e0', text:'#c090ff'},
-  'b6': {fill:'#280630', stroke:'#c040a0', text:'#f070d8'},
-  'b7': {fill:'#280606', stroke:'#b02828', text:'#ee5050'},
+  '1':  {fill:'#35290a', stroke:'#e8c84a', text:'#ffe080'},  // root — gold
+  '2':  {fill:'#0e1e38', stroke:'#5a9ce0', text:'#80c0ff'},  // blue
+  '3':  {fill:'#0d2e1c', stroke:'#40b870', text:'#80e8a0'},  // green
+  '4':  {fill:'#1c1038', stroke:'#9a78e8', text:'#c0a0ff'},  // purple
+  '5':  {fill:'#302008', stroke:'#e09030', text:'#ffc060'},  // orange
+  '6':  {fill:'#300820', stroke:'#d060a0', text:'#ff90d0'},  // pink
+  '7':  {fill:'#300808', stroke:'#c03030', text:'#ff6060'},  // red
+  'b3': {fill:'#200840', stroke:'#9060e0', text:'#c090ff'},  // purple-blue
+  'b5': {fill:'#003030', stroke:'#20c0b0', text:'#60f0e0'},  // teal — blue note
+  'b6': {fill:'#280630', stroke:'#c040a0', text:'#f070d8'},  // magenta
+  'b7': {fill:'#280606', stroke:'#b02828', text:'#ee5050'},  // dark red
 };
-// Overlap dot (note in both active scales)
+// Overlap dot
 const OVERLAP_DOT = {fill:'#1a1040', stroke:'#c0a0ff', text:'#e8d8ff'};
 
 // Active scale modes — Set of 'pent','major','minor' (multi-select)
@@ -1218,10 +1226,11 @@ function toggleScale(mode) {
     scaleModes.delete(mode);
   } else {
     scaleModes.add(mode);
-    formulaChordState = null; // clear chord selection when entering scale mode
+    formulaChordState = null;
   }
   const anyScale = scaleModes.size > 0;
   document.getElementById('btnPent') .className = 'scale-btn' + (scaleModes.has('pent') ?' active-pent':'');
+  document.getElementById('btnBlues').className = 'scale-btn' + (scaleModes.has('blues')?' active-blues':'');
   document.getElementById('btnMaj')  .className = 'scale-btn' + (scaleModes.has('major')?' active-maj':'');
   document.getElementById('btnMinor').className = 'scale-btn' + (scaleModes.has('minor')?' active-minor':'');
   document.querySelector('.inv-filter').style.opacity = anyScale ? '0.3' : '1';
@@ -1238,7 +1247,9 @@ function buildMultiScaleSVG(root) {
   const r = CHR.indexOf(root);
 
   // ── Scale box shapes — offsets from root fret on low-E ──────────────
-  // Pentatonic box 1 (e 3-6, b 3-6, g 3-5, d 3-5, a 3-5, E 3-6)
+  // All shapes use the same anchor: where root lands on low-E string.
+  // Pentatonic (minor pent): 1 b3 4 5 b7
+  // E 0+3, A 0+2, D 0+2, G 0+2, B 0+3, e 0+3  (your mapping: E 3-6 etc.)
   const PENT_BOX_OFFSETS = [
     [0, 3], // low E
     [0, 2], // A
@@ -1248,8 +1259,20 @@ function buildMultiScaleSVG(root) {
     [0, 3], // high e
   ];
 
-  // Major scale position (E 8-10, A 7-8-10, D 7-9-10, G 7-9-10, B 8-10, e 7-8)
-  // offsets from root-on-low-E
+  // Blues (minor pent + b5 "blue note"):
+  // Your C example: E 8-11, A 8-9-10, D 8-10, G 8-10-11, B 8-11, e 8-11
+  // Offsets from root: E 0,3 | A 0,1,2 | D 0,2 | G 0,2,3 | B 0,3 | e 0,3
+  const BLUES_BOX_OFFSETS = [
+    [0, 3],    // low E
+    [0, 1, 2], // A   (b5 is +1 from root)
+    [0, 2],    // D
+    [0, 2, 3], // G   (b5 is +3 from root)
+    [0, 3],    // B
+    [0, 3],    // high e
+  ];
+
+  // Major scale: your mapping E 8-10, A 7-8-10, D 7-9-10, G 7-9-10, B 8-10, e 7-8
+  // Offsets from root: E 0,2 | A -1,0,2 | D -1,1,2 | G -1,1,2 | B 0,2 | e -1,0
   const MAJ_BOX_OFFSETS = [
     [ 0,  2],      // low E
     [-1,  0,  2],  // A
@@ -1259,74 +1282,78 @@ function buildMultiScaleSVG(root) {
     [-1,  0],      // high e
   ];
 
-  // Minor scale position (E 8-11, A 7-8-11, D 7-9-10, G 6-8-10, B 8-11, e 8-10)
-  // offsets from root-on-low-E
-  const MIN_BOX_OFFSETS = [
-    [ 0,  3],      // low E
-    [-1,  0,  3],  // A
-    [-1,  1,  2],  // D
-    [-2,  0,  2],  // G
-    [ 0,  3],      // B
-    [ 0,  2],      // high e
-  ];
+  // Natural minor (minor pent + 2 and b6):
+  // Minor pent positions + extra notes in the same hand position.
+  // In the pent box (anchor to anchor+3), also include the 2 and b6 where they fall.
+  // Derived: for C minor (anchor=8):
+  //   E: pent=8,11 + 2=10 → 8,10,11   A: pent=8,10 + 2=9,b6=? → 8,9,10(+11 is b6 on A? no)
+  // Easier: compute per-string by checking which interval frets fall in the box window.
+  // We'll compute this dynamically below using the chromatic interval set.
+  // Window = [anchor-1 .. anchor+4] to cover the full position (6 fret span like major).
+  const MIN_BOX_OFFSETS = null; // computed dynamically
 
-  let pentAnchor = null;
-  if (scaleModes.has('pent')) {
-    const lowEOpen = STRINGS[0].open; // 4 = E
-    for (let f = 1; f <= FRETS; f++) {
-      if ((lowEOpen + f) % 12 === r) { pentAnchor = f; break; }
-    }
-    // fallback: fret 0 (open)
-    if (pentAnchor === null && (STRINGS[0].open % 12) === r) pentAnchor = 0;
-    if (pentAnchor === null) pentAnchor = 0;
-  }
-
-  // Single anchor used by major + minor shapes
-  let scaleAnchor = null;
-  if (scaleModes.has('major') || scaleModes.has('minor')) {
+  // Unified anchor for all modes (root on low-E, fret ≥ 1)
+  const findAnchor = () => {
     const lowEOpen = STRINGS[0].open;
     for (let f = 1; f <= FRETS; f++) {
-      if ((lowEOpen + f) % 12 === r) { scaleAnchor = f; break; }
+      if ((lowEOpen + f) % 12 === r) return f;
     }
-    if (scaleAnchor === null && (STRINGS[0].open % 12) === r) scaleAnchor = 0;
-    if (scaleAnchor === null) scaleAnchor = 0;
-  }
+    if ((STRINGS[0].open % 12) === r) return 0;
+    return 0;
+  };
+  const anchor = (scaleModes.has('pent') || scaleModes.has('blues') ||
+                  scaleModes.has('major') || scaleModes.has('minor')) ? findAnchor() : null;
 
-  // Build explicit dot sets from box shapes
+  // Build explicit dot sets
   const pentDots  = new Set();
+  const bluesDots = new Set();
   const majDots   = new Set();
   const minorDots = new Set();
 
-  if (scaleModes.has('pent') && pentAnchor !== null) {
+  if (scaleModes.has('pent') && anchor !== null) {
     PENT_BOX_OFFSETS.forEach((offsets, si) => {
       offsets.forEach(off => {
-        const f = pentAnchor + off;
+        const f = anchor + off;
         if (f >= 0 && f <= FRETS) pentDots.add(`${si}_${f}`);
       });
     });
   }
-  if (scaleModes.has('major') && scaleAnchor !== null) {
+  if (scaleModes.has('blues') && anchor !== null) {
+    BLUES_BOX_OFFSETS.forEach((offsets, si) => {
+      offsets.forEach(off => {
+        const f = anchor + off;
+        if (f >= 0 && f <= FRETS) bluesDots.add(`${si}_${f}`);
+      });
+    });
+  }
+  if (scaleModes.has('major') && anchor !== null) {
     MAJ_BOX_OFFSETS.forEach((offsets, si) => {
       offsets.forEach(off => {
-        const f = scaleAnchor + off;
+        const f = anchor + off;
         if (f >= 0 && f <= FRETS) majDots.add(`${si}_${f}`);
       });
     });
   }
-  if (scaleModes.has('minor') && scaleAnchor !== null) {
-    MIN_BOX_OFFSETS.forEach((offsets, si) => {
-      offsets.forEach(off => {
-        const f = scaleAnchor + off;
-        if (f >= 0 && f <= FRETS) minorDots.add(`${si}_${f}`);
-      });
-    });
+  if (scaleModes.has('minor') && anchor !== null) {
+    // Dynamic: for each string, find frets in the position window that are in the minor scale
+    const minorChrSet = new Set(SCALE_INTERVALS.minor.map(i => (r + i) % 12));
+    // Window: anchor-1 to anchor+3 (the -1 catches the 2 on the G string)
+    const winLo = anchor - 1, winHi = anchor + 3;
+    for (let si = 0; si < STR_COUNT; si++) {
+      for (let f = Math.max(0, winLo); f <= Math.min(FRETS, winHi); f++) {
+        const chrIdx = (STRINGS[si].open + f) % 12;
+        if (minorChrSet.has(chrIdx)) minorDots.add(`${si}_${f}`);
+      }
+    }
   }
 
   // Chromatic maps for degree labels
   const pentChrMap  = {};
+  const bluesChrMap = {};
   const majChrMap   = {};
   const minorChrMap = {};
   if (scaleModes.has('pent'))  SCALE_INTERVALS.pent .forEach(i => { pentChrMap [(r+i)%12] = SCALE_DEGREE_LABELS.pent [i]; });
+  if (scaleModes.has('blues')) SCALE_INTERVALS.blues.forEach(i => { bluesChrMap[(r+i)%12] = SCALE_DEGREE_LABELS.blues[i]; });
   if (scaleModes.has('major')) SCALE_INTERVALS.major.forEach(i => { majChrMap  [(r+i)%12] = SCALE_DEGREE_LABELS.major[i]; });
   if (scaleModes.has('minor')) SCALE_INTERVALS.minor.forEach(i => { minorChrMap[(r+i)%12] = SCALE_DEGREE_LABELS.minor[i]; });
 
@@ -1340,19 +1367,10 @@ function buildMultiScaleSVG(root) {
       const y = strY(si);
 
       const hits = [];
-
-      // Pentatonic box-1
-      if (scaleModes.has('pent') && pentDots.has(`${si}_${f}`)) {
-        hits.push({ mode: 'pent', deg: pentChrMap[chrIdx] || '1' });
-      }
-      // Major scale box
-      if (scaleModes.has('major') && majDots.has(`${si}_${f}`)) {
-        hits.push({ mode: 'major', deg: majChrMap[chrIdx] || '1' });
-      }
-      // Minor scale box
-      if (scaleModes.has('minor') && minorDots.has(`${si}_${f}`)) {
-        hits.push({ mode: 'minor', deg: minorChrMap[chrIdx] || '1' });
-      }
+      if (scaleModes.has('pent')  && pentDots .has(`${si}_${f}`)) hits.push({ mode:'pent',  deg: pentChrMap [chrIdx] || '1' });
+      if (scaleModes.has('blues') && bluesDots.has(`${si}_${f}`)) hits.push({ mode:'blues', deg: bluesChrMap[chrIdx] || '1' });
+      if (scaleModes.has('major') && majDots  .has(`${si}_${f}`)) hits.push({ mode:'major', deg: majChrMap  [chrIdx] || '1' });
+      if (scaleModes.has('minor') && minorDots.has(`${si}_${f}`)) hits.push({ mode:'minor', deg: minorChrMap[chrIdx] || '1' });
 
       if (hits.length === 0) continue;
 
@@ -1441,8 +1459,8 @@ function renderFormulaStrip() {
         } else {
           formulaChordState = { root: noteIdx, quality: chordQuality, label, isDim: q === 'dim' };
           scaleModes.clear();
-          // update scale buttons to inactive
           document.getElementById('btnPent') .className = 'scale-btn';
+          document.getElementById('btnBlues').className = 'scale-btn';
           document.getElementById('btnMaj')  .className = 'scale-btn';
           document.getElementById('btnMinor').className = 'scale-btn';
           document.querySelector('.inv-filter').style.opacity = '1';
