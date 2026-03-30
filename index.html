@@ -727,14 +727,17 @@ h1 {
   </div>
 </div>
 
-<!-- TRIAD SCALE ROW -->
+<!-- DIATONIC SCALE ROW -->
 <div class="triad-scale-wrap">
-  <span class="triad-scale-label">Triad Scale:</span>
-  <button class="triad-str-btn" id="btnTriadEAD" onclick="toggleTriadScale('EAD')">E·A·D</button>
-  <button class="triad-str-btn" id="btnTriadADG" onclick="toggleTriadScale('ADG')">A·D·G</button>
-  <button class="triad-str-btn" id="btnTriadDGB" onclick="toggleTriadScale('DGB')">D·G·B</button>
-  <button class="triad-str-btn" id="btnTriadGBE" onclick="toggleTriadScale('GBE')">G·B·E</button>
-  <span style="font-size:11px;color:var(--text-faint);margin-left:6px;letter-spacing:1px;">All 7 diatonic triads in one position</span>
+  <span class="triad-scale-label">Diatonic Scale:</span>
+  <button class="triad-str-btn" id="btnTriadEAD" onclick="toggleTriadScale('EAD')">String Set 1 (E·A·D)</button>
+  <button class="triad-str-btn" id="btnTriadADG" onclick="toggleTriadScale('ADG')">String Set 2 (A·D·G)</button>
+  <button class="triad-str-btn" id="btnTriadDGB" onclick="toggleTriadScale('DGB')">String Set 3 (D·G·B)</button>
+  <button class="triad-str-btn" id="btnTriadGBE" onclick="toggleTriadScale('GBE')">String Set 4 (G·B·E)</button>
+  <div class="dot-label-wrap" style="margin-left:auto;">
+    <button class="dot-label-btn active" id="btnColorCof"     onclick="setTriadColorMode('cof')"    >CoF Colors</button>
+    <button class="dot-label-btn"        id="btnColorQuality" onclick="setTriadColorMode('quality')" >Quality Colors</button>
+  </div>
 </div>
 
 <!-- TRIAD SCALE LEGEND -->
@@ -938,6 +941,13 @@ const DIATONIC_COLORS = [
   { seg:'#380a2a', stroke:'#d050a0', text:'#ff80d0', label:'vi'  },  // vi  — pink
   { seg:'#300808', stroke:'#c03030', text:'#ff6060', label:'vii°'},  // vii°— red
 ];
+
+// Colors for diatonic scale view — keyed by chord quality, not position
+const QUALITY_COLORS = {
+  maj: { seg:'#3a2c06', stroke:'#e8c84a', text:'#ffe080' },  // gold
+  min: { seg:'#2a1040', stroke:'#a060f0', text:'#c090ff' },  // purple
+  dim: { seg:'#300808', stroke:'#c03030', text:'#ff6060' },  // red
+};
 
 // Diminished chord for each major key (vii° = 7th scale degree)
 const COF_DIM = {
@@ -1641,10 +1651,18 @@ const TRIAD_STRING_SETS = {
   'GBE': [3, 4, 5],
 };
 const TRIAD_STRING_LABELS = {
-  'EAD': 'E·A·D', 'ADG': 'A·D·G', 'DGB': 'D·G·B', 'GBE': 'G·B·E'
+  'EAD': 'Set 1 (E·A·D)', 'ADG': 'Set 2 (A·D·G)', 'DGB': 'Set 3 (D·G·B)', 'GBE': 'Set 4 (G·B·E)'
 };
 
 let activeTriadScale = null; // null | 'EAD'|'ADG'|'DGB'|'GBE'
+let triadColorMode = 'cof';  // 'cof' | 'quality'
+
+function setTriadColorMode(mode) {
+  triadColorMode = mode;
+  document.getElementById('btnColorCof')    .classList.toggle('active', mode === 'cof');
+  document.getElementById('btnColorQuality').classList.toggle('active', mode === 'quality');
+  if (activeTriadScale) { updateTriadLegend(); renderNeck(); }
+}
 
 function toggleTriadScale(set) {
   if (activeTriadScale === set) {
@@ -1726,8 +1744,8 @@ function buildTriadScaleSVG(key, stringSet) {
   const strIdxs = TRIAD_STRING_SETS[stringSet];
   const r = CHR.indexOf(key);
 
-  // Build the 7 diatonic chords
-  const diatonic = MAJ_DIATONIC; // uses existing MAJ_DIATONIC constant
+  // Pick diatonic table based on current quality selection
+  const diatonic = state.quality === 'min' ? MIN_DIATONIC : MAJ_DIATONIC;
 
   // For each diatonic chord, compute its 3 tone chromatic indices
   const chords = diatonic.map(({step, q}) => {
@@ -1762,7 +1780,9 @@ function buildTriadScaleSVG(key, stringSet) {
 
   // Draw highlight boxes and dots
   voicings.forEach(({ rootChr, q, isDim, frets, roleOrder, ci }) => {
-    const dc = DIATONIC_COLORS[ci];
+    const dc = triadColorMode === 'quality'
+      ? QUALITY_COLORS[isDim ? 'dim' : q]
+      : DIATONIC_COLORS[ci];
 
     // Draw a faint highlight box around this voicing
     const xs = frets.map(f => fretSlotX(f));
@@ -1775,8 +1795,6 @@ function buildTriadScaleSVG(key, stringSet) {
     const labelX = (minX + maxX) / 2;
     const labelY = minY - 6;
     const label = chordLabel(rootChr, q, isDim);
-    // Small roman numeral
-    const roman = MAJ_DIATONIC[ci].roman;
     s += `<text x="${labelX}" y="${labelY}" text-anchor="middle" font-family="Impact,Arial Narrow Bold,sans-serif" font-size="13" font-weight="bold" fill="${dc.text}">${label}</text>`;
 
     // Draw the 3 dots
@@ -1817,12 +1835,16 @@ function updateTriadLegend() {
   }
   legend.style.display = 'flex';
   const r = CHR.indexOf(state.key);
-  legend.innerHTML = `<span style="font-size:11px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-right:4px;">${TRIAD_STRING_LABELS[activeTriadScale]} triads:</span>`;
-  MAJ_DIATONIC.forEach(({step, q, roman}, i) => {
+  const diatonic = state.quality === 'min' ? MIN_DIATONIC : MAJ_DIATONIC;
+  const qualityLabel = state.quality === 'min' ? 'Minor' : 'Major';
+  legend.innerHTML = `<span style="font-size:11px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-right:4px;">${TRIAD_STRING_LABELS[activeTriadScale]} · ${qualityLabel}:</span>`;
+  diatonic.forEach(({step, q, roman}, i) => {
     const rootChr = (r + step) % 12;
     const isDim = q === 'dim';
     const label = chordLabel(rootChr, q, isDim);
-    const dc = DIATONIC_COLORS[i];
+    const dc = triadColorMode === 'quality'
+      ? QUALITY_COLORS[isDim ? 'dim' : q]
+      : DIATONIC_COLORS[i];
     const item = document.createElement('div');
     item.className = 'tsl-item';
     item.innerHTML = `<div class="tsl-dot" style="background:${dc.seg};border-color:${dc.stroke}"></div><span style="color:${dc.text}">${roman} ${label}</span>`;
@@ -1935,7 +1957,11 @@ function render() {
 
 // Event listeners
 document.querySelectorAll('.q-btn').forEach(b => {
-  b.onclick = () => { state.quality=b.dataset.q; render(); };
+  b.onclick = () => {
+    state.quality=b.dataset.q;
+    if (activeTriadScale) updateTriadLegend();
+    render();
+  };
 });
 document.querySelectorAll('.inv-btn').forEach(b => {
   b.onclick = () => {
