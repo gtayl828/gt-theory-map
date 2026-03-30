@@ -455,27 +455,6 @@ h1 {
 .tr-cq-dim { background:#300808; border-color:#c03030; color:#ff6060; }
 
 
-
-/* ── LABEL MODE TOGGLE ── */
-.label-mode-wrap {
-  width:100%; max-width:1740px;
-  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
-}
-.label-mode-label {
-  font-size:11px; letter-spacing:2px; text-transform:uppercase;
-  color:var(--text-dim); margin-right:4px;
-}
-.lm-btn {
-  font-family:var(--body-font); font-size:13px; font-weight:600;
-  letter-spacing:1px; padding:7px 18px; border-radius:4px;
-  border:1.5px solid var(--border2); background:var(--surface2);
-  color:var(--text-dim); cursor:pointer; transition:all 0.1s;
-}
-.lm-btn:hover { color:var(--text); border-color:var(--text-dim); }
-.lm-btn.lm-active {
-  background:#1a1e30; border-color:#5a9ce0; color:#a0c8f0;
-}
-
 /* ── NECK ZOOM SLIDER (always visible) ── */
 .neck-zoom-wrap {
   display:flex;
@@ -562,6 +541,39 @@ h1 {
 }
 .formula-chip-btn:hover { opacity:0.8; transform:translateY(-1px); }
 .formula-chip-btn.selected { box-shadow:0 0 0 2px #fff4; transform:translateY(-1px); }
+
+/* ── TRIAD SCALE ROW ── */
+.triad-scale-wrap {
+  width:100%; max-width:1740px;
+  display:flex; align-items:center; gap:8px; flex-wrap:wrap;
+}
+.triad-scale-label {
+  font-size:11px; letter-spacing:2px; text-transform:uppercase;
+  color:var(--text-dim); margin-right:4px; white-space:nowrap;
+}
+.triad-str-btn {
+  font-family:var(--mono-font); font-size:13px; font-weight:700;
+  letter-spacing:1px; padding:7px 18px; border-radius:4px;
+  border:1.5px solid var(--border2); background:var(--surface2);
+  color:var(--text-dim); cursor:pointer; transition:all 0.1s;
+}
+.triad-str-btn:hover { color:var(--text); border-color:var(--text-dim); }
+.triad-str-btn.active-triad { background:#0e2818; border-color:#40d890; color:#70ffb8; }
+
+/* Triad scale legend */
+.triad-scale-legend {
+  width:100%; max-width:1740px;
+  display:none; gap:10px; flex-wrap:wrap; align-items:center;
+  padding:10px 16px; background:var(--surface); border:1px solid var(--border);
+  border-radius:6px;
+}
+.tsl-item {
+  display:flex; align-items:center; gap:6px;
+  font-family:var(--mono-font); font-size:12px;
+}
+.tsl-dot {
+  width:16px; height:16px; border-radius:50%; border:2px solid; flex-shrink:0;
+}
 
 </style>
 </head>
@@ -681,24 +693,28 @@ h1 {
 <!-- SCALE MODE + FLAT TOGGLE -->
 <div class="scale-mode-wrap">
   <span class="scale-mode-label">Scale View:</span>
-  <button class="scale-btn" id="btnPent" onclick="toggleScale(&#39;pent&#39;)">Pentatonic</button>
-  <button class="scale-btn" id="btnBlues" onclick="toggleScale(&#39;blues&#39;)">Blues Scale</button>
-  <button class="scale-btn" id="btnMaj" onclick="toggleScale(&#39;major&#39;)">Major Scale</button>
-  <button class="scale-btn" id="btnMinor" onclick="toggleScale(&#39;minor&#39;)">Minor Scale</button>
+  <button class="scale-btn" id="btnPent" onclick="toggleScale('pent')">Pentatonic</button>
+  <button class="scale-btn" id="btnBlues" onclick="toggleScale('blues')">Blues Scale</button>
+  <button class="scale-btn" id="btnMaj" onclick="toggleScale('major')">Major Scale</button>
+  <button class="scale-btn" id="btnMinor" onclick="toggleScale('minor')">Minor Scale</button>
   <div class="flat-toggle-wrap" id="flatToggle" onclick="toggleFlats()">
     <span class="flat-toggle-label">Show Flats</span>
     <div class="flat-toggle-switch"><div class="flat-toggle-knob"></div></div>
   </div>
 </div>
 
-
-<!-- LABEL MODE -->
-<div class="label-mode-wrap" id="labelModeWrap">
-  <span class="label-mode-label">Dot Labels:</span>
-  <button class="lm-btn lm-active" id="lmFret"   onclick="setLabelMode('fret')">Fret #</button>
-  <button class="lm-btn"           id="lmNote"   onclick="setLabelMode('note')">Note Name</button>
-  <button class="lm-btn"           id="lmDegree" onclick="setLabelMode('degree')">Scale Degree</button>
+<!-- TRIAD SCALE ROW -->
+<div class="triad-scale-wrap">
+  <span class="triad-scale-label">Triad Scale:</span>
+  <button class="triad-str-btn" id="btnTriadEAD" onclick="toggleTriadScale('EAD')">E·A·D</button>
+  <button class="triad-str-btn" id="btnTriadADG" onclick="toggleTriadScale('ADG')">A·D·G</button>
+  <button class="triad-str-btn" id="btnTriadDGB" onclick="toggleTriadScale('DGB')">D·G·B</button>
+  <button class="triad-str-btn" id="btnTriadGBE" onclick="toggleTriadScale('GBE')">G·B·E</button>
+  <span style="font-size:11px;color:var(--text-faint);margin-left:6px;letter-spacing:1px;">All 7 diatonic triads in one position</span>
 </div>
+
+<!-- TRIAD SCALE LEGEND -->
+<div class="triad-scale-legend" id="triadScaleLegend"></div>
 
 <!-- NECK -->
 <div class="neck-zoom-wrap" id="neckZoomWrap">
@@ -804,7 +820,7 @@ function roleColors(rIdx,quality){
 
 const DOT_FRETS=[3,5,7,9,12,15],DOUBLE=new Set([12]);
 
-function buildNeckSVG(tones,quality,filters,labelMode){
+function buildNeckSVG(tones,quality,filters){
   let s = buildNeckBase();
   const all=[],invKeys=['root','first','second'];
   for(const ss of STRING_SETS) for(let bi=0;bi<3;bi++){
@@ -819,24 +835,10 @@ function buildNeckSVG(tones,quality,filters,labelMode){
   for(const{ss,v}of all) for(let i=0;i<3;i++){
     const si=ss[i],f=v.frets[i],c=roleColors(v.order[i],quality),x=fretSlotX(f),y=strY(si);
     s+=`<circle cx="${x}" cy="${y}" r="17" fill="${c.fill}" stroke="${c.stroke}" stroke-width="2.5"/>`;
+    // Show flat note name if flat toggle is on, otherwise fret number
     const chrIdx = (STRINGS[si].open + f) % 12;
-    let dotLabel;
-    if(labelMode==='note'){
-      // Always show note name (respects flat toggle)
-      dotLabel = noteName(chrIdx);
-    } else if(labelMode==='degree'){
-      // role order: 0=root, 1=third, 2=fifth
-      const roleIdx = v.order[i];
-      if(roleIdx===0)      dotLabel = '1';
-      else if(roleIdx===2) dotLabel = '5';
-      else                 dotLabel = quality==='maj' ? '3' : 'b3';
-    } else {
-      // Default: fret number (respects flat toggle if showFlats is on)
-      dotLabel = showFlats ? noteName(chrIdx) : (f===0?'O':String(f));
-    }
-    const lblSize = dotLabel.length > 2 ? 9 : dotLabel.length === 2 ? 10 : 12;
-    const lblY    = dotLabel.length > 1 ? y+4 : y+5;
-    s+=`<text x="${x}" y="${lblY}" text-anchor="middle" font-family="Courier New,monospace" font-size="${lblSize}" font-weight="700" fill="${c.text}">${dotLabel}</text>`;
+    const label = showFlats ? noteName(chrIdx) : (f===0?'O':String(f));
+    s+=`<text x="${x}" y="${y+5}" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="${c.text}">${label}</text>`;
   }
   s+=`</svg>`;
   return s;
@@ -1267,6 +1269,13 @@ function toggleScale(mode) {
   } else {
     scaleModes.add(mode);
     formulaChordState = null;
+    // Clear triad scale
+    activeTriadScale = null;
+    ['EAD','ADG','DGB','GBE'].forEach(s => {
+      const btn = document.getElementById('btnTriad'+s);
+      if (btn) btn.className = 'triad-str-btn';
+    });
+    document.getElementById('triadScaleLegend').style.display = 'none';
   }
   const anyScale = scaleModes.size > 0;
   document.getElementById('btnPent') .className = 'scale-btn' + (scaleModes.has('pent') ?' active-pent':'');
@@ -1275,8 +1284,6 @@ function toggleScale(mode) {
   document.getElementById('btnMinor').className = 'scale-btn' + (scaleModes.has('minor')?' active-minor':'');
   document.querySelector('.inv-filter').style.opacity = anyScale ? '0.3' : '1';
   document.querySelector('.inv-filter').style.pointerEvents = anyScale ? 'none' : 'auto';
-  const lmWrap = document.getElementById('labelModeWrap');
-  if(lmWrap){ lmWrap.style.opacity = anyScale ? '0.3' : '1'; lmWrap.style.pointerEvents = anyScale ? 'none' : 'auto'; }
   const legend = document.getElementById('scaleLegend');
   legend.style.display = anyScale ? 'flex' : 'none';
   document.getElementById('scaleLegendOverlap').style.display =
@@ -1501,13 +1508,19 @@ function renderFormulaStrip() {
         } else {
           formulaChordState = { root: noteIdx, quality: chordQuality, label, isDim: q === 'dim' };
           scaleModes.clear();
+          activeTriadScale = null;
           document.getElementById('btnPent') .className = 'scale-btn';
           document.getElementById('btnBlues').className = 'scale-btn';
           document.getElementById('btnMaj')  .className = 'scale-btn';
           document.getElementById('btnMinor').className = 'scale-btn';
+          ['EAD','ADG','DGB','GBE'].forEach(s => {
+            const b = document.getElementById('btnTriad'+s);
+            if (b) b.className = 'triad-str-btn';
+          });
           document.querySelector('.inv-filter').style.opacity = '1';
           document.querySelector('.inv-filter').style.pointerEvents = 'auto';
           document.getElementById('scaleLegend').style.display = 'none';
+          document.getElementById('triadScaleLegend').style.display = 'none';
         }
         renderFormulaStrip();
         renderNeck();
@@ -1562,23 +1575,245 @@ function buildNeckBase() {
   return s; // NOTE: does NOT close </svg> — caller appends dots then closes
 }
 
+// ── TRIAD SCALE VISUALIZER ───────────────────────────────────────────
+// String set definitions: [stringIndex0, stringIndex1, stringIndex2]
+// STRINGS array order: 0=lowE, 1=A, 2=D, 3=G, 4=B, 5=highE
+const TRIAD_STRING_SETS = {
+  'EAD': [0, 1, 2],
+  'ADG': [1, 2, 3],
+  'DGB': [2, 3, 4],
+  'GBE': [3, 4, 5],
+};
+const TRIAD_STRING_LABELS = {
+  'EAD': 'E·A·D', 'ADG': 'A·D·G', 'DGB': 'D·G·B', 'GBE': 'G·B·E'
+};
+
+let activeTriadScale = null; // null | 'EAD'|'ADG'|'DGB'|'GBE'
+
+function toggleTriadScale(set) {
+  if (activeTriadScale === set) {
+    // Toggle off
+    activeTriadScale = null;
+  } else {
+    activeTriadScale = set;
+    // Clear all other modes
+    scaleModes.clear();
+    formulaChordState = null;
+    document.getElementById('btnPent') .className = 'scale-btn';
+    document.getElementById('btnBlues').className = 'scale-btn';
+    document.getElementById('btnMaj')  .className = 'scale-btn';
+    document.getElementById('btnMinor').className = 'scale-btn';
+  }
+  // Update triad button states
+  ['EAD','ADG','DGB','GBE'].forEach(s => {
+    document.getElementById('btn Triad'+s) || document.getElementById('btnTriad'+s);
+    const btn = document.getElementById('btnTriad'+s);
+    if (btn) btn.className = 'triad-str-btn' + (activeTriadScale===s?' active-triad':'');
+  });
+  // Dim/restore inv-filter
+  const anyActive = activeTriadScale !== null;
+  document.querySelector('.inv-filter').style.opacity = anyActive ? '0.3' : '1';
+  document.querySelector('.inv-filter').style.pointerEvents = anyActive ? 'none' : 'auto';
+  // Scale legend off
+  document.getElementById('scaleLegend').style.display = 'none';
+  document.getElementById('scaleLegendOverlap').style.display = 'none';
+  // Triad legend
+  updateTriadLegend();
+  renderNeck();
+}
+
+// Find the best voicing of a triad on 3 specific strings, anchored near a fret window
+// Returns { frets:[f0,f1,f2], roleOrder:[0,1,2] } where roleOrder maps string→tone index (root=0,3rd=1,5th=2)
+// tones: [rootChr, thirdChr, fifthChr]  (chromatic indices 0-11)
+// strIdxs: [si0, si1, si2] (string indices)
+// windowCenter: ideal fret to anchor near (the root on lowest string of the set)
+function findTriadVoicingNear(strIdxs, tones, windowCenter) {
+  // For each string, find all frets that match any of the 3 tones, within ±4 of windowCenter
+  const WIN = 5; // look within ±WIN frets of center
+  const lo = Math.max(0, windowCenter - WIN);
+  const hi = Math.min(FRETS, windowCenter + WIN + 4);
+
+  // Try all assignments of tones to strings (3! = 6 permutations for 3-note triads)
+  // We want the tightest voicing (min fret span) whose lowest fret is near windowCenter
+  const permutations = [[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]];
+  let best = null;
+  let bestScore = Infinity;
+
+  for (const perm of permutations) {
+    // perm[i] = which tone (0=root,1=third,2=fifth) goes on string i
+    const fretsPerString = strIdxs.map((si, i) => {
+      const targetTone = tones[perm[i]];
+      const results = [];
+      for (let f = lo; f <= hi; f++) {
+        if ((STRINGS[si].open + f) % 12 === targetTone) results.push(f);
+      }
+      return results;
+    });
+    // Find combo with tightest span
+    for (const f0 of fretsPerString[0]) {
+      for (const f1 of fretsPerString[1]) {
+        for (const f2 of fretsPerString[2]) {
+          const mn = Math.min(f0,f1,f2), mx = Math.max(f0,f1,f2);
+          const span = mx - mn;
+          if (span > 4) continue; // not playable
+          // Score: prefer span close to windowCenter, penalize distance from center
+          const centerDist = Math.abs((f0+f1+f2)/3 - windowCenter);
+          const score = span * 3 + centerDist;
+          if (score < bestScore) {
+            bestScore = score;
+            best = { frets:[f0,f1,f2], roleOrder: perm };
+          }
+        }
+      }
+    }
+  }
+  return best;
+}
+
+// Build a chord name label from root chromatic index and quality
+function chordLabel(rootChr, quality, isDim) {
+  const n = noteName(rootChr);
+  if (isDim) return n + '°';
+  return n + (quality === 'min' ? 'm' : '');
+}
+
+function buildTriadScaleSVG(key, stringSet) {
+  const strIdxs = TRIAD_STRING_SETS[stringSet];
+  const r = CHR.indexOf(key);
+
+  // Build the 7 diatonic chords
+  const diatonic = MAJ_DIATONIC; // uses existing MAJ_DIATONIC constant
+
+  // For each diatonic chord, compute its 3 tone chromatic indices
+  const chords = diatonic.map(({step, q}) => {
+    const rootChr = (r + step) % 12;
+    const isDim = q === 'dim';
+    let tones;
+    if (isDim) {
+      tones = [rootChr, (rootChr+3)%12, (rootChr+6)%12]; // dim: root, b3, b5
+    } else {
+      const t = triadTones(CHR[rootChr], q === 'maj' ? 'maj' : 'min');
+      tones = t;
+    }
+    return { rootChr, q, isDim, tones };
+  });
+
+  // Find the anchor fret: where the key root lands on the lowest string of the set
+  // We want the first occurrence at fret >= 1 (avoid nut position for visual clarity)
+  // For GBE (strIdx 3=G), find where root is on G string
+  const lowestSi = strIdxs[0];
+  let anchor = -1;
+  for (let f = 1; f <= FRETS; f++) {
+    if ((STRINGS[lowestSi].open + f) % 12 === r) { anchor = f; break; }
+  }
+  // Also try open string
+  if (anchor < 0 && (STRINGS[lowestSi].open % 12) === r) anchor = 0;
+  if (anchor < 0) anchor = 1; // fallback
+
+  // Find voicings for all 7 chords.
+  // We want them to progress linearly across the neck.
+  // Strategy: find the I chord first near anchor, then find each subsequent chord
+  // just above the previous one (ascending neck).
+  // Use a rolling window that advances as we go up the neck.
+  let s = buildNeckBase();
+
+  // Gather all voicings in ascending order
+  // Start: find I chord (index 0) near anchor fret
+  // Then find chord ii nearest to/above I, etc.
+  let windowStart = anchor - 2;
+  const voicings = [];
+
+  for (let ci = 0; ci < chords.length; ci++) {
+    const { rootChr, q, isDim, tones } = chords[ci];
+    // Search window: from windowStart to windowStart+8
+    const center = Math.max(0, windowStart);
+    const v = findTriadVoicingNear(strIdxs, tones, center);
+    if (v) {
+      voicings.push({ ...chords[ci], frets: v.frets, roleOrder: v.roleOrder, ci });
+      // Advance window to just past this voicing's max fret
+      windowStart = Math.min(...v.frets) + 1;
+    }
+  }
+
+  // Draw highlight boxes and dots
+  voicings.forEach(({ rootChr, q, isDim, frets, roleOrder, ci }) => {
+    const dc = DIATONIC_COLORS[ci];
+
+    // Draw a faint highlight box around this voicing
+    const xs = frets.map(f => fretSlotX(f));
+    const ys = strIdxs.map(si => strY(si));
+    const minX = Math.min(...xs) - 20, maxX = Math.max(...xs) + 20;
+    const minY = Math.min(...ys) - 20, maxY = Math.max(...ys) + 20;
+    s += `<rect x="${minX}" y="${minY}" width="${maxX-minX}" height="${maxY-minY}" fill="${dc.seg}44" stroke="${dc.stroke}66" stroke-width="1.5" rx="6"/>`;
+
+    // Chord name label above the box
+    const labelX = (minX + maxX) / 2;
+    const labelY = minY - 6;
+    const label = chordLabel(rootChr, q, isDim);
+    // Small roman numeral
+    const roman = MAJ_DIATONIC[ci].roman;
+    s += `<text x="${labelX}" y="${labelY}" text-anchor="middle" font-family="Impact,Arial Narrow Bold,sans-serif" font-size="13" font-weight="bold" fill="${dc.text}">${label}</text>`;
+    s += `<text x="${labelX}" y="${labelY-12}" text-anchor="middle" font-family="Courier New,monospace" font-size="9" fill="${dc.stroke}" opacity="0.9">${roman}</text>`;
+
+    // Draw the 3 dots
+    for (let i = 0; i < 3; i++) {
+      const si = strIdxs[i];
+      const f  = frets[i];
+      const x  = fretSlotX(f);
+      const y  = strY(si);
+      s += `<circle cx="${x}" cy="${y}" r="17" fill="${dc.seg}" stroke="${dc.stroke}" stroke-width="2.5"/>`;
+      // Label: chord name on root dot, note name on others (or just chord name shortened)
+      // Show chord name on all 3 dots — abbreviated
+      const shortLabel = label.length <= 4 ? label : label.slice(0,4);
+      const fontSize = shortLabel.length <= 3 ? 11 : 9;
+      s += `<text x="${x}" y="${y+4}" text-anchor="middle" font-family="Courier New,monospace" font-size="${fontSize}" font-weight="700" fill="${dc.text}">${shortLabel}</text>`;
+    }
+  });
+
+  s += `</svg>`;
+  return s;
+}
+
+function updateTriadLegend() {
+  const legend = document.getElementById('triadScaleLegend');
+  if (!activeTriadScale) {
+    legend.style.display = 'none';
+    return;
+  }
+  legend.style.display = 'flex';
+  const r = CHR.indexOf(state.key);
+  legend.innerHTML = `<span style="font-size:11px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-right:4px;">${TRIAD_STRING_LABELS[activeTriadScale]} triads:</span>`;
+  MAJ_DIATONIC.forEach(({step, q, roman}, i) => {
+    const rootChr = (r + step) % 12;
+    const isDim = q === 'dim';
+    const label = chordLabel(rootChr, q, isDim);
+    const dc = DIATONIC_COLORS[i];
+    const item = document.createElement('div');
+    item.className = 'tsl-item';
+    item.innerHTML = `<div class="tsl-dot" style="background:${dc.seg};border-color:${dc.stroke}"></div><span style="color:${dc.text}">${roman} ${label}</span>`;
+    legend.appendChild(item);
+  });
+}
+
 // ── renderNeck — decides which SVG to show ───────────────────────────
 function renderNeck() {
   let html;
-  if (formulaChordState) {
+  if (activeTriadScale) {
+    html = buildTriadScaleSVG(state.key, activeTriadScale);
+  } else if (formulaChordState) {
     html = buildFormulaChordSVG(formulaChordState.root, formulaChordState.quality, formulaChordState.isDim);
   } else if (scaleModes.size > 0) {
     html = buildMultiScaleSVG(state.key);
   } else {
     const tones = triadTones(state.key, state.quality);
-    html = buildNeckSVG(tones, state.quality, state.filters, state.labelMode||'fret');
+    html = buildNeckSVG(tones, state.quality, state.filters);
   }
   document.getElementById('neckWrap').innerHTML = html;
   setTimeout(applyNeckZoom, 50);
 }
 
 // ── App State ─────────────────────────────────────────────────────────
-const state = { key:'C', quality:'maj', filters: new Set(['root','first','second']), labelMode:'fret' };
+const state = { key:'C', quality:'maj', filters: new Set(['root','first','second']) };
 
 function renderInfoBar() {
   const tones = triadTones(state.key, state.quality);
@@ -1619,16 +1854,6 @@ function renderInfoBar() {
     </div>`;
 }
 
-function setLabelMode(mode) {
-  state.labelMode = mode;
-  ['fret','note','degree'].forEach(m => {
-    const id = 'lm' + m.charAt(0).toUpperCase() + m.slice(1);
-    const btn = document.getElementById(id);
-    if(btn) btn.className = 'lm-btn' + (m===mode ? ' lm-active' : '');
-  });
-  render();
-}
-
 function render() {
   // Key grid
   const grid = document.getElementById('keyGrid');
@@ -1637,7 +1862,12 @@ function render() {
     const btn = document.createElement('button');
     btn.className = 'key-btn' + (k===state.key?' active':'');
     btn.textContent = showFlats && FLAT[k] ? FLAT[k] : (k.includes('#') ? k.replace('#','♯')+'/'+FLAT[k] : k);
-    btn.onclick = () => { state.key=k; formulaChordState=null; render(); };
+    btn.onclick = () => {
+      state.key=k;
+      formulaChordState=null;
+      if (activeTriadScale) updateTriadLegend();
+      render();
+    };
     grid.appendChild(btn);
   });
 
