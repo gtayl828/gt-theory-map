@@ -534,7 +534,24 @@ h1 {
 }
 .flat-toggle-wrap.active .flat-toggle-knob { left:16px; background:#fff; }
 
-/* clickable formula strip chord chips */
+/* ── DOT LABEL TOGGLE ── */
+.dot-label-wrap {
+  display:flex; align-items:center; gap:3px;
+  border:1.5px solid var(--border2); border-radius:4px;
+  overflow:hidden; flex-shrink:0;
+}
+.dot-label-btn {
+  font-family:var(--mono-font); font-size:11px; font-weight:700;
+  letter-spacing:1px; padding:6px 12px;
+  background:var(--surface2); border:none;
+  color:var(--text-dim); cursor:pointer; transition:all 0.1s;
+  border-right:1px solid var(--border2);
+}
+.dot-label-btn:last-child { border-right:none; }
+.dot-label-btn:hover { color:var(--text); background:#252420; }
+.dot-label-btn.active { background:#1e1a08; color:var(--accent); }
+
+
 .formula-chip-btn {
   cursor:pointer; transition:all 0.12s;
   outline:none;
@@ -697,9 +714,16 @@ h1 {
   <button class="scale-btn" id="btnBlues" onclick="toggleScale('blues')">Blues Scale</button>
   <button class="scale-btn" id="btnMaj" onclick="toggleScale('major')">Major Scale</button>
   <button class="scale-btn" id="btnMinor" onclick="toggleScale('minor')">Minor Scale</button>
-  <div class="flat-toggle-wrap" id="flatToggle" onclick="toggleFlats()">
-    <span class="flat-toggle-label">Show Flats</span>
-    <div class="flat-toggle-switch"><div class="flat-toggle-knob"></div></div>
+  <div style="margin-left:auto;display:flex;align-items:center;gap:10px;">
+    <div class="dot-label-wrap">
+      <button class="dot-label-btn active" id="lblFret"   onclick="setDotLabel('fret')"  >FRET#</button>
+      <button class="dot-label-btn"        id="lblNote"   onclick="setDotLabel('note')"  >NOTE</button>
+      <button class="dot-label-btn"        id="lblDegree" onclick="setDotLabel('degree')">DEGREE</button>
+    </div>
+    <div class="flat-toggle-wrap" id="flatToggle" onclick="toggleFlats()">
+      <span class="flat-toggle-label">Show Flats</span>
+      <div class="flat-toggle-switch"><div class="flat-toggle-knob"></div></div>
+    </div>
   </div>
 </div>
 
@@ -835,9 +859,8 @@ function buildNeckSVG(tones,quality,filters){
   for(const{ss,v}of all) for(let i=0;i<3;i++){
     const si=ss[i],f=v.frets[i],c=roleColors(v.order[i],quality),x=fretSlotX(f),y=strY(si);
     s+=`<circle cx="${x}" cy="${y}" r="17" fill="${c.fill}" stroke="${c.stroke}" stroke-width="2.5"/>`;
-    // Show flat note name if flat toggle is on, otherwise fret number
     const chrIdx = (STRINGS[si].open + f) % 12;
-    const label = showFlats ? noteName(chrIdx) : (f===0?'O':String(f));
+    const label = getDotLabel(si, f, v.order[i]);
     s+=`<text x="${x}" y="${y+5}" text-anchor="middle" font-family="Courier New,monospace" font-size="12" font-weight="700" fill="${c.text}">${label}</text>`;
   }
   s+=`</svg>`;
@@ -1226,6 +1249,34 @@ function noteName(chrIdx) {
   return n.replace('#','♯');
 }
 
+// ── DOT LABEL MODE ───────────────────────────────────────────────────
+// 'fret' = fret number (default), 'note' = note name, 'degree' = scale degree
+let dotLabelMode = 'fret';
+
+function setDotLabel(mode) {
+  dotLabelMode = mode;
+  document.getElementById('lblFret')  .classList.toggle('active', mode==='fret');
+  document.getElementById('lblNote')  .classList.toggle('active', mode==='note');
+  document.getElementById('lblDegree').classList.toggle('active', mode==='degree');
+  renderNeck();
+}
+
+// Get the dot label for a given string/fret in the current triad context
+// roleIdx: 0=root, 1=third, 2=fifth  (used for degree labels in triad mode)
+function getDotLabel(si, f, roleIdx) {
+  if (dotLabelMode === 'note') {
+    const chrIdx = (STRINGS[si].open + f) % 12;
+    return f === 0 ? noteName(chrIdx) : noteName(chrIdx);
+  }
+  if (dotLabelMode === 'degree') {
+    if (roleIdx === 0) return '1';
+    if (roleIdx === 1) return '3';
+    return '5';
+  }
+  // fret mode (default)
+  return f === 0 ? 'O' : String(f);
+}
+
 // ── SCALE VISUALIZER ─────────────────────────────────────────────────
 // Scale intervals (semitones from root)
 const SCALE_INTERVALS = {
@@ -1427,7 +1478,10 @@ function buildMultiScaleSVG(root) {
         const { deg } = hits[0];
         const c = SCALE_DOT_COLORS[deg] || SCALE_DOT_COLORS['1'];
         s += `<circle cx="${x}" cy="${y}" r="17" fill="${c.fill}" stroke="${c.stroke}" stroke-width="2.5"/>`;
-        s += `<text x="${x}" y="${y+5}" text-anchor="middle" font-family="Courier New,monospace" font-size="11" font-weight="700" fill="${c.text}">${showFlats ? noteName(chrIdx) : deg}</text>`;
+        const scaleLabel = dotLabelMode === 'note' ? noteName(chrIdx)
+                         : dotLabelMode === 'fret' ? (f===0?'O':String(f))
+                         : deg; // degree mode shows scale degree (existing behavior)
+        s += `<text x="${x}" y="${y+5}" text-anchor="middle" font-family="Courier New,monospace" font-size="11" font-weight="700" fill="${c.text}">${scaleLabel}</text>`;
       } else {
         // Overlap: split circle
         const h1 = hits[0], h2 = hits[1];
@@ -1437,8 +1491,10 @@ function buildMultiScaleSVG(root) {
         s += `<path d="M${x},${y-R} A${R},${R} 0 0,0 ${x},${y+R} Z" fill="${c1.fill}" stroke="${c1.stroke}" stroke-width="2"/>`;
         s += `<path d="M${x},${y-R} A${R},${R} 0 0,1 ${x},${y+R} Z" fill="${c2.fill}" stroke="${c2.stroke}" stroke-width="2"/>`;
         s += `<circle cx="${x}" cy="${y}" r="${R}" fill="none" stroke="${OVERLAP_DOT.stroke}" stroke-width="1.5"/>`;
-        const label = showFlats ? noteName(chrIdx) : (chrIdx === r ? '1' : '★');
-        s += `<text x="${x}" y="${y+5}" text-anchor="middle" font-family="Courier New,monospace" font-size="11" font-weight="700" fill="${OVERLAP_DOT.text}">${label}</text>`;
+        const overlapLabel = dotLabelMode === 'note' ? noteName(chrIdx)
+                           : dotLabelMode === 'fret' ? (f===0?'O':String(f))
+                           : (chrIdx === r ? '1' : '★');
+        s += `<text x="${x}" y="${y+5}" text-anchor="middle" font-family="Courier New,monospace" font-size="11" font-weight="700" fill="${OVERLAP_DOT.text}">${overlapLabel}</text>`;
       }
     }
   }
@@ -1731,11 +1787,22 @@ function buildTriadScaleSVG(key, stringSet) {
       const x  = fretSlotX(f);
       const y  = strY(si);
       s += `<circle cx="${x}" cy="${y}" r="17" fill="${dc.seg}" stroke="${dc.stroke}" stroke-width="2.5"/>`;
-      // Label: chord name on root dot, note name on others (or just chord name shortened)
-      // Show chord name on all 3 dots — abbreviated
-      const shortLabel = label.length <= 4 ? label : label.slice(0,4);
-      const fontSize = shortLabel.length <= 3 ? 11 : 9;
-      s += `<text x="${x}" y="${y+4}" text-anchor="middle" font-family="Courier New,monospace" font-size="${fontSize}" font-weight="700" fill="${dc.text}">${shortLabel}</text>`;
+      // roleOrder[i] = 0 (root), 1 (third), 2 (fifth)
+      const role = roleOrder[i];
+      const chrIdx = (STRINGS[si].open + f) % 12;
+      let dotLabel;
+      if (dotLabelMode === 'note') {
+        dotLabel = noteName(chrIdx);
+      } else if (dotLabelMode === 'degree') {
+        dotLabel = role === 0 ? '1' : role === 1 ? '3' : '5';
+      } else if (dotLabelMode === 'fret') {
+        dotLabel = f === 0 ? 'O' : String(f);
+      } else {
+        // fallback: chord name abbreviated
+        dotLabel = label.length <= 4 ? label : label.slice(0,4);
+      }
+      const fontSize = dotLabel.length <= 2 ? 12 : dotLabel.length <= 3 ? 11 : 9;
+      s += `<text x="${x}" y="${y+4}" text-anchor="middle" font-family="Courier New,monospace" font-size="${fontSize}" font-weight="700" fill="${dc.text}">${dotLabel}</text>`;
     }
   });
 
