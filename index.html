@@ -1710,27 +1710,27 @@ function buildTriadScaleSVG(key, stringSet) {
   if (anchor < 0 && (STRINGS[lowestSi].open % 12) === r) anchor = 0;
   if (anchor < 0) anchor = 1; // fallback
 
-  // Find voicings for all 7 chords.
-  // We want them to progress linearly across the neck.
+  // Build 8-chord sequence: I ii iii IV V vi vii° I(octave)
+  // Append the I chord again at the end so the octave root appears
+  const chords8 = [...chords, { ...chords[0], ciDisplay: 0 }];
+
+  // Find voicings for all 8 chords in ascending neck order.
   // Strategy: find the I chord first near anchor, then find each subsequent chord
   // just above the previous one (ascending neck).
-  // Use a rolling window that advances as we go up the neck.
   let s = buildNeckBase();
 
-  // Gather all voicings in ascending order
-  // Start: find I chord (index 0) near anchor fret
-  // Then find chord ii nearest to/above I, etc.
   let windowStart = anchor - 2;
   const voicings = [];
 
-  for (let ci = 0; ci < chords.length; ci++) {
-    const { rootChr, q, isDim, tones } = chords[ci];
-    // Search window: from windowStart to windowStart+8
+  for (let i = 0; i < chords8.length; i++) {
+    const chord = chords8[i];
+    const ci = i < 7 ? i : 0; // color index: last chord reuses I color
+    const { rootChr, q, isDim, tones } = chord;
     const center = Math.max(0, windowStart);
     const v = findTriadVoicingNear(strIdxs, tones, center);
     if (v) {
-      voicings.push({ ...chords[ci], frets: v.frets, roleOrder: v.roleOrder, ci });
-      // Advance window to just past this voicing's max fret
+      voicings.push({ ...chord, frets: v.frets, roleOrder: v.roleOrder, ci });
+      // Advance window past the minimum fret of this voicing so next chord is higher
       windowStart = Math.min(...v.frets) + 1;
     }
   }
@@ -1783,11 +1783,14 @@ function updateTriadLegend() {
   legend.style.display = 'flex';
   const r = CHR.indexOf(state.key);
   legend.innerHTML = `<span style="font-size:11px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-right:4px;">${TRIAD_STRING_LABELS[activeTriadScale]} triads:</span>`;
-  MAJ_DIATONIC.forEach(({step, q, roman}, i) => {
+  // 8 entries: all 7 diatonic + I repeated at octave
+  const entries = [...MAJ_DIATONIC, { ...MAJ_DIATONIC[0], roman: 'I (8va)' }];
+  entries.forEach(({step, q, roman}, i) => {
+    const ci = i < 7 ? i : 0;
     const rootChr = (r + step) % 12;
     const isDim = q === 'dim';
     const label = chordLabel(rootChr, q, isDim);
-    const dc = DIATONIC_COLORS[i];
+    const dc = DIATONIC_COLORS[ci];
     const item = document.createElement('div');
     item.className = 'tsl-item';
     item.innerHTML = `<div class="tsl-dot" style="background:${dc.seg};border-color:${dc.stroke}"></div><span style="color:${dc.text}">${roman} ${label}</span>`;
