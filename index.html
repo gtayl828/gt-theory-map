@@ -1778,7 +1778,6 @@ function buildTriadScaleSVG(key, stringSet) {
     // Small roman numeral
     const roman = MAJ_DIATONIC[ci].roman;
     s += `<text x="${labelX}" y="${labelY}" text-anchor="middle" font-family="Impact,Arial Narrow Bold,sans-serif" font-size="13" font-weight="bold" fill="${dc.text}">${label}</text>`;
-    s += `<text x="${labelX}" y="${labelY-12}" text-anchor="middle" font-family="Courier New,monospace" font-size="9" fill="${dc.stroke}" opacity="0.9">${roman}</text>`;
 
     // Draw the 3 dots
     for (let i = 0; i < 3; i++) {
