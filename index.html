@@ -1622,45 +1622,34 @@ function toggleTriadScale(set) {
   renderNeck();
 }
 
-// Find the best voicing of a triad on 3 specific strings, anchored near a fret window
-// Returns { frets:[f0,f1,f2], roleOrder:[0,1,2] } where roleOrder maps string→tone index (root=0,3rd=1,5th=2)
-// tones: [rootChr, thirdChr, fifthChr]  (chromatic indices 0-11)
-// strIdxs: [si0, si1, si2] (string indices)
-// windowCenter: ideal fret to anchor near (the root on lowest string of the set)
-function findTriadVoicingNear(strIdxs, tones, windowCenter) {
-  // For each string, find all frets that match any of the 3 tones, within ±4 of windowCenter
-  const WIN = 5; // look within ±WIN frets of center
-  const lo = Math.max(0, windowCenter - WIN);
-  const hi = Math.min(FRETS, windowCenter + WIN + 4);
-
-  // Try all assignments of tones to strings (3! = 6 permutations for 3-note triads)
-  // We want the tightest voicing (min fret span) whose lowest fret is near windowCenter
+// Find the best triad voicing on 3 strings, starting at or above minFret.
+// Tries all 6 tone-to-string permutations; for each permutation finds the lowest
+// fret combo where every fret >= minFret and the span is <= 4.
+// Returns the combo with the lowest maximum fret (most compact, earliest on neck).
+function findTriadVoicingFrom(strIdxs, tones, minFret) {
   const permutations = [[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]];
   let best = null;
-  let bestScore = Infinity;
+  let bestMaxFret = Infinity;
 
   for (const perm of permutations) {
-    // perm[i] = which tone (0=root,1=third,2=fifth) goes on string i
+    // For each string, find all frets >= minFret that match the assigned tone
     const fretsPerString = strIdxs.map((si, i) => {
       const targetTone = tones[perm[i]];
       const results = [];
-      for (let f = lo; f <= hi; f++) {
+      for (let f = minFret; f <= FRETS; f++) {
         if ((STRINGS[si].open + f) % 12 === targetTone) results.push(f);
       }
       return results;
     });
-    // Find combo with tightest span
+
     for (const f0 of fretsPerString[0]) {
       for (const f1 of fretsPerString[1]) {
         for (const f2 of fretsPerString[2]) {
           const mn = Math.min(f0,f1,f2), mx = Math.max(f0,f1,f2);
-          const span = mx - mn;
-          if (span > 4) continue; // not playable
-          // Score: prefer span close to windowCenter, penalize distance from center
-          const centerDist = Math.abs((f0+f1+f2)/3 - windowCenter);
-          const score = span * 3 + centerDist;
-          if (score < bestScore) {
-            bestScore = score;
+          if (mx - mn > 4) continue; // unplayable span
+          // Pick the voicing with the lowest max fret (earliest compact shape)
+          if (mx < bestMaxFret) {
+            bestMaxFret = mx;
             best = { frets:[f0,f1,f2], roleOrder: perm };
           }
         }
@@ -1698,40 +1687,20 @@ function buildTriadScaleSVG(key, stringSet) {
     return { rootChr, q, isDim, tones };
   });
 
-  // Find the anchor fret: where the key root lands on the lowest string of the set
-  // We want the first occurrence at fret >= 1 (avoid nut position for visual clarity)
-  // For GBE (strIdx 3=G), find where root is on G string
-  const lowestSi = strIdxs[0];
-  let anchor = -1;
-  for (let f = 1; f <= FRETS; f++) {
-    if ((STRINGS[lowestSi].open + f) % 12 === r) { anchor = f; break; }
-  }
-  // Also try open string
-  if (anchor < 0 && (STRINGS[lowestSi].open % 12) === r) anchor = 0;
-  if (anchor < 0) anchor = 1; // fallback
-
-  // Build 8-chord sequence: I ii iii IV V vi vii° I(octave)
-  // Append the I chord again at the end so the octave root appears
-  const chords8 = [...chords, { ...chords[0], ciDisplay: 0 }];
-
-  // Find voicings for all 8 chords in ascending neck order.
-  // Strategy: find the I chord first near anchor, then find each subsequent chord
-  // just above the previous one (ascending neck).
+  // Simply start from fret 0 — findTriadVoicingFrom will find the earliest
+  // playable voicing for each chord in strict ascending order across the neck.
+  // This correctly handles all keys including F where the root lands high on some strings.
   let s = buildNeckBase();
-
-  let windowStart = anchor - 2;
+  let minFret = 0;
   const voicings = [];
 
-  for (let i = 0; i < chords8.length; i++) {
-    const chord = chords8[i];
-    const ci = i < 7 ? i : 0; // color index: last chord reuses I color
-    const { rootChr, q, isDim, tones } = chord;
-    const center = Math.max(0, windowStart);
-    const v = findTriadVoicingNear(strIdxs, tones, center);
+  for (let i = 0; i < chords.length; i++) {
+    const chord = chords[i];
+    const { tones } = chord;
+    const v = findTriadVoicingFrom(strIdxs, tones, minFret);
     if (v) {
-      voicings.push({ ...chord, frets: v.frets, roleOrder: v.roleOrder, ci });
-      // Advance window past the minimum fret of this voicing so next chord is higher
-      windowStart = Math.min(...v.frets) + 1;
+      voicings.push({ ...chord, frets: v.frets, roleOrder: v.roleOrder, ci: i });
+      minFret = Math.min(...v.frets) + 1;
     }
   }
 
@@ -1783,14 +1752,11 @@ function updateTriadLegend() {
   legend.style.display = 'flex';
   const r = CHR.indexOf(state.key);
   legend.innerHTML = `<span style="font-size:11px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;margin-right:4px;">${TRIAD_STRING_LABELS[activeTriadScale]} triads:</span>`;
-  // 8 entries: all 7 diatonic + I repeated at octave
-  const entries = [...MAJ_DIATONIC, { ...MAJ_DIATONIC[0], roman: 'I (8va)' }];
-  entries.forEach(({step, q, roman}, i) => {
-    const ci = i < 7 ? i : 0;
+  MAJ_DIATONIC.forEach(({step, q, roman}, i) => {
     const rootChr = (r + step) % 12;
     const isDim = q === 'dim';
     const label = chordLabel(rootChr, q, isDim);
-    const dc = DIATONIC_COLORS[ci];
+    const dc = DIATONIC_COLORS[i];
     const item = document.createElement('div');
     item.className = 'tsl-item';
     item.innerHTML = `<div class="tsl-dot" style="background:${dc.seg};border-color:${dc.stroke}"></div><span style="color:${dc.text}">${roman} ${label}</span>`;
