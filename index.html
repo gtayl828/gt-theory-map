@@ -956,7 +956,7 @@ const COF_DIM = {
 };
 
 // Diminished ring colors — amber/burnt orange, distinct from all others
-const DIM_RING = { seg:'#2a1a04', stroke:'#d4782a', text:'#ffaa60', dimSeg:'#1e1206', dimStroke:'#a05020' };
+const DIM_RING = { seg:'#300808', stroke:'#c03030', text:'#ff6060', dimSeg:'#300808', dimStroke:'#c03030' };
 
 // Maps each circle segment (outer + middle + inner) to a diatonic role
 // based purely on POSITION relative to the selected key on the circle.
@@ -1153,7 +1153,7 @@ function drawCOF(highlightKey) {
     const dimx = Math.cos(angle)*R_DIM_TXT, dimy = Math.sin(angle)*R_DIM_TXT;
     const dimChord = COF_DIM[key];
     const dimBase  = dimChord.replace('dim','');
-    const dimCol   = dcDim ? DIM_RING.text : '#c07840';
+    const dimCol   = dcDim ? DIM_RING.text : '#ff6060';
     const dimYOffset = dcDim ? -8 : -3;
     svg.appendChild(el('text',{
       x:dimx,y:dimy+dimYOffset,'text-anchor':'middle',
