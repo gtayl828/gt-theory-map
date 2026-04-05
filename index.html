@@ -627,222 +627,56 @@ h1 {
 
 
 <!-- KEY SIGNATURE MNEMONICS -->
-<div style="width:100%;max-width:1740px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 24px;">
+<div style="width:100%;max-width:1740px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 24px;display:flex;gap:40px;flex-wrap:wrap;">
 
-  <!-- Panel header with toggle -->
-  <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:16px;">
-    <div style="font-family:var(--display-font);font-size:15px;letter-spacing:3px;color:var(--text-dim);">KEY SIGNATURES</div>
-    <div style="display:flex;align-items:center;gap:0;border:1.5px solid var(--border2);border-radius:4px;overflow:hidden;">
-      <button id="keySigSepBtn" onclick="setKeySigMode('separate')"
-        style="font-family:var(--mono-font);font-size:11px;font-weight:700;letter-spacing:1px;padding:6px 14px;border:none;cursor:pointer;background:#1e1a08;color:var(--accent);">SEPARATE</button>
-      <button id="keySigCombBtn" onclick="setKeySigMode('combined')"
-        style="font-family:var(--mono-font);font-size:11px;font-weight:700;letter-spacing:1px;padding:6px 14px;border:none;border-left:1px solid var(--border2);cursor:pointer;background:var(--surface2);color:var(--text-dim);">COMBINED</button>
-    </div>
-  </div>
-
-  <!-- SEPARATE VIEW -->
-  <div id="keySigSeparate" style="display:flex;gap:40px;flex-wrap:wrap;">
-
-    <!-- SHARPS -->
-    <div style="flex:1;min-width:300px;">
-      <div style="font-family:var(--display-font);font-size:14px;letter-spacing:3px;color:var(--accent);margin-bottom:4px;">SHARPS</div>
-      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
-        <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:italic;letter-spacing:0.3px;"><span style="color:#e8c84a;font-weight:700;font-style:normal;">F</span>ather&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">C</span>harles&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">G</span>oes&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">D</span>own&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">A</span>nd&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">E</span>nds&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">B</span>attle</div>
-        <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:italic;letter-spacing:0.3px;"><span style="color:#e8c84a;font-weight:700;font-style:normal;">C</span>ats&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">G</span>et&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">D</span>izzy&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">A</span>fter&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">E</span>ating&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">B</span>ig&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">F</span>at&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">C</span>hickens</div>
-      </div>
-      <table style="border-collapse:collapse;width:100%;font-size:12px;">
-        <tbody><tr style="border-bottom:1px solid #2c2b25;">
-          <th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">KEY</th>
-          <th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">#</th>
-          <th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">SHARPS</th>
-        </tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">C maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">0</td><td style="padding:4px 8px;color:var(--text-dim);font-style:italic;">none</td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">G maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">1</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">F♯</span></td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">D maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">2</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯</span> <span style="color:#e8c84a;font-weight:700;">C♯</span></td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">A maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">3</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯</span> <span style="color:#e8c84a;font-weight:700;">G♯</span></td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">E maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">4</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯</span> <span style="color:#e8c84a;font-weight:700;">D♯</span></td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">B maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">5</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯ D♯</span> <span style="color:#e8c84a;font-weight:700;">A♯</span></td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">F♯ maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">6</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯ D♯ A♯</span> <span style="color:#e8c84a;font-weight:700;">E♯</span></td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">C♯ maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">7</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯ D♯ A♯ E♯</span> <span style="color:#e8c84a;font-weight:700;">B♯</span></td></tr>
-      </tbody></table>
-    </div>
-
-    <!-- FLATS -->
-    <div style="flex:1;min-width:300px;">
-      <div style="font-family:var(--display-font);font-size:14px;letter-spacing:3px;color:#9a78e8;margin-bottom:4px;">FLATS</div>
-      <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
-        <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:italic;letter-spacing:0.3px;"><span style="color:#9a78e8;font-weight:700;font-style:normal;">B</span>attle&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">E</span>nds&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">A</span>nd&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">D</span>own&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">G</span>oes&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">C</span>harles'&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">F</span>ather</div>
-      </div>
-      <table style="border-collapse:collapse;width:100%;font-size:12px;">
-        <tbody><tr style="border-bottom:1px solid #2c2b25;">
-          <th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">KEY</th>
-          <th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">#</th>
-          <th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">FLATS</th>
-        </tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">C maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">0</td><td style="padding:4px 8px;color:var(--text-dim);font-style:italic;">none</td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">F maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">1</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">B♭</span></td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">B♭ maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">2</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭</span> <span style="color:#9a78e8;font-weight:700;">E♭</span></td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">E♭ maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">3</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭</span> <span style="color:#9a78e8;font-weight:700;">A♭</span></td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">A♭ maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">4</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭</span> <span style="color:#9a78e8;font-weight:700;">D♭</span></td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">D♭ maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">5</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭ D♭</span> <span style="color:#9a78e8;font-weight:700;">G♭</span></td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">G♭ maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">6</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭ D♭ G♭</span> <span style="color:#9a78e8;font-weight:700;">C♭</span></td></tr>
-        <tr><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">C♭ maj</td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">7</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭ D♭ G♭ C♭</span> <span style="color:#9a78e8;font-weight:700;">F♭</span></td></tr>
-      </tbody></table>
-    </div>
-
-  </div><!-- end separate -->
-
-  <!-- COMBINED VIEW -->
-  <div id="keySigCombined" style="display:none;">
-    <div style="font-size:11px;color:var(--text-dim);letter-spacing:1px;margin-bottom:12px;">
-      Rows with a <span style="display:inline-block;background:#1c1830;border:1px solid #6040b0;border-radius:3px;padding:1px 7px;font-family:var(--mono-font);font-size:10px;color:#9a78e8;">= enharmonic</span> badge sound identical — different spellings of the same pitch.
+  <!-- SHARPS -->
+  <div style="flex:1;min-width:300px;">
+    <div style="font-family:var(--display-font);font-size:14px;letter-spacing:3px;color:var(--accent);margin-bottom:4px;">SHARPS KEY SIGNATURES</div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+      <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:italic;letter-spacing:0.3px;"><span style="color:#e8c84a;font-weight:700;font-style:normal;">F</span>ather&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">C</span>harles&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">G</span>oes&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">D</span>own&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">A</span>nd&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">E</span>nds&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">B</span>attle</div>
+      <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:italic;letter-spacing:0.3px;"><span style="color:#e8c84a;font-weight:700;font-style:normal;">C</span>ats&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">G</span>et&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">D</span>izzy&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">A</span>fter&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">E</span>ating&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">B</span>ig&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">F</span>at&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">C</span>hickens</div>
     </div>
     <table style="border-collapse:collapse;width:100%;font-size:12px;">
-      <thead><tr style="border-bottom:1px solid #2c2b25;">
-        <th style="text-align:left;padding:5px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">SHARP KEY</th>
-        <th style="text-align:center;padding:5px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">♯</th>
-        <th style="text-align:left;padding:5px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">SHARPS</th>
-        <th style="text-align:center;padding:5px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;width:90px;"></th>
-        <th style="text-align:left;padding:5px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">FLAT KEY</th>
-        <th style="text-align:center;padding:5px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">♭</th>
-        <th style="text-align:left;padding:5px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">FLATS</th>
-      </tr></thead>
-      <tbody>
+      <tbody><tr style="border-bottom:1px solid #2c2b25;">
+        <th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">KEY</th>
+        <th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">#</th>
+        <th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">SHARPS</th>
+      </tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">C</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">0</td><td style="padding:4px 8px;color:var(--text-dim);font-style:italic;">none</td></tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">G</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">1</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">F♯</span></td></tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">D</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">2</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯</span> <span style="color:#e8c84a;font-weight:700;">C♯</span></td></tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">A</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">3</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯</span> <span style="color:#e8c84a;font-weight:700;">G♯</span></td></tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">E</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">4</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯</span> <span style="color:#e8c84a;font-weight:700;">D♯</span></td></tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">B</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">5</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯ D♯</span> <span style="color:#e8c84a;font-weight:700;">A♯</span></td></tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">F♯</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">6</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯ D♯ A♯</span> <span style="color:#e8c84a;font-weight:700;">E♯</span></td></tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">C♯</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">7</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯ D♯ A♯ E♯</span> <span style="color:#e8c84a;font-weight:700;">B♯</span></td></tr>
+    </tbody></table>
+  </div>
 
-        <!-- C maj — shared, no enharmonic -->
-        <tr style="border-bottom:1px solid #1e1d18;">
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);">C maj</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);text-align:center;">0</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-style:italic;">none</td>
-          <td style="padding:5px 8px;text-align:center;"></td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);">C maj</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);text-align:center;">0</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-style:italic;">none</td>
-        </tr>
-
-        <!-- G / F -->
-        <tr style="border-bottom:1px solid #1e1d18;">
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);">G maj</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);text-align:center;">1</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">F♯</span></td>
-          <td style="padding:5px 8px;text-align:center;"></td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);">F maj</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);text-align:center;">1</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">B♭</span></td>
-        </tr>
-
-        <!-- D / B♭ -->
-        <tr style="border-bottom:1px solid #1e1d18;">
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);">D maj</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);text-align:center;">2</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯</span> <span style="color:#e8c84a;font-weight:700;">C♯</span></td>
-          <td style="padding:5px 8px;text-align:center;"></td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);">B♭ maj</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);text-align:center;">2</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭</span> <span style="color:#9a78e8;font-weight:700;">E♭</span></td>
-        </tr>
-
-        <!-- A / E♭ -->
-        <tr style="border-bottom:1px solid #1e1d18;">
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);">A maj</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);text-align:center;">3</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯</span> <span style="color:#e8c84a;font-weight:700;">G♯</span></td>
-          <td style="padding:5px 8px;text-align:center;"></td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);">E♭ maj</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);text-align:center;">3</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭</span> <span style="color:#9a78e8;font-weight:700;">A♭</span></td>
-        </tr>
-
-        <!-- E / A♭ -->
-        <tr style="border-bottom:1px solid #1e1d18;">
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);">E maj</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);text-align:center;">4</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯</span> <span style="color:#e8c84a;font-weight:700;">D♯</span></td>
-          <td style="padding:5px 8px;text-align:center;"></td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);">A♭ maj</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);text-align:center;">4</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭</span> <span style="color:#9a78e8;font-weight:700;">D♭</span></td>
-        </tr>
-
-        <!-- B / D♭ -->
-        <tr style="border-bottom:1px solid #1e1d18;">
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);">B maj</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);text-align:center;">5</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯ D♯</span> <span style="color:#e8c84a;font-weight:700;">A♯</span></td>
-          <td style="padding:5px 8px;text-align:center;"></td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);">D♭ maj</td>
-          <td style="padding:5px 8px;color:var(--text-dim);font-family:var(--mono-font);text-align:center;">5</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭ D♭</span> <span style="color:#9a78e8;font-weight:700;">G♭</span></td>
-        </tr>
-
-        <!-- F♯ = G♭  ENHARMONIC -->
-        <tr style="border-bottom:1px solid #1e1d18;background:#131128;">
-          <td style="padding:5px 8px;font-family:var(--mono-font);color:#c0b0ff;font-weight:700;">F♯ maj</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);color:#c0b0ff;text-align:center;">6</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯ D♯ A♯</span> <span style="color:#e8c84a;font-weight:700;">E♯</span></td>
-          <td style="padding:5px 8px;text-align:center;">
-            <span style="display:inline-block;background:#1c1830;border:1px solid #6040b0;border-radius:3px;padding:2px 6px;font-family:var(--mono-font);font-size:10px;color:#9a78e8;white-space:nowrap;">= same</span>
-          </td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);color:#c0b0ff;font-weight:700;">G♭ maj</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);color:#c0b0ff;text-align:center;">6</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭ D♭ G♭</span> <span style="color:#9a78e8;font-weight:700;">C♭</span></td>
-        </tr>
-
-        <!-- C♯ = D♭  ENHARMONIC -->
-        <tr style="border-bottom:1px solid #1e1d18;background:#131128;">
-          <td style="padding:5px 8px;font-family:var(--mono-font);color:#c0b0ff;font-weight:700;">C♯ maj</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);color:#c0b0ff;text-align:center;">7</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯ D♯ A♯ E♯</span> <span style="color:#e8c84a;font-weight:700;">B♯</span></td>
-          <td style="padding:5px 8px;text-align:center;">
-            <span style="display:inline-block;background:#1c1830;border:1px solid #6040b0;border-radius:3px;padding:2px 6px;font-family:var(--mono-font);font-size:10px;color:#9a78e8;white-space:nowrap;">= same</span>
-          </td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);color:#c0b0ff;font-weight:700;">D♭ maj</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);color:#c0b0ff;text-align:center;">5</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭ D♭</span> <span style="color:#9a78e8;font-weight:700;">G♭</span></td>
-        </tr>
-
-        <!-- C♭ = B  ENHARMONIC -->
-        <tr style="background:#131128;">
-          <td style="padding:5px 8px;font-family:var(--mono-font);color:#c0b0ff;font-weight:700;">B maj</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);color:#c0b0ff;text-align:center;">5</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯ D♯</span> <span style="color:#e8c84a;font-weight:700;">A♯</span></td>
-          <td style="padding:5px 8px;text-align:center;">
-            <span style="display:inline-block;background:#1c1830;border:1px solid #6040b0;border-radius:3px;padding:2px 6px;font-family:var(--mono-font);font-size:10px;color:#9a78e8;white-space:nowrap;">= same</span>
-          </td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);color:#c0b0ff;font-weight:700;">C♭ maj</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);color:#c0b0ff;text-align:center;">7</td>
-          <td style="padding:5px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭ D♭ G♭ C♭</span> <span style="color:#9a78e8;font-weight:700;">F♭</span></td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div><!-- end combined -->
+  <!-- FLATS -->
+  <div style="flex:1;min-width:300px;">
+    <div style="font-family:var(--display-font);font-size:14px;letter-spacing:3px;color:#9a78e8;margin-bottom:4px;">FLATS KEY SIGNATURES</div>
+    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+      <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:italic;letter-spacing:0.3px;"><span style="color:#9a78e8;font-weight:700;font-style:normal;">B</span>attle&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">E</span>nds&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">A</span>nd&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">D</span>own&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">G</span>oes&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">C</span>harles'&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">F</span>ather</div>
+      <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:normal;letter-spacing:0.5px;font-family:var(--mono-font);font-weight:700;gap:2px;"><span style="color:#9a78e8;">F</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">B</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">E</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">A</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">D</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">G</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">C</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">F</span></div>
+    </div>
+    <table style="border-collapse:collapse;width:100%;font-size:12px;">
+      <tbody><tr style="border-bottom:1px solid #2c2b25;">
+        <th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">KEY</th>
+        <th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">#</th>
+        <th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">FLATS</th>
+      </tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">F</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">1</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">B♭</span></td></tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">B♭</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">2</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭</span> <span style="color:#9a78e8;font-weight:700;">E♭</span></td></tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">E♭</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">3</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭</span> <span style="color:#9a78e8;font-weight:700;">A♭</span></td></tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">A♭</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">4</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭</span> <span style="color:#9a78e8;font-weight:700;">D♭</span></td></tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">D♭</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">5</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭ D♭</span> <span style="color:#9a78e8;font-weight:700;">G♭</span></td></tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">G♭</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">6</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭ D♭ G♭</span> <span style="color:#9a78e8;font-weight:700;">C♭</span></td></tr>
+      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">C♭</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">7</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭ D♭ G♭ C♭</span> <span style="color:#9a78e8;font-weight:700;">F♭</span></td></tr>
+    </tbody></table>
+  </div>
 
 </div>
-
-<script>
-function setKeySigMode(mode) {
-  const sep  = document.getElementById('keySigSeparate');
-  const comb = document.getElementById('keySigCombined');
-  const sepBtn  = document.getElementById('keySigSepBtn');
-  const combBtn = document.getElementById('keySigCombBtn');
-  if (mode === 'separate') {
-    sep.style.display  = 'flex';
-    comb.style.display = 'none';
-    sepBtn.style.background  = '#1e1a08';
-    sepBtn.style.color        = 'var(--accent)';
-    combBtn.style.background = 'var(--surface2)';
-    combBtn.style.color       = 'var(--text-dim)';
-  } else {
-    sep.style.display  = 'none';
-    comb.style.display = 'block';
-    combBtn.style.background = '#1e1a08';
-    combBtn.style.color       = 'var(--accent)';
-    sepBtn.style.background  = 'var(--surface2)';
-    sepBtn.style.color        = 'var(--text-dim)';
-  }
-}
-</script>
 
 <!-- CONTROLS -->
 <div class="controls">
