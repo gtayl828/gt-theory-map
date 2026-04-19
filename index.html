@@ -819,7 +819,7 @@ const COF_DIM={
   'C':'Bdim','G':'F♯dim','D':'C♯dim','A':'G♯dim','E':'D♯dim','B':'A♯dim',
   'F#':'E♯dim','C#':'B♯dim','G#':'Gdim','D#':'Ddim','A#':'Adim','F':'Edim'
 };
-const DIM_RING={seg:'#2a1a04',stroke:'#d4782a',text:'#ffaa60',dimSeg:'#1e1206',dimStroke:'#a05020'};
+const DIM_RING={seg:'#2a1a04',stroke:'#d4782a',text:'#ff6060',dimSeg:'#300808',dimStroke:'#c03030'};
 
 function getCofRoles(highlightKey){
   if(!highlightKey) return{};
@@ -863,7 +863,7 @@ function drawCOF(highlightKey){
     p1.addEventListener('click',()=>cofClick(key)); svg.appendChild(p1);
     const p2=el('path',{d:`M${c1*(R_DIM+1)},${s1*(R_DIM+1)} L${c1*R_INNER},${s1*R_INNER} A${R_INNER},${R_INNER} 0 0,1 ${c2*R_INNER},${s2*R_INNER} L${c2*(R_DIM+1)},${s2*(R_DIM+1)} A${R_DIM+1},${R_DIM+1} 0 0,0 ${c1*(R_DIM+1)},${s1*(R_DIM+1)} Z`,fill:dcMiddle?dcMiddle.seg:'#141210',stroke:dcMiddle?dcMiddle.stroke:'#303030','stroke-width':'1',cursor:'pointer'});
     p2.addEventListener('click',()=>cofClick(key)); svg.appendChild(p2);
-    const p3=el('path',{d:`M${c1*(R_CORE+1)},${s1*(R_CORE+1)} L${c1*R_DIM},${s1*R_DIM} A${R_DIM},${R_DIM} 0 0,1 ${c2*R_DIM},${s2*R_DIM} L${c2*(R_CORE+1)},${s2*(R_CORE+1)} A${R_CORE+1},${R_CORE+1} 0 0,0 ${c1*(R_CORE+1)},${s1*(R_CORE+1)} Z`,fill:dcDim?DIM_RING.seg:DIM_RING.dimSeg,stroke:dcDim?DIM_RING.stroke:DIM_RING.dimStroke,'stroke-width':'1'});
+    const p3=el('path',{d:`M${c1*(R_CORE+1)},${s1*(R_CORE+1)} L${c1*R_DIM},${s1*R_DIM} A${R_DIM},${R_DIM} 0 0,1 ${c2*R_DIM},${s2*R_DIM} L${c2*(R_CORE+1)},${s2*(R_CORE+1)} A${R_CORE+1},${R_CORE+1} 0 0,0 ${c1*(R_CORE+1)},${s1*(R_CORE+1)} Z`,fill:dcDim?'#300808':'transparent',stroke:dcDim?'#c03030':'none','stroke-width':'1'});
     svg.appendChild(p3);
   }
   for(let i=0;i<N;i++){
@@ -892,11 +892,11 @@ function drawCOF(highlightKey){
     if(dcMiddle) svg.appendChild(el('text',{x:ix,y:iy+7,'text-anchor':'middle','font-family':'Impact,Arial Narrow Bold,sans-serif','font-size':'9',fill:dcMiddle.text,opacity:'0.9','pointer-events':'none'},dcMiddle.label));
     const dimx=Math.cos(angle)*R_DIM_TXT,dimy=Math.sin(angle)*R_DIM_TXT;
     const dimChord=COF_DIM[key],dimBase=dimChord.replace('dim','');
-    const dimCol=dcDim?DIM_RING.text:'#c07840';
+    const dimCol=dcDim?DIM_RING.text:'#ff6060';
     const dimYOffset=dcDim?-8:-3;
     svg.appendChild(el('text',{x:dimx,y:dimy+dimYOffset,'text-anchor':'middle','font-family':'Courier New,monospace','font-size':'8','font-weight':'700',fill:dimCol,'pointer-events':'none'},dimBase));
     svg.appendChild(el('text',{x:dimx,y:dimy+dimYOffset+8,'text-anchor':'middle','font-family':'Courier New,monospace','font-size':'7','font-weight':'700',fill:dimCol,opacity:'0.85','pointer-events':'none'},'dim'));
-    if(dcDim) svg.appendChild(el('text',{x:dimx,y:dimy+dimYOffset+17,'text-anchor':'middle','font-family':'Impact,Arial Narrow Bold,sans-serif','font-size':'8',fill:DIM_RING.text,opacity:'0.9','pointer-events':'none'},dcDim.label));
+    if(dcDim) svg.appendChild(el('text',{x:dimx,y:dimy+dimYOffset+17,'text-anchor':'middle','font-family':'Impact,Arial Narrow Bold,sans-serif','font-size':'8',fill:dcDim.text,opacity:'0.9','pointer-events':'none'},dcDim.label));
   }
 }
 
