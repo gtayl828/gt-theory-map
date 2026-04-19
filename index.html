@@ -432,6 +432,49 @@ h1 {
 .tsl-dot {
   width:16px; height:16px; border-radius:50%; border:2px solid; flex-shrink:0;
 }
+
+/* ── CHORD BUILDER MODAL ── */
+.cb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1100;justify-content:center;align-items:flex-start;overflow-y:auto;padding:24px 16px 60px;}
+.cb-overlay.open{display:flex;}
+.cb-modal{width:100%;max-width:1200px;background:#161512;border:1px solid #383530;border-radius:10px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.8);display:flex;flex-direction:column;}
+.cb-header{display:flex;align-items:center;justify-content:space-between;padding:14px 22px;background:#1d1c18;border-bottom:2px solid #e8c84a;}
+.cb-title{font-family:var(--display-font);font-size:22px;letter-spacing:4px;color:#e8c84a;}
+.cb-subtitle{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-top:2px;}
+.cb-close{font-family:var(--display-font);font-size:16px;letter-spacing:2px;padding:5px 14px;background:transparent;border:1.5px solid #484540;border-radius:4px;color:var(--text-dim);cursor:pointer;transition:all 0.1s;}
+.cb-close:hover{border-color:#e8c84a;color:#e8c84a;}
+.cb-controls{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 20px;background:#141312;border-bottom:1px solid #2c2b25;}
+.cb-ctrl-label{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);margin-right:2px;}
+.cb-root-btn{font-family:var(--mono-font);font-size:11px;font-weight:700;padding:5px 8px;min-width:44px;text-align:center;background:#1d1c18;border:1.5px solid #383630;border-radius:4px;color:var(--text-dim);cursor:pointer;transition:all 0.1s;}
+.cb-root-btn:hover{border-color:#e8c84a;color:var(--text);}
+.cb-root-btn.active{background:#35290a;border-color:#e8c84a;color:#e8c84a;}
+.cb-sep{width:1px;height:28px;background:#2c2b25;margin:0 4px;}
+.cb-lbl-wrap{display:flex;align-items:center;gap:2px;border:1.5px solid var(--border2);border-radius:4px;overflow:hidden;}
+.cb-lbl-btn{font-family:var(--mono-font);font-size:10px;font-weight:700;letter-spacing:1px;padding:5px 10px;background:var(--surface2);border:none;color:var(--text-dim);cursor:pointer;transition:all 0.1s;border-right:1px solid var(--border2);}
+.cb-lbl-btn:last-child{border-right:none;}
+.cb-lbl-btn:hover{color:var(--text);}
+.cb-lbl-btn.active{background:#1e1a08;color:#e8c84a;}
+.cb-clear-btn{font-family:var(--display-font);font-size:13px;letter-spacing:2px;padding:6px 16px;border-radius:4px;cursor:pointer;margin-left:auto;background:#300808;border:1.5px solid #c03030;color:#ff6060;transition:all 0.1s;}
+.cb-clear-btn:hover{background:#3d0a0a;}
+.cb-flat-wrap{display:flex;align-items:center;gap:6px;padding:4px 12px;border-radius:4px;border:1.5px solid var(--border2);background:var(--surface2);cursor:pointer;transition:all 0.1s;}
+.cb-flat-wrap:hover{border-color:var(--text-dim);}
+.cb-flat-wrap.active{background:#1e1a08;border-color:#c8a830;}
+.cb-flat-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);user-select:none;}
+.cb-flat-wrap.active .cb-flat-label{color:#e8c84a;}
+.cb-flat-switch{width:26px;height:15px;border-radius:8px;background:#2c2b25;position:relative;transition:background 0.2s;flex-shrink:0;}
+.cb-flat-wrap.active .cb-flat-switch{background:#c8a830;}
+.cb-flat-knob{position:absolute;top:2px;left:2px;width:11px;height:11px;border-radius:50%;background:#7a7468;transition:all 0.2s;}
+.cb-flat-wrap.active .cb-flat-knob{left:13px;background:#fff;}
+.cb-neck-wrap{padding:16px 20px;overflow-x:auto;background:#0e0d0b;}
+.cb-result{margin:0 20px 20px;padding:16px 20px;background:#1d1c18;border:1px solid #2c2b25;border-radius:8px;display:flex;flex-direction:column;gap:10px;}
+.cb-chord-name{font-family:var(--display-font);font-size:32px;letter-spacing:3px;color:#e8c84a;line-height:1;}
+.cb-chord-name.no-root{color:var(--text-dim);font-size:18px;font-family:var(--body-font);letter-spacing:1px;}
+.cb-formula-row{display:flex;gap:6px;align-items:center;flex-wrap:wrap;}
+.cb-int-chip{font-family:var(--mono-font);font-size:12px;font-weight:700;padding:4px 10px;border-radius:3px;border:1.5px solid;}
+.cb-scales-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.cb-scale-chip{font-family:var(--mono-font);font-size:11px;font-weight:700;padding:3px 9px;border-radius:3px;background:#1a1812;border:1px solid #383630;color:#7a7468;}
+.cb-scale-chip.match{background:#0a2a14;border-color:#2a8058;color:#52c48a;}
+.cb-hint{font-size:11px;color:var(--text-faint);letter-spacing:1px;}
+
 </style>
 </head>
 <body>
@@ -443,6 +486,7 @@ h1 {
     <span class="header-sub">Triad Visualizer · Circle of Fifths · Full Neck · All Positions</span>
   </div>
   <button class="tr-open-btn" onclick="openTR()" style="margin-left:auto">📖 KEY THEORY REFERENCE</button>
+  <button class="tr-open-btn" onclick="openCB()" style="margin-left:8px;background:#1a2a1a;border-color:#40a860;color:#60d880;">🎸 CHORD BUILDER</button>
 </div>
 
 <!-- SCALE FORMULA PANEL -->
@@ -576,8 +620,8 @@ h1 {
 <!-- NECK ZOOM -->
 <div class="neck-zoom-wrap" id="neckZoomWrap">
   <span class="neck-zoom-label">Neck Zoom:</span>
-  <input class="neck-zoom-slider" id="neckZoom" type="range" min="30" max="100" value="60" oninput="updateNeckZoom(this.value)">
-  <span class="neck-zoom-val" id="neckZoomVal">60%</span>
+  <input class="neck-zoom-slider" id="neckZoom" type="range" min="30" max="100" value="100" oninput="updateNeckZoom(this.value)">
+  <span class="neck-zoom-val" id="neckZoomVal">100%</span>
 </div>
 
 <div class="neck-wrap" id="neckWrap" style="min-height:214px;"></div>
@@ -1497,5 +1541,163 @@ function selectTRKey(key){
     });
   });
 }
+
+// ── CHORD BUILDER ─────────────────────────────────────────────────────
+const CB_FRETS=12,CB_FRET_W=80,CB_STR_H=48,CB_PAD_L=48,CB_PAD_R=24,CB_PAD_T=44,CB_NUT_W=12;
+const CB_W=CB_PAD_L+CB_NUT_W+CB_FRETS*CB_FRET_W+CB_PAD_R;
+const CB_H=CB_PAD_T+5*CB_STR_H+36;
+const CB_STRS=[{name:'E',open:4},{name:'A',open:9},{name:'D',open:2},{name:'G',open:7},{name:'B',open:11},{name:'e',open:4}];
+const CB_IC={0:{fill:'#35290a',stroke:'#c8a830',text:'#e8c84a',label:'1'},1:{fill:'#1a0e2a',stroke:'#7040b0',text:'#b080f0',label:'b2'},2:{fill:'#0e1e38',stroke:'#2a5898',text:'#5a9ce0',label:'2'},3:{fill:'#1c1038',stroke:'#6040b0',text:'#9a78e8',label:'b3'},4:{fill:'#0d2e1c',stroke:'#2a8058',text:'#52c48a',label:'3'},5:{fill:'#1c1038',stroke:'#8050c0',text:'#c090ff',label:'4'},6:{fill:'#003028',stroke:'#20b0a0',text:'#50e8d8',label:'b5'},7:{fill:'#0e1e38',stroke:'#3070c0',text:'#70b0ff',label:'5'},8:{fill:'#280630',stroke:'#b040a0',text:'#f070d8',label:'b6'},9:{fill:'#300820',stroke:'#d060a0',text:'#ff90d0',label:'6'},10:{fill:'#300808',stroke:'#b02828',text:'#ee5050',label:'b7'},11:{fill:'#2a2006',stroke:'#b09020',text:'#e8d060',label:'7'}};
+const CB_UNK={fill:'#1a1816',stroke:'#484030',text:'#7a7468',label:'?'};
+const CB_CT=[['maj',[0,4,7]],['min',[0,3,7]],['dim',[0,3,6]],['aug',[0,4,8]],['sus2',[0,2,7]],['sus4',[0,5,7]],['maj7',[0,4,7,11]],['m7',[0,3,7,10]],['7',[0,4,7,10]],['dim7',[0,3,6,9]],['m7b5',[0,3,6,10]],['aug7',[0,4,8,10]],['6',[0,4,7,9]],['m6',[0,3,7,9]],['add9',[0,4,7,2]],['madd9',[0,3,7,2]],['7sus4',[0,5,7,10]],['maj9',[0,2,4,7,11]],['m9',[0,2,3,7,10]],['9',[0,2,4,7,10]]];
+const CB_SC={'Major':[0,2,4,5,7,9,11],'Nat Minor':[0,2,3,5,7,8,10],'Min Pent':[0,3,5,7,10],'Maj Pent':[0,2,4,7,9],'Blues':[0,3,5,6,7,10],'Dorian':[0,2,3,5,7,9,10],'Mixolydian':[0,2,4,5,7,9,10],'Lydian':[0,2,4,6,7,9,11]};
+let cbDots=new Map(),cbRoot=null,cbLM='note',cbSF=false;
+function cbNN(i){const S=['C','C\u266f','D','D\u266f','E','F','F\u266f','G','G\u266f','A','A\u266f','B'];const F=['C','D\u266d','D','E\u266d','E','F','G\u266d','G','A\u266d','A','B\u266d','B'];return cbSF?F[i]:S[i];}
+function cbFX(f){return f===0?CB_PAD_L-14:CB_PAD_L+CB_NUT_W+(f-0.5)*CB_FRET_W;}
+function cbFLX(f){return CB_PAD_L+CB_NUT_W+f*CB_FRET_W;}
+function cbSY(si){return CB_PAD_T+(5-si)*CB_STR_H;}
+function openCB(){buildCBRG();renderCBNeck();updateCBResult();document.getElementById('cbOverlay').classList.add('open');}
+function closeCB(){document.getElementById('cbOverlay').classList.remove('open');}
+function clearCB(){cbDots.clear();renderCBNeck();updateCBResult();}
+function setCBLabel(m){cbLM=m;document.getElementById('cbLblNote').classList.toggle('active',m==='note');document.getElementById('cbLblInterval').classList.toggle('active',m==='interval');document.getElementById('cbLblFret').classList.toggle('active',m==='fret');renderCBNeck();}
+function toggleCBFlats(){cbSF=!cbSF;document.getElementById('cbFlatToggle').classList.toggle('active',cbSF);buildCBRG();renderCBNeck();updateCBResult();}
+function buildCBRG(){const g=document.getElementById('cbRootGrid');g.innerHTML='';for(let i=0;i<12;i++){const b=document.createElement('button');b.className='cb-root-btn'+(cbRoot===i?' active':'');b.textContent=cbNN(i);b.onclick=()=>{cbRoot=cbRoot===i?null:i;buildCBRG();renderCBNeck();updateCBResult();};g.appendChild(b);}}
+function renderCBNeck(){
+  let s=`<svg width="${CB_W}" height="${CB_H}" viewBox="0 0 ${CB_W} ${CB_H}" xmlns="http://www.w3.org/2000/svg" style="display:block;">`;
+  s+=`<rect width="${CB_W}" height="${CB_H}" fill="#0e0d0b" rx="6"/>`;
+  s+=`<rect x="${CB_PAD_L}" y="${CB_PAD_T-12}" width="${CB_NUT_W+CB_FRETS*CB_FRET_W}" height="${5*CB_STR_H+24}" fill="#181610" rx="3"/>`;
+  for(const df of [3,5,7,9,12]){if(df>CB_FRETS)continue;const x=cbFLX(df)-CB_FRET_W/2;if(df===12){s+=`<circle cx="${x}" cy="${cbSY(1)}" r="7" fill="#222018"/>`;s+=`<circle cx="${x}" cy="${cbSY(4)}" r="7" fill="#222018"/>`;}else s+=`<circle cx="${x}" cy="${cbSY(2)+CB_STR_H/2}" r="7" fill="#222018"/>`;s+=`<text x="${x}" y="${CB_PAD_T-20}" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">${df}</text>`;}
+  s+=`<rect x="${CB_PAD_L}" y="${CB_PAD_T-10}" width="${CB_NUT_W}" height="${5*CB_STR_H+20}" fill="#b0a060" rx="2"/>`;
+  for(let f=1;f<=CB_FRETS;f++){const x=cbFLX(f);s+=`<line x1="${x}" y1="${CB_PAD_T-10}" x2="${x}" y2="${CB_PAD_T+5*CB_STR_H+10}" stroke="#2a2820" stroke-width="1.5"/>`;}
+  for(let si=0;si<6;si++){const y=cbSY(si),th=3.0-(5-si)*0.42;s+=`<line x1="${CB_PAD_L}" y1="${y}" x2="${CB_PAD_L+CB_NUT_W+CB_FRETS*CB_FRET_W}" y2="${y}" stroke="#484030" stroke-width="${th}"/>`;s+=`<text x="${CB_PAD_L-10}" y="${y+5}" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">${CB_STRS[si].name}</text>`;}
+  for(const[,dot] of cbDots){const{si,f,chrIdx}=dot,x=cbFX(f),y=cbSY(si);const semi=cbRoot!==null?((chrIdx-cbRoot+12)%12):null;const col=semi!==null?(CB_IC[semi]||CB_UNK):CB_UNK;s+=`<circle cx="${x}" cy="${y}" r="18" fill="${col.fill}" stroke="${col.stroke}" stroke-width="2.5"/>`;let lbl=cbLM==='note'?cbNN(chrIdx):cbLM==='interval'?(semi!==null?col.label:'?'):(f===0?'O':String(f));const fs=lbl.length<=2?12:lbl.length<=3?10:9;s+=`<text x="${x}" y="${y+4}" text-anchor="middle" font-family="Courier New,monospace" font-size="${fs}" font-weight="700" fill="${col.text}">${lbl}</text>`;}
+  for(let si=0;si<6;si++){const y=cbSY(si);s+=`<rect x="${CB_PAD_L-28}" y="${y-CB_STR_H/2}" width="28" height="${CB_STR_H}" fill="rgba(255,255,255,0)" style="cursor:pointer" data-si="${si}" data-f="0" class="cb-hit"/>`;for(let f=1;f<=CB_FRETS;f++){const x1=cbFLX(f-1)+(f===1?CB_NUT_W:0),w=cbFLX(f)-x1;s+=`<rect x="${x1}" y="${y-CB_STR_H/2}" width="${w}" height="${CB_STR_H}" fill="rgba(255,255,255,0)" style="cursor:pointer" data-si="${si}" data-f="${f}" class="cb-hit"/>`;}}
+  s+=`</svg>`;
+  document.getElementById('cbNeckWrap').innerHTML=s;
+  document.querySelectorAll('#cbNeckWrap .cb-hit').forEach(r=>{r.addEventListener('click',e=>{const si=parseInt(e.target.dataset.si),f=parseInt(e.target.dataset.f);const chrIdx=(CB_STRS[si].open+f)%12,key=`${si}_${f}`;if(cbDots.has(key)){cbDots.delete(key);}else{for(const k of cbDots.keys()){if(parseInt(k.split('_')[0])===si)cbDots.delete(k);}cbDots.set(key,{si,f,chrIdx});}renderCBNeck();updateCBResult();});});
+}
+function updateCBResult(){
+  const res=document.getElementById('cbResult');
+  if(cbDots.size===0){res.innerHTML='<div class="cb-chord-name no-root">Click frets on the neck to build a chord</div>';return;}
+  const chrSet=new Set([...cbDots.values()].map(d=>d.chrIdx));
+  const chrArr=[...chrSet].sort((a,b)=>a-b);
+  if(cbRoot===null||!chrSet.has(cbRoot)){const nn=chrArr.map(c=>cbNN(c)).join('  \xb7  ');const hint=cbRoot===null?'Select a root above to identify the chord':'Root not in selection \u2014 add it or pick a different root';res.innerHTML=`<div class="cb-chord-name no-root">Notes: ${nn}</div><div class="cb-hint">${hint}</div>`;return;}
+  const intervals=chrArr.map(c=>((c-cbRoot+12)%12)).sort((a,b)=>a-b);
+  const iSet=new Set(intervals);
+  const fHtml=intervals.map(i=>{const col=CB_IC[i]||CB_UNK;return`<span class="cb-int-chip" style="background:${col.fill};border-color:${col.stroke};color:${col.text}">${col.label}</span>`;}).join('');
+  const rn=cbNN(cbRoot);let cName=rn+' (unknown voicing)';
+  for(const[type,ints] of CB_CT){const ts=new Set(ints.map(i=>((i%12)+12)%12));if(ts.size===iSet.size&&[...ts].every(i=>iSet.has(i))){cName=rn+(type==='maj'?'':type);break;}}
+  const sHtml=Object.entries(CB_SC).map(([n,si])=>{const ss=new Set(si),ok=intervals.every(i=>ss.has(i));return`<span class="cb-scale-chip${ok?' match':''}">${n}</span>`;}).join('');
+  const noteStr=chrArr.map(c=>cbNN(c)).join('  ');
+
+  // Key detection — all 7 modes
+  const MODES=[
+    {name:'Major',    steps:[0,2,4,5,7,9,11], romans:['I','ii','iii','IV','V','vi','vii°'], quals:['maj','min','min','maj','maj','min','dim']},
+    {name:'Dorian',   steps:[0,2,3,5,7,9,10], romans:['i','ii','III','IV','v','vi°','VII'], quals:['min','min','maj','maj','min','dim','maj']},
+    {name:'Phrygian', steps:[0,1,3,5,7,8,10], romans:['i','II','III','iv','v°','VI','vii'], quals:['min','maj','maj','min','dim','maj','min']},
+    {name:'Lydian',   steps:[0,2,4,6,7,9,11], romans:['I','II','iii','iv°','V','vi','vii'], quals:['maj','maj','min','dim','maj','min','min']},
+    {name:'Mixolydian',steps:[0,2,4,5,7,9,10],romans:['I','ii','iii°','IV','v','vi','VII'], quals:['maj','min','dim','maj','min','min','maj']},
+    {name:'Minor',    steps:[0,2,3,5,7,8,10], romans:['i','ii°','III','iv','v','VI','VII'], quals:['min','dim','maj','min','min','maj','maj']},
+    {name:'Locrian',  steps:[0,1,3,5,6,8,10], romans:['i°','II','iii','iv','V','VI','vii'], quals:['dim','maj','min','min','maj','maj','min']},
+  ];
+  const KEY_NAMES=['C','C♯','D','E♭','E','F','F♯','G','A♭','A','B♭','B'];
+  const MODE_COLORS={
+    'Major':     {bg:'#2a2008',bc:'#a07820',tc:'#e8c84a'},
+    'Dorian':    {bg:'#0a2020',bc:'#208080',tc:'#40e0d0'},
+    'Phrygian':  {bg:'#200828',bc:'#902090',tc:'#d060d0'},
+    'Lydian':    {bg:'#082018',bc:'#208850',tc:'#40d880'},
+    'Mixolydian':{bg:'#201808',bc:'#908020',tc:'#d0b840'},
+    'Minor':     {bg:'#1a1030',bc:'#6040a0',tc:'#9a78e8'},
+    'Locrian':   {bg:'#280808',bc:'#a02020',tc:'#ff6060'},
+  };
+  const QUAL_COLORS={
+    maj:{bg:'#2a2008',bc:'#a07820',tc:'#e8c84a'},
+    min:{bg:'#1a1030',bc:'#6040a0',tc:'#9a78e8'},
+    dim:{bg:'#280808',bc:'#a02020',tc:'#ff6060'},
+  };
+  const keyMatches=[];
+  for(let k=0;k<12;k++){
+    for(const mode of MODES){
+      const scale=mode.steps.map(s=>(k+s)%12);
+      if(chrArr.every(n=>scale.includes(n))){
+        const degIdx=scale.indexOf(cbRoot);
+        if(degIdx>=0){
+          keyMatches.push({key:KEY_NAMES[k],mode:mode.name,roman:mode.romans[degIdx],qual:mode.quals[degIdx]});
+        }
+      }
+    }
+  }
+
+  // Chips (quick scan) — show up to 8, rest hidden in list
+  const chipHtml=keyMatches.length===0
+    ?'<span class="cb-scale-chip" style="color:var(--text-faint);font-style:italic;">no diatonic match</span>'
+    :keyMatches.slice(0,8).map(({key,mode,roman,qual})=>{
+      const mc=MODE_COLORS[mode]||MODE_COLORS['Major'];
+      return`<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 8px;border-radius:3px;background:rgba(0,0,0,0.3);border:1px solid #2c2b25;border-left:3px solid ${mc.bc};font-family:var(--mono-font);font-size:11px;font-weight:700;cursor:default;" title="${mode}"><span style="color:var(--text-dim);">${key}</span><span style="color:#3a3830;">·</span><span style="color:${mc.tc};">${roman}</span></span>`;
+    }).join('')+(keyMatches.length>8?`<span class="cb-scale-chip" style="color:var(--text-dim);cursor:pointer;" onclick="document.getElementById('cbKeyList').style.display=document.getElementById('cbKeyList').style.display==='none'?'block':'none'">+${keyMatches.length-8} more</span>`:'');
+
+  // Grouped expandable list
+  const grouped={};
+  for(const m of keyMatches){
+    if(!grouped[m.mode])grouped[m.mode]=[];
+    grouped[m.mode].push(m);
+  }
+  const listHtml=Object.entries(grouped).map(([modeName,matches])=>{
+    const mc=MODE_COLORS[modeName]||MODE_COLORS['Major'];
+    const rows=matches.map(({key,roman,qual})=>{
+      return`<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 8px;margin:2px;border-radius:3px;background:rgba(0,0,0,0.3);border:1px solid #2c2b25;border-left:3px solid ${mc.bc};font-family:var(--mono-font);font-size:11px;font-weight:700;"><span style="color:var(--text-dim);">${key}</span><span style="color:#3a3830;">·</span><span style="color:${mc.tc};">${roman}</span></span>`;
+    }).join('');
+    return`<div style="margin-bottom:8px;"><div style="font-size:9px;letter-spacing:3px;text-transform:uppercase;color:${mc.bc};margin-bottom:4px;">${modeName}</div><div style="display:flex;flex-wrap:wrap;gap:2px;">${rows}</div></div>`;
+  }).join('');
+
+  const listToggleId='cbKeyList_'+Date.now();
+  res.innerHTML=`<div class="cb-chord-name">${cName}</div>
+<div class="cb-formula-row">${fHtml}</div>
+<div style="font-size:11px;color:var(--text-dim);letter-spacing:1px;margin-top:2px;">Notes: ${noteStr}</div>
+<div class="cb-scales-row"><span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint);margin-right:4px;">Scales:</span>${sHtml}</div>
+<div style="display:flex;align-items:flex-start;gap:6px;flex-wrap:wrap;margin-top:4px;">
+  <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint);margin-right:4px;white-space:nowrap;padding-top:4px;">Keys:</span>
+  <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;flex:1;">${chipHtml}
+    ${keyMatches.length>0?`<span style="font-size:10px;letter-spacing:1px;color:var(--text-dim);cursor:pointer;padding:4px 8px;border:1px solid var(--border2);border-radius:3px;white-space:nowrap;" onclick="var el=document.getElementById('cbKeyDetail');el.style.display=el.style.display==='none'?'block':'none'">&#9660; all ${keyMatches.length}</span>`:''}
+  </div>
+</div>
+${keyMatches.length>0?`<div id="cbKeyDetail" style="display:none;margin-top:8px;padding:12px;background:#141312;border:1px solid var(--border);border-radius:6px;">${listHtml}</div>`:''}`;
+}
+
 </script>
+
+<!-- CHORD BUILDER MODAL -->
+<div class="cb-overlay" id="cbOverlay" onclick="if(event.target===this)closeCB()">
+  <div class="cb-modal">
+    <div class="cb-header">
+      <div>
+        <div class="cb-title">CHORD BUILDER</div>
+        <div class="cb-subtitle">Click any fret to place a note &middot; Select a root to identify the chord</div>
+      </div>
+      <button class="cb-close" onclick="closeCB()">&#10005; CLOSE</button>
+    </div>
+    <div class="cb-controls">
+      <span class="cb-ctrl-label">Root:</span>
+      <div id="cbRootGrid" style="display:flex;gap:4px;flex-wrap:wrap;"></div>
+      <div class="cb-sep"></div>
+      <span class="cb-ctrl-label">Label:</span>
+      <div class="cb-lbl-wrap">
+        <button class="cb-lbl-btn active" id="cbLblNote"     onclick="setCBLabel('note')"    >NOTE</button>
+        <button class="cb-lbl-btn"        id="cbLblInterval" onclick="setCBLabel('interval')" >INTERVAL</button>
+        <button class="cb-lbl-btn"        id="cbLblFret"     onclick="setCBLabel('fret')"     >FRET#</button>
+      </div>
+      <div class="cb-sep"></div>
+      <div class="cb-flat-wrap" id="cbFlatToggle" onclick="toggleCBFlats()">
+        <span class="cb-flat-label">Flats</span>
+        <div class="cb-flat-switch"><div class="cb-flat-knob"></div></div>
+      </div>
+      <button class="cb-clear-btn" onclick="clearCB()">&#10005; CLEAR</button>
+    </div>
+    <div class="cb-neck-wrap" id="cbNeckWrap"></div>
+    <div class="cb-result" id="cbResult">
+      <div class="cb-chord-name no-root">Click frets on the neck to build a chord</div>
+    </div>
+  </div>
+</div>
+
 </body></html>
