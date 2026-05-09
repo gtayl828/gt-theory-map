@@ -433,6 +433,32 @@ h1 {
   width:16px; height:16px; border-radius:50%; border:2px solid; flex-shrink:0;
 }
 
+/* ── CHORD FINDER (FIND mode) ── */
+.cf-mode-toggle{display:flex;gap:0;border:1.5px solid #484540;border-radius:4px;overflow:hidden;}
+.cf-mode-btn{font-family:var(--display-font);font-size:14px;letter-spacing:3px;padding:7px 20px;background:transparent;border:none;color:var(--text-dim);cursor:pointer;transition:all 0.1s;}
+.cf-mode-btn:hover{color:var(--text);}
+.cf-mode-btn.active{background:#1e1a08;color:#e8c84a;}
+.cf-key-grid{display:flex;flex-wrap:wrap;gap:4px;padding:14px 20px;background:#141312;border-bottom:1px solid #2c2b25;}
+.cf-key-btn{font-family:var(--mono-font);font-size:12px;font-weight:700;padding:6px 10px;min-width:52px;text-align:center;background:#1d1c18;border:1.5px solid #383630;border-radius:4px;color:var(--text-dim);cursor:pointer;transition:all 0.1s;}
+.cf-key-btn:hover{border-color:#e8c84a;color:var(--text);}
+.cf-key-btn.active{background:#35290a;border-color:#e8c84a;color:#e8c84a;}
+.cf-chord-panel{max-height:220px;overflow-y:auto;padding:12px 20px;background:#0e0d0b;border-bottom:1px solid #2c2b25;}
+.cf-sec-hdr{font-family:var(--display-font);font-size:12px;letter-spacing:3px;padding:7px 10px;margin-bottom:6px;border-radius:3px;cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center;}
+.cf-sec-hdr .arr{font-size:10px;transition:transform 0.2s;}
+.cf-sec-hdr.coll .arr{transform:rotate(-90deg);}
+.cf-chord-row{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px;}
+.cf-chord-btn{font-family:var(--mono-font);font-size:11px;font-weight:700;padding:4px 10px;border-radius:3px;border:1.5px solid;cursor:pointer;transition:all 0.1s;background:transparent;}
+.cf-chord-btn:hover{opacity:0.8;}
+.cf-chord-btn.active{box-shadow:0 0 0 2px #fff5;}
+.cf-voicing-bar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:10px 20px;background:#141312;border-bottom:1px solid #2c2b25;min-height:44px;}
+.cf-diagram-grid{display:flex;flex-direction:column;gap:0;padding:16px 20px;background:#0e0d0b;overflow-y:auto;max-height:460px;}
+.cf-diagram{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;padding:8px;border-radius:6px;border:1.5px solid #2c2b25;background:#141312;transition:all 0.15s;}
+.cf-diagram:hover{border-color:#484540;background:#1a1916;}
+.cf-diagram.selected{border-color:#e8c84a;background:#1e1a08;}
+.cf-diagram-label{font-family:var(--mono-font);font-size:10px;font-weight:700;color:var(--text-dim);text-align:center;letter-spacing:1px;}
+.cf-diagram.selected .cf-diagram-label{color:#e8c84a;}
+.cf-detail-wrap{display:flex;flex-direction:column;}
+.cf-neck-wrap{padding:16px 20px;overflow-x:auto;background:#0e0d0b;}
 /* ── CHORD BUILDER MODAL ── */
 .cb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);z-index:1100;justify-content:center;align-items:flex-start;overflow-y:auto;padding:24px 16px 60px;}
 .cb-overlay.open{display:flex;}
@@ -485,8 +511,8 @@ h1 {
     <h1>Greg's Guitar Theory Map</h1>
     <span class="header-sub">Triad Visualizer · Circle of Fifths · Full Neck · All Positions</span>
   </div>
-  <button class="tr-open-btn" onclick="openTR()" style="margin-left:auto">📖 KEY THEORY REFERENCE</button>
-  <button class="tr-open-btn" onclick="openCB()" style="margin-left:8px;background:#1a2a1a;border-color:#40a860;color:#60d880;">🎸 CHORD BUILDER</button>
+  <button class="tr-open-btn" onclick="openTR()" style="margin-left:auto">KEY THEORY REFERENCE</button>
+  <button class="tr-open-btn" onclick="openCB()" style="margin-left:8px;background:#1a2a1a;border-color:#40a860;color:#60d880;">CHORD BUILDER</button>
 </div>
 
 <!-- SCALE FORMULA PANEL -->
@@ -1542,6 +1568,452 @@ function selectTRKey(key){
   });
 }
 
+// ── CHORD FINDER (FIND mode) ──────────────────────────────────────────
+const CF_KEYS=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+const CF_KEY_DISPLAY={'C':'C','C#':'C♯','D':'D','D#':'D♯','E':'E','F':'F','F#':'F♯','G':'G','G#':'G♯','A':'A','A#':'A♯','B':'B'};
+const CF_KEY_DISPLAY_FLAT={'C':'C','C#':'D♭','D':'D','D#':'E♭','E':'E','F':'F','F#':'G♭','G':'G','G#':'A♭','A':'A','A#':'B♭','B':'B'};
+
+// All chord types organized by category with their intervals
+const CF_SECTIONS=[
+  {key:'maj',label:'MAJOR',    cls:'tr-maj-s', border:'#a07820',text:'#e8c84a',bg:'#2a2206',
+   chords:[
+    {name:'maj',  label:'maj',     ints:[0,4,7]},
+    {name:'maj6', label:'maj6',    ints:[0,4,7,9]},
+    {name:'maj69',label:'maj6/9',  ints:[0,4,7,9,2]},
+    {name:'maj7', label:'maj7',    ints:[0,4,7,11]},
+    {name:'maj9', label:'maj9',    ints:[0,4,7,11,2]},
+    {name:'maj11',label:'maj11',   ints:[0,4,7,11,2,5]},
+    {name:'maj13',label:'maj13',   ints:[0,4,7,11,2,5,9]},
+   ]},
+  {key:'min',label:'MINOR',    cls:'tr-min-s', border:'#6040a0',text:'#9a78e8',bg:'#1c1038',
+   chords:[
+    {name:'min',  label:'min',     ints:[0,3,7]},
+    {name:'min6', label:'min6',    ints:[0,3,7,9]},
+    {name:'min7', label:'min7',    ints:[0,3,7,10]},
+    {name:'min9', label:'min9',    ints:[0,3,7,10,2]},
+    {name:'min11',label:'min11',   ints:[0,3,7,10,2,5]},
+    {name:'min13',label:'min13',   ints:[0,3,7,10,2,5,9]},
+    {name:'mmaj7',label:'m maj7',  ints:[0,3,7,11]},
+   ]},
+  {key:'dom',label:'DOMINANT', cls:'tr-dom-s', border:'#2a8058',text:'#52c48a',bg:'#0d2e1c',
+   chords:[
+    {name:'7',    label:'7',       ints:[0,4,7,10]},
+    {name:'9',    label:'9',       ints:[0,4,7,10,2]},
+    {name:'11',   label:'11',      ints:[0,4,7,10,2,5]},
+    {name:'13',   label:'13',      ints:[0,4,7,10,2,5,9]},
+    {name:'7sus4',label:'7sus4',   ints:[0,5,7,10]},
+   ]},
+  {key:'dim',label:'DIMINISHED',cls:'tr-dim-s', border:'#c03030',text:'#ff6060',bg:'#300808',
+   chords:[
+    {name:'dim',  label:'dim',     ints:[0,3,6]},
+    {name:'dim7', label:'dim7',    ints:[0,3,6,9]},
+    {name:'m7b5', label:'m7b5',    ints:[0,3,6,10]},
+   ]},
+  {key:'aug',label:'AUGMENTED', cls:'tr-aug-s', border:'#e07820',text:'#ffaa50',bg:'#3a1e06',
+   chords:[
+    {name:'aug',  label:'aug',     ints:[0,4,8]},
+    {name:'aug7', label:'aug7',    ints:[0,4,8,10]},
+   ]},
+  {key:'sus',label:'SUSPENDED', cls:'tr-sus-s', border:'#2a5898',text:'#5a9ce0',bg:'#0e1e38',
+   chords:[
+    {name:'sus2', label:'sus2',    ints:[0,2,7]},
+    {name:'sus4', label:'sus4',    ints:[0,5,7]},
+    {name:'add9', label:'add9',    ints:[0,4,7,2]},
+    {name:'add11',label:'add11',   ints:[0,4,7,5]},
+   ]},
+];
+
+let cfMode='build'; // 'build' or 'find'
+let cfKey=null;
+let cfChord=null; // {sectionKey, name, label, ints}
+let cfActiveVoicings=new Set(); // set of voicing indices that are visible
+let cfAllVoicings=[]; // computed voicings for current chord
+
+function switchCBMode(mode){
+  cfMode=mode;
+  document.getElementById('cfBtnBuild').classList.toggle('active',mode==='build');
+  document.getElementById('cfBtnFind').classList.toggle('active',mode==='find');
+  document.getElementById('cbBuildArea').style.display=mode==='build'?'':'none';
+  document.getElementById('cbFindArea').style.display=mode==='find'?'flex':'none';
+}
+
+function cfKeyClick(key){
+  cfKey=cfKey===key?null:key;
+  cfChord=null;
+  cfAllVoicings=[];
+  cfActiveVoicings=new Set();
+  renderCFKeyGrid();
+  renderCFChordPanel();
+  renderCFNeck();
+  renderCFVoicingBar();
+}
+
+function renderCFKeyGrid(){
+  const g=document.getElementById('cfKeyGrid');
+  g.innerHTML='';
+  CF_KEYS.forEach(k=>{
+    const b=document.createElement('button');
+    b.className='cf-key-btn'+(cfKey===k?' active':'');
+    b.textContent=cbSF?CF_KEY_DISPLAY_FLAT[k]:CF_KEY_DISPLAY[k];
+    b.onclick=()=>cfKeyClick(k);
+    g.appendChild(b);
+  });
+}
+
+function renderCFChordPanel(){
+  const panel=document.getElementById('cfChordPanel');
+  if(!cfKey){panel.innerHTML='<div style="color:var(--text-faint);font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:8px 0;">Select a key above</div>';return;}
+  const rootIdx=CF_KEYS.indexOf(cfKey);
+  let html='';
+  CF_SECTIONS.forEach(sec=>{
+    const secId='cf-sec-'+sec.key;
+    html+=`<div>
+      <div class="cf-sec-hdr" style="background:${sec.bg};color:${sec.text};border-left:3px solid ${sec.border};" onclick="cfToggleSec('${secId}')">
+        <span>${sec.label}</span><span class="arr">▾</span>
+      </div>
+      <div id="${secId}" class="cf-chord-row">`;
+    sec.chords.forEach(ch=>{
+      const rootName=cbSF?CF_KEY_DISPLAY_FLAT[cfKey]:CF_KEY_DISPLAY[cfKey];
+      const isActive=cfChord&&cfChord.sectionKey===sec.key&&cfChord.name===ch.name;
+      html+=`<button class="cf-chord-btn${isActive?' active':''}"
+        style="border-color:${sec.border};color:${isActive?'#fff':sec.text};background:${isActive?sec.border+'44':'transparent'};"
+        onclick="cfChordClick('${sec.key}','${ch.name}','${ch.label}','${ch.ints.join(',')}')">
+        ${rootName}${ch.label}
+      </button>`;
+    });
+    html+='</div></div>';
+  });
+  panel.innerHTML=html;
+}
+
+function cfToggleSec(id){
+  const el=document.getElementById(id);
+  const hdr=el.previousElementSibling;
+  const collapsed=el.style.display==='none';
+  el.style.display=collapsed?'':'none';
+  hdr.classList.toggle('coll',!collapsed);
+}
+
+function cfChordClick(sectionKey,name,label,intsStr){
+  const ints=intsStr.split(',').map(Number);
+  if(cfChord&&cfChord.sectionKey===sectionKey&&cfChord.name===name){
+    cfChord=null;
+  } else {
+    cfChord={sectionKey,name,label,ints};
+  }
+  cfSelectedVoicing=0;
+  renderCFChordPanel();
+  computeCFVoicings();
+  renderCFDiagramGrid();
+}
+
+// Find all voicings of a chord across the full neck
+function computeCFVoicings(){
+  cfAllVoicings=[];
+  cfActiveVoicings=new Set();
+  if(!cfKey||!cfChord) return;
+
+  const rootIdx=CF_KEYS.indexOf(cfKey);
+
+  // Build interval list preserving original order (root=0 always first)
+  // ints[i] = semitones from root for the i-th chord tone
+  const rawInts=cfChord.ints.map(i=>((i%12)+12)%12);
+  // Deduplicate while preserving order
+  const seen0=new Set();
+  const ints=rawInts.filter(i=>{ if(seen0.has(i)) return false; seen0.add(i); return true; });
+  // tones[i] = chromatic index of the i-th chord tone
+  const tones=ints.map(i=>(rootIdx+i)%12);
+
+  // Triad base is always tones[0] (root), tones[1] (3rd), tones[2] (5th)
+  const triadTones=[tones[0],tones[1],tones[2]];
+  // Extension tones with their semitone values
+  const extEntries=ints.slice(3).map((semi,i)=>({tone:tones[3+i],semi}));
+
+  const STRING_SET_DEFS=[
+    {strings:[0,1,2],label:'E·A·D'},
+    {strings:[1,2,3],label:'A·D·G'},
+    {strings:[2,3,4],label:'D·G·B'},
+    {strings:[3,4,5],label:'G·B·e'},
+  ];
+
+  const perms=[[0,1,2],[0,2,1],[1,0,2],[1,2,0],[2,0,1],[2,1,0]];
+  const seen=new Set();
+
+  STRING_SET_DEFS.forEach(ssd=>{
+    const si=ssd.strings; // e.g. [0,1,2]
+    const minSi=Math.min(...si);
+    const maxSi=Math.max(...si);
+
+    // Build ordered list of candidate extension strings — strictly outside the triad set
+    // Order: immediate neighbors first (closer = preferred), alternating low/high
+    const extCandidates=[];
+    for(let dist=1;dist<=2;dist++){
+      if(minSi-dist>=0) extCandidates.push(minSi-dist);
+      if(maxSi+dist<=5) extCandidates.push(maxSi+dist);
+    }
+
+    perms.forEach(perm=>{
+      // perm[i] = which triad tone index goes on string si[i]
+      const fretsPerString=si.map((strIdx,i)=>{
+        const targetTone=triadTones[perm[i]];
+        const res=[];
+        for(let f=0;f<=15;f++) if((CB_STRS[strIdx].open+f)%12===targetTone) res.push(f);
+        return res;
+      });
+
+      for(const f0 of fretsPerString[0])
+      for(const f1 of fretsPerString[1])
+      for(const f2 of fretsPerString[2]){
+        const mn=Math.min(f0,f1,f2),mx=Math.max(f0,f1,f2);
+        if(mx-mn>4) continue;
+
+        const triadKey=`${si[0]}_${f0}_${si[1]}_${f1}_${si[2]}_${f2}`;
+        if(seen.has(triadKey)) continue;
+        seen.add(triadKey);
+
+        // For each extension tone, find best fret on an available candidate string
+        // Track which extension strings are already used so two extensions don't share a string
+        const usedExtStrings=new Set();
+        const extDots=[];
+
+        extEntries.forEach(({tone,semi})=>{
+          let bestExt=null,bestDist=Infinity;
+          extCandidates.forEach(csi=>{
+            if(usedExtStrings.has(csi)) return; // already used by another extension
+            for(let f=0;f<=15;f++){
+              if((CB_STRS[csi].open+f)%12===tone){
+                // Prefer frets close to the triad's fret span
+                const dist=Math.max(0,mn-f)+Math.max(0,f-mx);
+                if(dist<bestDist){bestDist=dist;bestExt={si:csi,f,semi};}
+              }
+            }
+          });
+          if(bestExt){
+            usedExtStrings.add(bestExt.si);
+            extDots.push(bestExt);
+          }
+        });
+
+        const rootFret=[f0,f1,f2][perm.indexOf(0)];
+        const dots=[
+          {si:si[0],f:f0,semi:ints[perm[0]]},
+          {si:si[1],f:f1,semi:ints[perm[1]]},
+          {si:si[2],f:f2,semi:ints[perm[2]]},
+          ...extDots.map(e=>({...e,isExt:true})),
+        ];
+        cfAllVoicings.push({dots,rootFret,strLabel:ssd.label,label:`Fret ${rootFret===0?'O':rootFret} · ${ssd.label}`});
+      }
+    });
+  });
+
+  // Sort by root fret ascending
+  cfAllVoicings.sort((a,b)=>a.rootFret-b.rootFret);
+
+  // Deduplicate by full dot pattern
+  const seen2=new Set();
+  cfAllVoicings=cfAllVoicings.filter(v=>{
+    const k=v.dots.map(d=>`${d.si}_${d.f}`).sort().join('|');
+    if(seen2.has(k)) return false;
+    seen2.add(k); return true;
+  });
+
+  // All active by default
+  cfAllVoicings.forEach((_,i)=>cfActiveVoicings.add(i));
+}
+
+let cfSelectedVoicing=null;
+
+function cfChordDiagramSVG(voicing,selected){
+  const STR_NAMES=['E','A','D','G','B','e'];
+  const NSTRINGS=6;
+
+  const allFrets=voicing.dots.map(d=>d.f);
+  const frettedFrets=allFrets.filter(f=>f>0);
+  const hasOpen=voicing.dots.some(d=>d.f===0);
+  const minFret=frettedFrets.length?Math.min(...frettedFrets):0;
+  const maxFret=frettedFrets.length?Math.max(...frettedFrets):0;
+  const windowStart=frettedFrets.length===0?0:Math.max(0,minFret-1);
+  const windowEnd=Math.max(windowStart+4,maxFret);
+  const NFRETS=windowEnd-windowStart;
+
+  const dotBySi={};
+  voicing.dots.forEach(d=>{ dotBySi[d.si]=d; });
+
+  // Horizontal layout: frets go left→right, strings go top(high e)→bottom(low E)
+  const FW=20;  // fret slot width
+  const SH=16;  // string spacing (vertical)
+  const PAD_L=20, PAD_R=28, PAD_T=10, PAD_B=10;
+  const showNut=windowStart===0;
+  const NUT_W=showNut?4:0;
+
+  const W=PAD_L+NUT_W+NFRETS*FW+PAD_R;
+  const H=PAD_T+(NSTRINGS-1)*SH+PAD_B;
+
+  const strY=si=>PAD_T+(NSTRINGS-1-si)*SH;
+  const fretLineX=f=>PAD_L+NUT_W+(f-windowStart)*FW;
+  const dotX=f=>{
+    if(f===0) return PAD_L-8;
+    return PAD_L+NUT_W+(f-windowStart)*FW-FW/2;
+  };
+
+  let s=`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  s+=`<rect width="${W}" height="${H}" fill="transparent"/>`;
+
+  // Nut
+  if(showNut){
+    s+=`<rect x="${PAD_L}" y="${PAD_T-2}" width="4" height="${(NSTRINGS-1)*SH+4}" fill="#b0a060" rx="1"/>`;
+  }
+
+  // Faded gold highlight on the root fret slot
+  if(frettedFrets.length>0&&voicing.rootFret>0){
+    const rootFret=voicing.rootFret;
+    const hx1=PAD_L+NUT_W+(rootFret-1-windowStart)*FW;
+    const hx2=PAD_L+NUT_W+(rootFret-windowStart)*FW;
+    s+=`<rect x="${hx1}" y="${PAD_T-2}" width="${hx2-hx1}" height="${(NSTRINGS-1)*SH+4}" fill="rgba(232,200,74,0.08)" rx="1"/>`;
+  }
+
+  // Fret lines (vertical)
+  for(let f=windowStart;f<=windowEnd;f++){
+    const x=fretLineX(f);
+    s+=`<line x1="${x}" y1="${PAD_T}" x2="${x}" y2="${PAD_T+(NSTRINGS-1)*SH}" stroke="#2a2820" stroke-width="1"/>`;
+  }
+
+  // String lines (horizontal) + labels + X marks
+  for(let si=0;si<NSTRINGS;si++){
+    const y=strY(si);
+    const thick=1.0+(5-si)*0.25;
+    s+=`<line x1="${PAD_L+NUT_W}" y1="${y}" x2="${PAD_L+NUT_W+NFRETS*FW}" y2="${y}" stroke="#484030" stroke-width="${thick}"/>`;
+    s+=`<text x="${PAD_L+NUT_W+NFRETS*FW+6}" y="${y+4}" font-family="Courier New,monospace" font-size="8" fill="#484038">${STR_NAMES[si]}</text>`;
+    if(!dotBySi[si]){
+      s+=`<text x="${PAD_L+NUT_W-8}" y="${y+4}" text-anchor="middle" font-family="Courier New,monospace" font-size="9" fill="#484038">x</text>`;
+    }
+  }
+
+  // Fret position marker (top, non-open position)
+  if(frettedFrets.length>0&&minFret>1){
+    s+=`<text x="${PAD_L+NUT_W+2}" y="${PAD_T-2}" font-family="Courier New,monospace" font-size="7" fill="#606050">${minFret}fr</text>`;
+  }
+
+  // Dots
+  for(let si=0;si<NSTRINGS;si++){
+    const d=dotBySi[si];
+    if(!d) continue;
+    const col=CB_IC[d.semi]||CB_UNK;
+    const x=dotX(d.f);
+    const y=strY(si);
+    const r=6;
+    if(d.f===0){
+      // Open string: small ring to the left of nut
+      s+=`<circle cx="${PAD_L-8}" cy="${y}" r="${r-2}" fill="transparent" stroke="${col.stroke}" stroke-width="1.5"/>`;
+    } else {
+      s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${col.fill}" stroke="${col.stroke}" stroke-width="1.5"/>`;
+      const chrIdx=(CB_STRS[si].open+d.f)%12;
+      let lbl=cbLM==='note'?cbNN(chrIdx):cbLM==='interval'?col.label:String(d.f);
+      const fs=lbl.length<=2?5:4;
+      s+=`<text x="${x}" y="${y+2}" text-anchor="middle" font-family="Courier New,monospace" font-size="${fs}" font-weight="700" fill="${col.text}">${lbl}</text>`;
+    }
+  }
+
+  s+=`</svg>`;
+  return{svg:s,w:W,h:H};
+}
+
+function renderCFDiagramGrid(){
+  const grid=document.getElementById('cfDiagramGrid');
+  const detail=document.getElementById('cfDetailWrap');
+  if(!cfChord||cfAllVoicings.length===0){
+    grid.innerHTML=`<div style="color:var(--text-faint);font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:20px;">${cfChord?'No voicings found':'Select a chord above'}</div>`;
+    detail.style.display='none';
+    return;
+  }
+
+  cfSelectedVoicing=cfSelectedVoicing!==null&&cfSelectedVoicing<cfAllVoicings.length?cfSelectedVoicing:0;
+  grid.innerHTML='';
+
+  const GROUP_ORDER=['E·A·D','A·D·G','D·G·B','G·B·e'];
+  const groups={};
+  cfAllVoicings.forEach((v,i)=>{
+    if(!groups[v.strLabel]) groups[v.strLabel]=[];
+    groups[v.strLabel].push({v,i});
+  });
+  const groupOrder=GROUP_ORDER.filter(l=>groups[l]);
+
+  groupOrder.forEach(label=>{
+    const entries=groups[label];
+
+    // Section header
+    const hdr=document.createElement('div');
+    hdr.style.cssText='width:100%;font-family:var(--display-font);font-size:13px;letter-spacing:3px;color:var(--text-dim);padding:8px 4px 4px;border-bottom:1px solid #2c2b25;margin-bottom:6px;';
+    hdr.textContent=label;
+    grid.appendChild(hdr);
+
+    // Row of diagrams for this group
+    const row=document.createElement('div');
+    row.style.cssText='display:flex;flex-wrap:wrap;gap:8px;width:100%;margin-bottom:12px;';
+
+    entries.forEach(({v,i})=>{
+      const {svg}=cfChordDiagramSVG(v,i===cfSelectedVoicing);
+      const card=document.createElement('div');
+      card.className='cf-diagram'+(i===cfSelectedVoicing?' selected':'');
+      const fretLabel=v.rootFret===0?'Open':'Fr.'+v.rootFret;
+      card.innerHTML=svg+`<div class="cf-diagram-label">${fretLabel}</div>`;
+      card.onclick=()=>{cfSelectedVoicing=i;renderCFDiagramGrid();renderCFNeck();};
+      row.appendChild(card);
+    });
+
+    grid.appendChild(row);
+  });
+
+  detail.style.display='flex';
+  renderCFNeck();
+}
+
+function renderCFNeck(){
+  const wrap=document.getElementById('cfNeckWrap');
+  const labelEl=document.getElementById('cfDetailLabel');
+  if(!cfChord||cfAllVoicings.length===0||cfSelectedVoicing===null){
+    wrap.innerHTML='';return;
+  }
+  const v=cfAllVoicings[cfSelectedVoicing];
+  if(labelEl) labelEl.textContent=v.label;
+
+  let s=`<svg width="${CB_W}" height="${CB_H}" viewBox="0 0 ${CB_W} ${CB_H}" xmlns="http://www.w3.org/2000/svg" style="display:block;">`;
+  s+=`<rect width="${CB_W}" height="${CB_H}" fill="#0e0d0b" rx="6"/>`;
+  s+=`<rect x="${CB_PAD_L}" y="${CB_PAD_T-12}" width="${CB_NUT_W+CB_FRETS*CB_FRET_W}" height="${5*CB_STR_H+24}" fill="#181610" rx="3"/>`;
+  for(const df of [3,5,7,9,12]){
+    if(df>CB_FRETS)continue;
+    const x=cbFLX(df)-CB_FRET_W/2;
+    if(df===12){s+=`<circle cx="${x}" cy="${cbSY(1)}" r="7" fill="#222018"/>`;s+=`<circle cx="${x}" cy="${cbSY(4)}" r="7" fill="#222018"/>`;}
+    else s+=`<circle cx="${x}" cy="${cbSY(2)+CB_STR_H/2}" r="7" fill="#222018"/>`;
+    s+=`<text x="${x}" y="${CB_PAD_T-20}" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">${df}</text>`;
+  }
+  s+=`<rect x="${CB_PAD_L}" y="${CB_PAD_T-10}" width="${CB_NUT_W}" height="${5*CB_STR_H+20}" fill="#b0a060" rx="2"/>`;
+  for(let f=1;f<=CB_FRETS;f++){const x=cbFLX(f);s+=`<line x1="${x}" y1="${CB_PAD_T-10}" x2="${x}" y2="${CB_PAD_T+5*CB_STR_H+10}" stroke="#2a2820" stroke-width="1.5"/>`;}
+  for(let si=0;si<6;si++){const y=cbSY(si),th=3.0-(5-si)*0.42;s+=`<line x1="${CB_PAD_L}" y1="${y}" x2="${CB_PAD_L+CB_NUT_W+CB_FRETS*CB_FRET_W}" y2="${y}" stroke="#484030" stroke-width="${th}"/>`;s+=`<text x="${CB_PAD_L-10}" y="${y+5}" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">${CB_STRS[si].name}</text>`;}
+
+  // Bounding box highlight
+  const xs=v.dots.map(d=>cbFX(d.f));
+  const ys=v.dots.map(d=>cbSY(d.si));
+  const minX=Math.min(...xs)-22,maxX=Math.max(...xs)+22;
+  const minY=Math.min(...ys)-22,maxY=Math.max(...ys)+22;
+  s+=`<rect x="${minX}" y="${minY}" width="${maxX-minX}" height="${maxY-minY}" fill="rgba(232,200,74,0.06)" stroke="rgba(232,200,74,0.35)" stroke-width="1.5" rx="8"/>`;
+
+  // Dots
+  v.dots.forEach(d=>{
+    const col=CB_IC[d.semi]||CB_UNK;
+    const x=cbFX(d.f),y=cbSY(d.si);
+    const r=d.isExt?14:18;
+    s+=`<circle cx="${x}" cy="${y}" r="${r}" fill="${col.fill}" stroke="${col.stroke}" stroke-width="${d.isExt?1.5:2.5}"${d.isExt?' stroke-dasharray="3,2"':''}/>`;
+    const chrIdx=(CB_STRS[d.si].open+d.f)%12;
+    let lbl=cbLM==='note'?cbNN(chrIdx):cbLM==='interval'?col.label:(d.f===0?'O':String(d.f));
+    const fs=lbl.length<=2?12:lbl.length<=3?10:8;
+    s+=`<text x="${x}" y="${y+4}" text-anchor="middle" font-family="Courier New,monospace" font-size="${fs}" font-weight="700" fill="${col.text}">${lbl}</text>`;
+  });
+
+  s+=`</svg>`;
+  wrap.innerHTML=s;
+}
+
 // ── CHORD BUILDER ─────────────────────────────────────────────────────
 const CB_FRETS=12,CB_FRET_W=80,CB_STR_H=48,CB_PAD_L=48,CB_PAD_R=24,CB_PAD_T=44,CB_NUT_W=12;
 const CB_W=CB_PAD_L+CB_NUT_W+CB_FRETS*CB_FRET_W+CB_PAD_R;
@@ -1556,7 +2028,7 @@ function cbNN(i){const S=['C','C\u266f','D','D\u266f','E','F','F\u266f','G','G\u
 function cbFX(f){return f===0?CB_PAD_L-14:CB_PAD_L+CB_NUT_W+(f-0.5)*CB_FRET_W;}
 function cbFLX(f){return CB_PAD_L+CB_NUT_W+f*CB_FRET_W;}
 function cbSY(si){return CB_PAD_T+(5-si)*CB_STR_H;}
-function openCB(){buildCBRG();renderCBNeck();updateCBResult();document.getElementById('cbOverlay').classList.add('open');}
+function openCB(){cfMode='build';cfSelectedVoicing=null;document.getElementById('cfBtnBuild').classList.add('active');document.getElementById('cfBtnFind').classList.remove('active');document.getElementById('cbBuildArea').style.display='';document.getElementById('cbFindArea').style.display='none';buildCBRG();renderCBNeck();updateCBResult();renderCFKeyGrid();renderCFChordPanel();document.getElementById('cfDiagramGrid').innerHTML='<div style="color:var(--text-faint);font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:20px;">Select a chord above</div>';document.getElementById('cfDetailWrap').style.display='none';document.getElementById('cfNeckWrap').innerHTML='';document.getElementById('cbOverlay').classList.add('open');}
 function closeCB(){document.getElementById('cbOverlay').classList.remove('open');}
 function clearCB(){cbDots.clear();renderCBNeck();updateCBResult();}
 function setCBLabel(m){cbLM=m;document.getElementById('cbLblNote').classList.toggle('active',m==='note');document.getElementById('cbLblInterval').classList.toggle('active',m==='interval');document.getElementById('cbLblFret').classList.toggle('active',m==='fret');renderCBNeck();}
@@ -1576,12 +2048,100 @@ function renderCBNeck(){
   document.getElementById('cbNeckWrap').innerHTML=s;
   document.querySelectorAll('#cbNeckWrap .cb-hit').forEach(r=>{r.addEventListener('click',e=>{const si=parseInt(e.target.dataset.si),f=parseInt(e.target.dataset.f);const chrIdx=(CB_STRS[si].open+f)%12,key=`${si}_${f}`;if(cbDots.has(key)){cbDots.delete(key);}else{for(const k of cbDots.keys()){if(parseInt(k.split('_')[0])===si)cbDots.delete(k);}cbDots.set(key,{si,f,chrIdx});}renderCBNeck();updateCBResult();});});
 }
+function autoDetectChord(chrArr){
+  // Try every note as a candidate root, collect all matches
+  const matches=[];
+  for(const candidateRoot of chrArr){
+    const intervals=chrArr.map(c=>((c-candidateRoot+12)%12)).sort((a,b)=>a-b);
+    const iSet=new Set(intervals);
+    for(const[type,ints] of CB_CT){
+      const ts=new Set(ints.map(i=>((i%12)+12)%12));
+      if(ts.size===iSet.size&&[...ts].every(i=>iSet.has(i))){
+        matches.push({root:candidateRoot,type,intervals,ints});
+      }
+    }
+  }
+  // Sort: fewer intervals (simpler chords) first
+  matches.sort((a,b)=>a.ints.length-b.ints.length);
+  return matches;
+}
+
 function updateCBResult(){
   const res=document.getElementById('cbResult');
   if(cbDots.size===0){res.innerHTML='<div class="cb-chord-name no-root">Click frets on the neck to build a chord</div>';return;}
   const chrSet=new Set([...cbDots.values()].map(d=>d.chrIdx));
   const chrArr=[...chrSet].sort((a,b)=>a-b);
-  if(cbRoot===null||!chrSet.has(cbRoot)){const nn=chrArr.map(c=>cbNN(c)).join('  \xb7  ');const hint=cbRoot===null?'Select a root above to identify the chord':'Root not in selection \u2014 add it or pick a different root';res.innerHTML=`<div class="cb-chord-name no-root">Notes: ${nn}</div><div class="cb-hint">${hint}</div>`;return;}
+
+  // If no root selected, try auto-detection
+  if(cbRoot===null||!chrSet.has(cbRoot)){
+    if(chrArr.length<2){
+      const nn=chrArr.map(c=>cbNN(c)).join('  \xb7  ');
+      res.innerHTML=`<div class="cb-chord-name no-root">Notes: ${nn}</div><div class="cb-hint">Add more notes to identify the chord</div>`;
+      return;
+    }
+    const matches=autoDetectChord(chrArr);
+    const nn=chrArr.map(c=>cbNN(c)).join('  \xb7  ');
+    if(matches.length===0){
+      res.innerHTML=`<div class="cb-chord-name no-root">Notes: ${nn}</div><div class="cb-hint">Unknown voicing \u2014 no chord match found</div>`;
+      return;
+    }
+    // Build display — best match large, alternates smaller
+    const best=matches[0];
+    const bestRootName=cbNN(best.root);
+    const bestName=bestRootName+(best.type==='maj'?'':best.type);
+    const fHtml=best.intervals.map(i=>{const col=CB_IC[i]||CB_UNK;return`<span class="cb-int-chip" style="background:${col.fill};border-color:${col.stroke};color:${col.text}">${col.label}</span>`;}).join('');
+    const alts=matches.slice(1,5);
+    const altHtml=alts.length>0?`<div style="font-size:11px;color:var(--text-dim);letter-spacing:1px;margin-top:4px;">Also could be: ${alts.map(m=>`<span style="color:var(--accent)">${cbNN(m.root)}${m.type==='maj'?'':m.type}</span>`).join(' &nbsp;/&nbsp; ')}</div>`:'';
+    const noteStr=chrArr.map(c=>cbNN(c)).join('  ');
+
+    // Key detection for auto-detected root
+    const KEY_NAMES=['C','C\u266f','D','E\u266d','E','F','F\u266f','G','A\u266d','A','B\u266d','B'];
+    const MODES=[
+      {name:'Major',    steps:[0,2,4,5,7,9,11], romans:['I','ii','iii','IV','V','vi','vii\u00b0'], quals:['maj','min','min','maj','maj','min','dim']},
+      {name:'Dorian',   steps:[0,2,3,5,7,9,10], romans:['i','ii','III','IV','v','vi\u00b0','VII'], quals:['min','min','maj','maj','min','dim','maj']},
+      {name:'Phrygian', steps:[0,1,3,5,7,8,10], romans:['i','II','III','iv','v\u00b0','VI','vii'], quals:['min','maj','maj','min','dim','maj','min']},
+      {name:'Lydian',   steps:[0,2,4,6,7,9,11], romans:['I','II','iii','iv\u00b0','V','vi','vii'], quals:['maj','maj','min','dim','maj','min','min']},
+      {name:'Mixolydian',steps:[0,2,4,5,7,9,10],romans:['I','ii','iii\u00b0','IV','v','vi','VII'], quals:['maj','min','dim','maj','min','min','maj']},
+      {name:'Minor',    steps:[0,2,3,5,7,8,10], romans:['i','ii\u00b0','III','iv','v','VI','VII'], quals:['min','dim','maj','min','min','maj','maj']},
+      {name:'Locrian',  steps:[0,1,3,5,6,8,10], romans:['i\u00b0','II','iii','iv','V','VI','vii'], quals:['dim','maj','min','min','maj','maj','min']},
+    ];
+    const MODE_COLORS={
+      'Major':     {bg:'#2a2008',bc:'#a07820',tc:'#e8c84a'},
+      'Dorian':    {bg:'#0a2020',bc:'#208080',tc:'#40e0d0'},
+      'Phrygian':  {bg:'#200828',bc:'#902090',tc:'#d060d0'},
+      'Lydian':    {bg:'#082018',bc:'#208850',tc:'#40d880'},
+      'Mixolydian':{bg:'#201808',bc:'#908020',tc:'#d0b840'},
+      'Minor':     {bg:'#1a1030',bc:'#6040a0',tc:'#9a78e8'},
+      'Locrian':   {bg:'#280808',bc:'#a02020',tc:'#ff6060'},
+    };
+    const keyMatches=[];
+    for(let k=0;k<12;k++){
+      for(const mode of MODES){
+        const scale=mode.steps.map(s=>(k+s)%12);
+        if(chrArr.every(n=>scale.includes(n))){
+          const degIdx=scale.indexOf(best.root);
+          if(degIdx>=0) keyMatches.push({key:KEY_NAMES[k],mode:mode.name,roman:mode.romans[degIdx],qual:mode.quals[degIdx]});
+        }
+      }
+    }
+    const chipHtml=keyMatches.length===0
+      ?'<span class="cb-scale-chip" style="color:var(--text-faint);font-style:italic;">no diatonic match</span>'
+      :keyMatches.slice(0,8).map(({key,mode,roman})=>{
+        const mc=MODE_COLORS[mode]||MODE_COLORS['Major'];
+        return`<span style="display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 8px;border-radius:3px;background:rgba(0,0,0,0.3);border:1px solid #2c2b25;border-left:3px solid ${mc.bc};font-family:var(--mono-font);font-size:11px;font-weight:700;cursor:default;" title="${mode}"><span style="color:var(--text-dim);">${key}</span><span style="color:#3a3830;">·</span><span style="color:${mc.tc};">${roman}</span></span>`;
+      }).join('')+(keyMatches.length>8?`<span class="cb-scale-chip" style="color:var(--text-dim);">+${keyMatches.length-8} more</span>`:'');
+
+    res.innerHTML=`<div class="cb-chord-name">${bestName}</div>
+<div class="cb-formula-row">${fHtml}</div>
+<div style="font-size:11px;color:var(--text-dim);letter-spacing:1px;margin-top:2px;">Notes: ${noteStr}</div>
+${altHtml}
+<div style="display:flex;align-items:flex-start;gap:6px;flex-wrap:wrap;margin-top:6px;">
+  <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-faint);margin-right:4px;white-space:nowrap;padding-top:4px;">Keys:</span>
+  <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;flex:1;">${chipHtml}</div>
+</div>`;
+    return;
+  }
+
   const intervals=chrArr.map(c=>((c-cbRoot+12)%12)).sort((a,b)=>a-b);
   const iSet=new Set(intervals);
   const fHtml=intervals.map(i=>{const col=CB_IC[i]||CB_UNK;return`<span class="cb-int-chip" style="background:${col.fill};border-color:${col.stroke};color:${col.text}">${col.label}</span>`;}).join('');
@@ -1664,6 +2224,25 @@ function updateCBResult(){
 ${keyMatches.length>0?`<div id="cbKeyDetail" style="display:none;margin-top:8px;padding:12px;background:#141312;border:1px solid var(--border);border-radius:6px;">${listHtml}</div>`:''}`;
 }
 
+function cfSetLabel(m){
+  cbLM=m;
+  document.getElementById('cfLblNote').classList.toggle('active',m==='note');
+  document.getElementById('cfLblInterval').classList.toggle('active',m==='interval');
+  document.getElementById('cfLblFret').classList.toggle('active',m==='fret');
+  document.getElementById('cbLblNote').classList.toggle('active',m==='note');
+  document.getElementById('cbLblInterval').classList.toggle('active',m==='interval');
+  document.getElementById('cbLblFret').classList.toggle('active',m==='fret');
+  renderCFDiagramGrid();
+}
+function cfToggleFlats(){
+  cbSF=!cbSF;
+  document.getElementById('cfFlatToggle').classList.toggle('active',cbSF);
+  document.getElementById('cbFlatToggle').classList.toggle('active',cbSF);
+  renderCFKeyGrid();
+  renderCFChordPanel();
+  renderCFDiagramGrid();
+}
+
 </script>
 
 <!-- CHORD BUILDER MODAL -->
@@ -1672,31 +2251,73 @@ ${keyMatches.length>0?`<div id="cbKeyDetail" style="display:none;margin-top:8px;
     <div class="cb-header">
       <div>
         <div class="cb-title">CHORD BUILDER</div>
-        <div class="cb-subtitle">Click any fret to place a note &middot; Select a root to identify the chord</div>
+        <div class="cb-subtitle" id="cbSubtitle">Click any fret to place a note · identify any chord</div>
       </div>
-      <button class="cb-close" onclick="closeCB()">&#10005; CLOSE</button>
-    </div>
-    <div class="cb-controls">
-      <span class="cb-ctrl-label">Root:</span>
-      <div id="cbRootGrid" style="display:flex;gap:4px;flex-wrap:wrap;"></div>
-      <div class="cb-sep"></div>
-      <span class="cb-ctrl-label">Label:</span>
-      <div class="cb-lbl-wrap">
-        <button class="cb-lbl-btn active" id="cbLblNote"     onclick="setCBLabel('note')"    >NOTE</button>
-        <button class="cb-lbl-btn"        id="cbLblInterval" onclick="setCBLabel('interval')" >INTERVAL</button>
-        <button class="cb-lbl-btn"        id="cbLblFret"     onclick="setCBLabel('fret')"     >FRET#</button>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div class="cf-mode-toggle">
+          <button class="cf-mode-btn active" id="cfBtnBuild" onclick="switchCBMode('build')">BUILD</button>
+          <button class="cf-mode-btn" id="cfBtnFind" onclick="switchCBMode('find')">FIND</button>
+        </div>
+        <button class="cb-close" onclick="closeCB()">&#10005; CLOSE</button>
       </div>
-      <div class="cb-sep"></div>
-      <div class="cb-flat-wrap" id="cbFlatToggle" onclick="toggleCBFlats()">
-        <span class="cb-flat-label">Flats</span>
-        <div class="cb-flat-switch"><div class="cb-flat-knob"></div></div>
+    </div>
+
+    <!-- BUILD MODE -->
+    <div id="cbBuildArea">
+      <div class="cb-controls">
+        <span class="cb-ctrl-label">Root:</span>
+        <div id="cbRootGrid" style="display:flex;gap:4px;flex-wrap:wrap;"></div>
+        <div class="cb-sep"></div>
+        <span class="cb-ctrl-label">Label:</span>
+        <div class="cb-lbl-wrap">
+          <button class="cb-lbl-btn active" id="cbLblNote"     onclick="setCBLabel('note')"    >NOTE</button>
+          <button class="cb-lbl-btn"        id="cbLblInterval" onclick="setCBLabel('interval')" >INTERVAL</button>
+          <button class="cb-lbl-btn"        id="cbLblFret"     onclick="setCBLabel('fret')"     >FRET#</button>
+        </div>
+        <div class="cb-sep"></div>
+        <div class="cb-flat-wrap" id="cbFlatToggle" onclick="toggleCBFlats()">
+          <span class="cb-flat-label">Flats</span>
+          <div class="cb-flat-switch"><div class="cb-flat-knob"></div></div>
+        </div>
+        <button class="cb-clear-btn" onclick="clearCB()">&#10005; CLEAR</button>
       </div>
-      <button class="cb-clear-btn" onclick="clearCB()">&#10005; CLEAR</button>
+      <div class="cb-neck-wrap" id="cbNeckWrap"></div>
+      <div class="cb-result" id="cbResult">
+        <div class="cb-chord-name no-root">Click frets on the neck to build a chord</div>
+      </div>
     </div>
-    <div class="cb-neck-wrap" id="cbNeckWrap"></div>
-    <div class="cb-result" id="cbResult">
-      <div class="cb-chord-name no-root">Click frets on the neck to build a chord</div>
+
+    <!-- FIND MODE -->
+    <div id="cbFindArea" style="display:none;flex-direction:column;">
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 20px;background:#141312;border-bottom:1px solid #2c2b25;">
+        <span class="cb-ctrl-label">Label:</span>
+        <div class="cb-lbl-wrap">
+          <button class="cb-lbl-btn active" id="cfLblNote"     onclick="cfSetLabel('note')"    >NOTE</button>
+          <button class="cb-lbl-btn"        id="cfLblInterval" onclick="cfSetLabel('interval')" >INTERVAL</button>
+          <button class="cb-lbl-btn"        id="cfLblFret"     onclick="cfSetLabel('fret')"     >FRET#</button>
+        </div>
+        <div class="cb-sep"></div>
+        <div class="cb-flat-wrap" id="cfFlatToggle" onclick="cfToggleFlats()">
+          <span class="cb-flat-label">Flats</span>
+          <div class="cb-flat-switch"><div class="cb-flat-knob"></div></div>
+        </div>
+      </div>
+      <div class="cf-key-grid" id="cfKeyGrid"></div>
+      <div class="cf-chord-panel" id="cfChordPanel">
+        <div style="color:var(--text-faint);font-size:12px;letter-spacing:2px;text-transform:uppercase;">Select a key above</div>
+      </div>
+      <div class="cf-diagram-grid" id="cfDiagramGrid">
+        <div style="color:var(--text-faint);font-size:12px;letter-spacing:2px;text-transform:uppercase;padding:20px;">Select a chord above</div>
+      </div>
+      <div class="cf-detail-wrap" id="cfDetailWrap" style="display:none;">
+        <div style="padding:10px 20px;background:#141312;border-top:1px solid #2c2b25;border-bottom:1px solid #2c2b25;display:flex;align-items:center;gap:10px;">
+          <span style="font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);">Full Neck View:</span>
+          <span id="cfDetailLabel" style="font-family:var(--mono-font);font-size:13px;font-weight:700;color:#e8c84a;"></span>
+        </div>
+        <div class="cf-neck-wrap" id="cfNeckWrap"></div>
+      </div>
     </div>
+
   </div>
 </div>
 
