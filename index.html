@@ -507,6 +507,92 @@ h1 {
 .cp-chords{display:flex;gap:5px;align-items:center;flex-wrap:wrap;}
 .cp-chord{font-family:var(--mono-font);font-size:12px;font-weight:700;padding:3px 9px;border-radius:3px;border:1px solid #383630;background:#141312;color:var(--text);}
 
+/* Header: let buttons wrap to a second line instead of running off screen */
+.header{flex-wrap:wrap;row-gap:12px;}
+.header-btns{margin-left:auto;display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end;}
+/* ── Scale positions ── */
+.pos-wrap{width:100%;max-width:1740px;display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px 18px;}
+.pos-controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.pos-btn{font-family:var(--mono-font);font-size:13px;font-weight:700;letter-spacing:1px;padding:7px 14px;border-radius:4px;border:1.5px solid var(--border2);background:var(--surface2);color:var(--text-dim);cursor:pointer;transition:all 0.1s;}
+.pos-btn:hover{color:var(--text);border-color:var(--text-dim);}
+.pos-btn.active{background:#1e1a08;border-color:var(--accent);color:var(--accent);}
+.pos-btn .pos-btn-shape{font-family:var(--display-font);font-size:15px;letter-spacing:1px;margin-left:6px;}
+.pos-nav{font-family:var(--display-font);font-size:13px;letter-spacing:2px;padding:7px 14px;border-radius:4px;border:1.5px solid var(--border2);background:transparent;color:var(--text-dim);cursor:pointer;transition:all 0.1s;}
+.pos-nav:hover{border-color:var(--accent);color:var(--accent);}
+.pos-labels{display:flex;gap:12px;flex-wrap:wrap;}
+.pos-label{flex:1;min-width:280px;display:flex;flex-direction:column;gap:4px;padding:10px 16px;background:var(--surface2);border:1px solid var(--border);border-left:5px solid var(--accent);border-radius:6px;}
+.pos-shape{font-family:var(--display-font);font-size:46px;font-weight:700;letter-spacing:4px;line-height:1;display:flex;align-items:baseline;gap:12px;}
+.pos-shape-tag{font-size:16px;letter-spacing:3px;color:var(--text-dim);}
+.pos-detail{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--text);}
+.pos-note{font-size:13px;color:var(--text-dim);letter-spacing:0.5px;}
+@media (max-width:700px){.pos-shape{font-size:36px;}.pos-label{min-width:0;}}
+
+/* ── Key signature trainer ── */
+.tr-open-btn.ks-open{background:#2a1a2a;border-color:#a860a8;color:#d890d8;}
+.ks-modal{max-width:900px;}
+.ks-order{display:flex;gap:4px;flex-wrap:wrap;}
+.ks-order-chip{font-family:var(--mono-font);font-size:13px;font-weight:700;padding:4px 9px;border-radius:3px;border:1.5px solid #383630;background:#1d1c18;color:var(--text-dim);display:inline-flex;align-items:baseline;gap:4px;transition:all 0.15s;}
+.ks-order-chip.lit{background:#2a1a2a;border-color:#c070c0;color:#f0b0f0;}
+.ks-order-num{font-size:9px;color:var(--text-faint);}
+.ks-order-chip.lit .ks-order-num{color:#a070a0;}
+.ks-mnemonic{font-size:12px;font-style:italic;color:var(--text-dim);letter-spacing:0.5px;}
+.ks-drill-hint{display:none;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);}
+.ks-mnemonic b{color:#d890d8;font-style:normal;}
+.ks-body{flex-direction:column;gap:14px;padding:20px;}
+.ks-study-opts{display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+.ks-card{min-height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:28px 20px;background:#1d1c18;border:2px solid #383630;border-radius:10px;cursor:pointer;user-select:none;text-align:center;transition:border-color 0.15s,background 0.15s;}
+.ks-card:hover{border-color:#a860a8;}
+.ks-card.flipped{background:#1c1420;border-color:#c070c0;}
+.ks-card-big{font-family:var(--display-font);font-size:54px;letter-spacing:4px;color:#e8c84a;line-height:1;}
+.ks-card-mid{font-family:var(--display-font);font-size:20px;letter-spacing:3px;color:var(--text-dim);}
+.ks-card-prompt{font-size:14px;color:var(--text-dim);letter-spacing:0.5px;}
+.ks-card-line{font-size:15px;color:var(--text);}
+.ks-card-line b{color:#c0a0ff;}
+.ks-card-trick{font-size:13px;color:#d890d8;letter-spacing:0.5px;max-width:520px;}
+.ks-card-flip{font-size:10px;letter-spacing:3px;color:var(--text-dim);margin-top:6px;}
+.ks-chip-row{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;}
+.ks-chip{font-family:var(--mono-font);font-size:16px;font-weight:700;padding:5px 12px;border-radius:4px;border:1.5px solid #c070c0;background:#2a1a2a;color:#f0b0f0;}
+.ks-chip.none{border-color:#383630;background:#141312;color:var(--text-dim);font-size:13px;}
+.ks-chip.weak{font-size:13px;padding:3px 9px;border-color:#c03030;background:#300808;color:#ff8080;}
+.ks-scale{display:inline-flex;gap:4px;flex-wrap:wrap;vertical-align:middle;}
+.ks-scale-note{font-family:var(--mono-font);font-size:13px;font-weight:700;padding:2px 7px;border-radius:3px;border:1px solid #383630;background:#141312;color:var(--text);}
+.ks-scale-note.root{border-color:#e8c84a;color:#e8c84a;}
+.ks-nav{display:flex;align-items:center;justify-content:center;gap:16px;}
+.ks-nav-btn{font-family:var(--display-font);font-size:14px;letter-spacing:2px;padding:7px 18px;border-radius:4px;border:1.5px solid var(--border2);background:transparent;color:var(--text-dim);cursor:pointer;transition:all 0.1s;}
+.ks-nav-btn:hover{border-color:#c070c0;color:#d890d8;}
+.ks-count{font-family:var(--mono-font);font-size:13px;color:var(--text-dim);min-width:50px;text-align:center;}
+.ks-tips{display:flex;flex-direction:column;gap:8px;padding:14px 16px;background:#141312;border:1px solid #2c2b25;border-radius:8px;}
+.ks-tip{font-size:13px;color:var(--text);display:flex;gap:10px;align-items:baseline;}
+.ks-tip-num{font-family:var(--display-font);font-size:14px;color:#d890d8;min-width:12px;}
+.ks-stats-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.ks-stats{display:flex;gap:10px;flex-wrap:wrap;}
+.ks-stat{font-family:var(--mono-font);font-size:14px;font-weight:700;color:var(--text);padding:6px 12px;background:#1d1c18;border:1px solid #2c2b25;border-radius:4px;display:flex;gap:8px;align-items:baseline;}
+.ks-stat-lbl{font-family:var(--body-font);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);font-weight:400;}
+.ks-reset{margin-left:auto;font-family:var(--display-font);font-size:12px;letter-spacing:2px;padding:6px 14px;border-radius:4px;cursor:pointer;background:transparent;border:1.5px solid #484540;color:var(--text-dim);}
+.ks-reset:hover{border-color:#c03030;color:#ff6060;}
+.ks-q{font-size:22px;color:var(--text);letter-spacing:0.5px;padding:8px 0;}
+.ks-q b{color:#e8c84a;}
+.ks-opts{display:flex;gap:8px;flex-wrap:wrap;}
+.ks-opt{font-family:var(--mono-font);font-size:15px;font-weight:700;padding:10px 16px;min-width:56px;border-radius:5px;border:1.5px solid #383630;background:#1d1c18;color:var(--text);cursor:pointer;transition:all 0.1s;}
+.ks-opt:hover:not(:disabled){border-color:#c070c0;color:#f0b0f0;}
+.ks-opt:disabled{cursor:default;opacity:0.55;}
+.ks-opt.right{opacity:1;background:#0d2e1c;border-color:#40b870;color:#80e8a0;}
+.ks-opt.wrong{opacity:1;background:#300808;border-color:#c03030;color:#ff8080;}
+.ks-tap-row{align-items:center;gap:10px;}
+.ks-tap{display:flex;gap:6px;flex-wrap:wrap;min-height:38px;align-items:center;padding:6px 10px;background:#141312;border:1px dashed #484540;border-radius:5px;flex:1;}
+.ks-tap-empty{font-size:12px;color:var(--text-dim);letter-spacing:1px;}
+.ks-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.ks-go-btn{font-family:var(--display-font);font-size:15px;letter-spacing:2px;padding:9px 22px;border-radius:4px;cursor:pointer;background:#2a1a2a;border:1.5px solid #c070c0;color:#f0b0f0;}
+.ks-go-btn:hover{background:#3a2240;}
+.ks-feedback{display:flex;flex-direction:column;gap:6px;}
+.ks-fb-head{font-family:var(--display-font);font-size:24px;letter-spacing:3px;}
+.ks-fb-head.right{color:#52c48a;}
+.ks-fb-head.wrong{color:#ff6060;}
+.ks-fb-body{font-size:14px;color:var(--text);}
+.ks-weak{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-top:10px;border-top:1px solid #2c2b25;}
+.ks-weak-hint{font-size:12px;color:var(--text-dim);}
+@media (max-width:700px){.ks-card-big{font-size:40px;}.ks-q{font-size:18px;}}
+
 </style>
 </head>
 <body>
@@ -517,9 +603,12 @@ h1 {
     <h1>Greg's Guitar Theory Map</h1>
     <span class="header-sub">Triad Visualizer · Circle of Fifths · Full Neck · All Positions</span>
   </div>
-  <button class="tr-open-btn" onclick="openTR()" style="margin-left:auto">KEY THEORY REFERENCE</button>
-  <button class="tr-open-btn" onclick="openCB()" style="margin-left:8px;background:#1a2a1a;border-color:#40a860;color:#60d880;">CHORD BUILDER</button>
-  <button class="tr-open-btn" onclick="openCP()" style="margin-left:8px;background:#1a1a2a;border-color:#4060a8;color:#7090d8;">CHORD PROGRESSIONS</button>
+  <div class="header-btns">
+  <button class="tr-open-btn" onclick="openTR()">KEY THEORY REFERENCE</button>
+  <button class="tr-open-btn" onclick="openCB()" style="background:#1a2a1a;border-color:#40a860;color:#60d880;">CHORD BUILDER</button>
+  <button class="tr-open-btn" onclick="openCP()" style="background:#1a1a2a;border-color:#4060a8;color:#7090d8;">CHORD PROGRESSIONS</button>
+  <button class="tr-open-btn ks-open" onclick="openKS()">KEY SIG TRAINER</button>
+  </div>
 </div>
 
 <!-- SCALE FORMULA PANEL -->
@@ -655,6 +744,26 @@ h1 {
   <span class="neck-zoom-label">Neck Zoom:</span>
   <input class="neck-zoom-slider" id="neckZoom" type="range" min="30" max="100" value="100" oninput="updateNeckZoom(this.value)">
   <span class="neck-zoom-val" id="neckZoomVal">100%</span>
+</div>
+
+<!-- SCALE POSITIONS -->
+<div class="pos-wrap" id="posWrap" style="display:none">
+  <div class="pos-controls">
+    <span class="scale-mode-label">Position:</span>
+    <button class="pos-nav" onclick="stepScalePos(-1)">PREV</button>
+    <button class="pos-btn" data-pos="1" onclick="setScalePos(1)">1<span class="pos-btn-shape">E</span></button>
+    <button class="pos-btn" data-pos="2" onclick="setScalePos(2)">2<span class="pos-btn-shape">D</span></button>
+    <button class="pos-btn" data-pos="3" onclick="setScalePos(3)">3<span class="pos-btn-shape">C</span></button>
+    <button class="pos-btn" data-pos="4" onclick="setScalePos(4)">4<span class="pos-btn-shape">A</span></button>
+    <button class="pos-btn" data-pos="5" onclick="setScalePos(5)">5<span class="pos-btn-shape">G</span></button>
+    <button class="pos-btn" data-pos="full" onclick="setScalePos('full')">FULL NECK</button>
+    <button class="pos-nav" onclick="stepScalePos(1)">NEXT</button>
+    <div class="flat-toggle-wrap" id="posHideToggle" onclick="toggleScaleHide()" style="margin-left:auto;">
+      <span class="flat-toggle-label">Hide Notes</span>
+      <div class="flat-toggle-switch"><div class="flat-toggle-knob"></div></div>
+    </div>
+  </div>
+  <div class="pos-labels" id="posLabels"></div>
 </div>
 
 <div class="neck-wrap" id="neckWrap" style="min-height:214px;"></div>
@@ -1014,27 +1123,165 @@ function toggleScale(mode){
   renderNeck();
 }
 
+// ── SCALE POSITIONS (CAGED) ───────────────────────────────────────────
+// Position order walks up the neck: E, D, C, A, G shapes.
+// Major shapes are named by the major chord shape; minor, pentatonic and
+// blues shapes are named by the minor chord shape built on the same root.
+let scalePos=1, scaleHideNotes=false;
+const POS_SHAPES=['E','D','C','A','G'];
+const OPEN_ABS=[40,45,50,55,59,64];
+// Major scale patterns, fret offsets per string (low E first) from the root on the low E string
+const MAJ_CAGED={
+  E:[[0,2],[-1,0,2],[-1,1,2],[-1,1,2],[0,2],[-1,0]],
+  D:[[2,4,5],[2,4],[1,2,4],[1,2,4],[2,4,5],[2,4,5]],
+  C:[[4,5,7],[4,6,7],[4,6,7],[4,6],[4,5,7],[4,5,7]],
+  A:[[7,9],[6,7,9],[6,7,9],[6,8,9],[7,9,10],[7,9]],
+  G:[[9,11,12],[9,11,12],[9,11],[8,9,11],[9,10,12],[9,11,12]]
+};
+// A minor shape uses the same notes as this shape of the relative major
+const MINOR_TO_MAJ_SHAPE={E:'G',D:'E',C:'D',A:'C',G:'A'};
+const POS_MODE_COLORS={pent:'#40a8e0',blues:'#20c0b0',major:'#70b840',minor:'#9060d0'};
+const POS_MODE_TEXT={pent:'#70d0ff',blues:'#60f0e0',major:'#a0e060',minor:'#c090ff'};
+const POS_MODE_NAMES={pent:'Minor Pentatonic',blues:'Blues Scale',major:'Major Scale',minor:'Natural Minor Scale'};
+
+function lowEFret(pc){for(let f=1;f<=12;f++)if((STRINGS[0].open+f)%12===pc)return f;return 12;}
+
+function fitPosPts(pts,base){
+  let best=null;
+  for(let k=-24;k<=24;k+=12){
+    const p=pts.map(([s,f])=>[s,f+k]);
+    const fs=p.map(x=>x[1]),lo=Math.min(...fs),hi=Math.max(...fs);
+    if(lo<0||hi>FRETS)continue;
+    const c={pts:p,lo,hi};
+    if(!best){best=c;continue;}
+    const bOk=best.lo>=base,cOk=lo>=base;
+    if((cOk&&!bOk)||(cOk===bOk&&lo<best.lo))best=c;
+  }
+  if(!best){
+    const p=pts.filter(([s,f])=>f>=0&&f<=FRETS),fs=p.map(x=>x[1]);
+    best={pts:p,lo:Math.min(...fs),hi:Math.max(...fs)};
+  }
+  return best;
+}
+
+function rawPosPts(mode,r,p){
+  const shape=POS_SHAPES[p],pts=[];
+  if(mode==='major'||mode==='minor'){
+    const R=mode==='major'?lowEFret(r):lowEFret((r+3)%12);
+    const off=MAJ_CAGED[mode==='major'?shape:MINOR_TO_MAJ_SHAPE[shape]];
+    off.forEach((o,si)=>o.forEach(x=>pts.push([si,R+x])));
+    return pts;
+  }
+  // pentatonic and blues: two notes per string, starting on the p-th note of the box on low E
+  const iv=SCALE_INTERVALS.pent,set=new Set(iv.map(i=>(r+i)%12));
+  const seq=[];let x=OPEN_ABS[0]+lowEFret(r)+iv[p];
+  while(seq.length<12){if(set.has(x%12))seq.push(x);x++;}
+  seq.forEach((pt,i)=>{const si=Math.floor(i/2);pts.push([si,pt-OPEN_ABS[si]]);});
+  return pts;
+}
+
+function getScaleDots(mode,r){
+  const set=new Set(SCALE_INTERVALS[mode].map(i=>(r+i)%12));
+  const dots=new Set();
+  if(scalePos==='full'){
+    for(let si=0;si<STR_COUNT;si++)for(let f=0;f<=FRETS;f++)if(set.has((STRINGS[si].open+f)%12))dots.add(`${si}_${f}`);
+    return {dots,lo:0,hi:FRETS,full:true};
+  }
+  const p=scalePos-1;
+  const base=p===0?0:fitPosPts(rawPosPts(mode,r,0),0).lo;
+  const fit=fitPosPts(rawPosPts(mode,r,p),base);
+  fit.pts.forEach(([s,f])=>dots.add(`${s}_${f}`));
+  if(mode==='blues'){
+    const b5=(r+6)%12;
+    for(let si=0;si<STR_COUNT;si++)for(let f=fit.lo;f<=fit.hi;f++)if((STRINGS[si].open+f)%12===b5)dots.add(`${si}_${f}`);
+  }
+  return {dots,lo:fit.lo,hi:fit.hi,full:false};
+}
+
+function setScalePos(p){scalePos=p;renderNeck();}
+function stepScalePos(d){
+  if(scalePos==='full'){scalePos=d>0?1:5;}
+  else{scalePos=((scalePos-1+d+5)%5)+1;}
+  renderNeck();
+}
+function toggleScaleHide(){scaleHideNotes=!scaleHideNotes;renderNeck();}
+
+function updatePosUI(posInfo){
+  const wrap=document.getElementById('posWrap');
+  if(!wrap)return;
+  const show=scaleModes.size>0&&!activeTriadScale&&!formulaChordState;
+  wrap.style.display=show?'flex':'none';
+  if(!show)return;
+  document.querySelectorAll('.pos-btn').forEach(b=>{
+    const v=b.dataset.pos==='full'?'full':Number(b.dataset.pos);
+    b.classList.toggle('active',v===scalePos);
+  });
+  document.getElementById('posHideToggle').classList.toggle('active',scaleHideNotes);
+  const r=CHR.indexOf(state.key),keyName=noteName(r);
+  let html='';
+  ['major','minor','pent','blues'].forEach(m=>{
+    if(!scaleModes.has(m)||!posInfo[m])return;
+    const info=posInfo[m],col=POS_MODE_TEXT[m],bord=POS_MODE_COLORS[m];
+    let big,detail,note='';
+    if(info.full){
+      big='FULL NECK';
+      detail=`${keyName} ${POS_MODE_NAMES[m]} &middot; every note, frets 0&ndash;${FRETS}`;
+    } else {
+      const shape=POS_SHAPES[scalePos-1];
+      big=`${shape} SHAPE`;
+      const unit=(m==='pent'||m==='blues')?'Box':'Position';
+      detail=`${keyName} ${POS_MODE_NAMES[m]} &middot; ${unit} ${scalePos} &middot; Frets ${info.lo}&ndash;${info.hi}`;
+      if(m==='minor'){
+        const rel=noteName((r+3)%12);
+        note=`Same notes as ${rel} major. This is the ${rel} major ${MINOR_TO_MAJ_SHAPE[shape]} shape, with ${keyName} as the root.`;
+      } else if(m==='pent'){
+        note=`Same area of the neck as the ${keyName} minor scale ${shape} shape, without the 2nd and 6th.`;
+      } else if(m==='blues'){
+        note=`The minor pentatonic ${shape} shape plus the b5 blue note.`;
+      } else if(m==='major'){
+        note=`Named for the open ${shape} major chord shape that sits inside it, rooted on ${keyName}.`;
+      }
+    }
+    if(scaleHideNotes)note=(note?note+' ':'')+'Notes hidden: only roots are showing. Play the shape from memory, then turn Hide Notes off to check.';
+    html+=`<div class="pos-label" style="border-left-color:${bord}">
+      <div class="pos-shape" style="color:${col}">${big}${m!=='major'&&!info.full?'<span class="pos-shape-tag">'+(m==='minor'?'MINOR':m==='pent'?'PENT':'BLUES')+'</span>':''}</div>
+      <div class="pos-detail">${detail}</div>
+      ${note?`<div class="pos-note">${note}</div>`:''}
+    </div>`;
+  });
+  document.getElementById('posLabels').innerHTML=html;
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;
+  const t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.tagName==='SELECT'))return;
+  if(['ksOverlay','cbOverlay','cpOverlay','trOverlay'].some(id=>{const el=document.getElementById(id);return el&&el.classList.contains('open');}))return;
+  const wrap=document.getElementById('posWrap');
+  if(!wrap||wrap.style.display==='none')return;
+  e.preventDefault();stepScalePos(e.key==='ArrowRight'?1:-1);
+});
+
 function buildMultiScaleSVG(root){
   const r=CHR.indexOf(root);
-  const PENT_BOX_OFFSETS=[[0,3],[0,2],[0,2],[0,2],[0,3],[0,3]];
-  const BLUES_BOX_OFFSETS=[[0,3],[0,1,2],[0,2],[0,2,3],[0,3],[0,3]];
-  const MAJ_BOX_OFFSETS=[[0,2],[-1,0,2],[-1,1,2],[-1,1,2],[0,2],[-1,0]];
-  const findAnchor=()=>{const lowEOpen=STRINGS[0].open;for(let f=1;f<=FRETS;f++)if((lowEOpen+f)%12===r)return f;if((STRINGS[0].open%12)===r)return 0;return 0;};
-  const anchor=(scaleModes.has('pent')||scaleModes.has('blues')||scaleModes.has('major')||scaleModes.has('minor'))?findAnchor():null;
-  const pentDots=new Set(),bluesDots=new Set(),majDots=new Set(),minorDots=new Set();
-  if(scaleModes.has('pent')&&anchor!==null) PENT_BOX_OFFSETS.forEach((offsets,si)=>offsets.forEach(off=>{const f=anchor+off;if(f>=0&&f<=FRETS)pentDots.add(`${si}_${f}`);}));
-  if(scaleModes.has('blues')&&anchor!==null) BLUES_BOX_OFFSETS.forEach((offsets,si)=>offsets.forEach(off=>{const f=anchor+off;if(f>=0&&f<=FRETS)bluesDots.add(`${si}_${f}`);}));
-  if(scaleModes.has('major')&&anchor!==null) MAJ_BOX_OFFSETS.forEach((offsets,si)=>offsets.forEach(off=>{const f=anchor+off;if(f>=0&&f<=FRETS)majDots.add(`${si}_${f}`);}));
-  if(scaleModes.has('minor')&&anchor!==null){const minorChrSet=new Set(SCALE_INTERVALS.minor.map(i=>(r+i)%12));const winLo=anchor-1,winHi=anchor+3;for(let si=0;si<STR_COUNT;si++)for(let f=Math.max(0,winLo);f<=Math.min(FRETS,winHi);f++){const chrIdx=(STRINGS[si].open+f)%12;if(minorChrSet.has(chrIdx))minorDots.add(`${si}_${f}`);}}
+  const posInfo={};
+  ['pent','blues','major','minor'].forEach(m=>{if(scaleModes.has(m))posInfo[m]=getScaleDots(m,r);});
+  const pentDots=posInfo.pent?posInfo.pent.dots:new Set(),bluesDots=posInfo.blues?posInfo.blues.dots:new Set(),majDots=posInfo.major?posInfo.major.dots:new Set(),minorDots=posInfo.minor?posInfo.minor.dots:new Set();
+  buildMultiScaleSVG.lastPosInfo=posInfo;
   const pentChrMap={},bluesChrMap={},majChrMap={},minorChrMap={};
   if(scaleModes.has('pent'))  SCALE_INTERVALS.pent .forEach(i=>{pentChrMap [(r+i)%12]=SCALE_DEGREE_LABELS.pent [i];});
   if(scaleModes.has('blues')) SCALE_INTERVALS.blues.forEach(i=>{bluesChrMap[(r+i)%12]=SCALE_DEGREE_LABELS.blues[i];});
   if(scaleModes.has('major')) SCALE_INTERVALS.major.forEach(i=>{majChrMap  [(r+i)%12]=SCALE_DEGREE_LABELS.major[i];});
   if(scaleModes.has('minor')) SCALE_INTERVALS.minor.forEach(i=>{minorChrMap[(r+i)%12]=SCALE_DEGREE_LABELS.minor[i];});
   let s=buildNeckBase();
+  Object.keys(posInfo).forEach(m=>{
+    const pi=posInfo[m];if(pi.full)return;
+    const x1=pi.lo===0?PAD_L-34:fretLineX(pi.lo-1)+2,x2=fretLineX(pi.hi)-2;
+    s+=`<rect x="${x1}" y="${PAD_T-24}" width="${x2-x1}" height="${(STR_COUNT-1)*STR_H+48}" rx="6" fill="${POS_MODE_COLORS[m]}" fill-opacity="0.07" stroke="${POS_MODE_COLORS[m]}" stroke-opacity="0.55" stroke-width="1.5" stroke-dasharray="6 4"/>`;
+  });
   for(let si=0;si<STR_COUNT;si++){
     for(let f=0;f<=FRETS;f++){
       const chrIdx=(STRINGS[si].open+f)%12;
+      if(scaleHideNotes&&chrIdx!==r)continue;
       const x=f===0?PAD_L-14:fretSlotX(f),y=strY(si);
       const hits=[];
       if(scaleModes.has('pent')&&pentDots.has(`${si}_${f}`))   hits.push({mode:'pent',  deg:pentChrMap [chrIdx]||'1'});
@@ -1213,6 +1460,7 @@ function renderNeck(){
   else if(scaleModes.size>0) html=buildMultiScaleSVG(state.key);
   else html=buildNeckSVG(triadTones(state.key,state.quality),state.quality,state.filters);
   document.getElementById('neckWrap').innerHTML=html;
+  updatePosUI(scaleModes.size>0&&!activeTriadScale&&!formulaChordState?(buildMultiScaleSVG.lastPosInfo||{}):{});
   setTimeout(applyNeckZoom,50);
 }
 
@@ -1696,6 +1944,304 @@ function updateCBResult(){
 </div>
 ${keyMatches.length>0?`<div id="cbKeyDetail" style="display:none;margin-top:8px;padding:12px;background:#141312;border:1px solid var(--border);border-radius:6px;">${listHtml}</div>`:''}`;
 }
+
+</script>
+
+<!-- KEY SIGNATURE TRAINER MODAL -->
+<div class="cb-overlay" id="ksOverlay" onclick="if(event.target===this)closeKS()">
+  <div class="cb-modal ks-modal">
+    <div class="cb-header" style="border-bottom-color:#c070c0;">
+      <div>
+        <div class="cb-title" style="color:#d890d8;">KEY SIGNATURE TRAINER</div>
+        <div class="cb-subtitle">Sharp keys &middot; Study the cards, then test yourself in the drill</div>
+      </div>
+      <button class="cb-close" onclick="closeKS()">&#10005; CLOSE</button>
+    </div>
+    <div class="cb-controls">
+      <div class="cb-lbl-wrap">
+        <button class="cb-lbl-btn active" id="ksModeStudy" onclick="setKSMode('study')">STUDY</button>
+        <button class="cb-lbl-btn" id="ksModeDrill" onclick="setKSMode('drill')">DRILL</button>
+      </div>
+      <div class="cb-sep"></div>
+      <div id="ksOrderWrap" style="display:contents">
+        <span class="cb-ctrl-label">Order of sharps</span>
+        <div class="ks-order" id="ksOrder"></div>
+        <span class="ks-mnemonic"><b>F</b>ather <b>C</b>harles <b>G</b>oes <b>D</b>own <b>A</b>nd <b>E</b>nds <b>B</b>attle</span>
+      </div>
+      <span class="ks-drill-hint" id="ksDrillHint">Order of sharps is hidden until you answer</span>
+    </div>
+
+    <!-- STUDY -->
+    <div class="ks-body" id="ksStudy">
+      <div class="ks-study-opts">
+        <span class="cb-ctrl-label">Card front</span>
+        <div class="cb-lbl-wrap">
+          <button class="cb-lbl-btn active" id="ksFrontKey" onclick="setKSFront('key')">KEY NAME</button>
+          <button class="cb-lbl-btn" id="ksFrontSharps" onclick="setKSFront('sharps')">SHARPS</button>
+        </div>
+        <div class="cb-flat-wrap" id="ksShuffleToggle" onclick="toggleKSShuffle()">
+          <span class="cb-flat-label">Shuffle</span>
+          <div class="cb-flat-switch"><div class="cb-flat-knob"></div></div>
+        </div>
+      </div>
+      <div class="ks-card" id="ksCard" onclick="flipKS()"></div>
+      <div class="ks-nav">
+        <button class="ks-nav-btn" onclick="stepKS(-1)">PREV</button>
+        <span class="ks-count" id="ksCount">1 / 8</span>
+        <button class="ks-nav-btn" onclick="stepKS(1)">NEXT</button>
+      </div>
+      <div class="cb-hint" style="color:var(--text-dim);text-align:center;">Tap the card or press Space to flip &middot; Arrow keys move between cards</div>
+      <div class="ks-tips">
+        <div class="ks-tip"><span class="ks-tip-num">1</span>Sharps always get added in the same order: F C G D A E B. A key with 3 sharps has the first 3.</div>
+        <div class="ks-tip"><span class="ks-tip-num">2</span>The last sharp is one half step below the key name. If the last sharp is G&#9839;, the key is A major.</div>
+        <div class="ks-tip"><span class="ks-tip-num">3</span>The relative minor is the 6th note of the major scale, or 3 frets down on the same string.</div>
+        <div class="ks-tip"><span class="ks-tip-num">4</span>Each new sharp key is a 5th above the last one: C, G, D, A, E, B, F&#9839;, C&#9839;. That is the sharp side of the circle of fifths.</div>
+      </div>
+    </div>
+
+    <!-- DRILL -->
+    <div class="ks-body" id="ksDrill" style="display:none">
+      <div class="ks-stats-row">
+        <div class="ks-stats" id="ksStats"></div>
+        <button class="ks-reset" onclick="ksResetStats()">RESET</button>
+      </div>
+      <div class="ks-q" id="ksQ"></div>
+      <div class="ks-opts" id="ksOpts"></div>
+      <div class="ks-tap-row" id="ksTapRow" style="display:none">
+        <div class="ks-tap" id="ksTap"></div>
+      </div>
+      <div class="ks-actions">
+        <button class="ks-nav-btn" id="ksClearBtn" onclick="ksClearTap()" style="display:none">CLEAR</button>
+        <button class="ks-go-btn" id="ksCheckBtn" onclick="ksCheckSpell()" style="display:none">CHECK</button>
+        <button class="ks-go-btn" id="ksNextBtn" onclick="ksNewQuestion()" style="display:none">NEXT QUESTION</button>
+      </div>
+      <div class="ks-feedback" id="ksFb"></div>
+      <div class="ks-weak" id="ksWeak"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── KEY SIGNATURE TRAINER (sharp keys) ────────────────────────────────
+const KS_SHARPS=['F#','C#','G#','D#','A#','E#','B#'];
+const KS_KEYS=[
+  {k:'C',n:0,rel:'A'},{k:'G',n:1,rel:'E'},{k:'D',n:2,rel:'B'},{k:'A',n:3,rel:'F#'},
+  {k:'E',n:4,rel:'C#'},{k:'B',n:5,rel:'G#'},{k:'F#',n:6,rel:'D#'},{k:'C#',n:7,rel:'A#'}
+];
+const ksD=n=>n.replace('#','♯');
+const ksKey=k=>KS_KEYS.find(x=>x.k===k);
+function ksSharpsOf(k){return KS_SHARPS.slice(0,ksKey(k).n);}
+function ksScale(k){
+  const L='CDEFGAB',start=L.indexOf(k[0]);
+  const sh=new Set(ksSharpsOf(k).map(s=>s[0]));
+  const out=[];for(let i=0;i<7;i++){const l=L[(start+i)%7];out.push(sh.has(l)?l+'♯':l);}
+  return out;
+}
+function ksTrick(k){
+  const e=ksKey(k);
+  if(e.n===0)return 'C major has no sharps or flats: all natural notes.';
+  const last=KS_SHARPS[e.n-1];
+  return `Last sharp is ${ksD(last)}. One half step up from ${ksD(last)} is ${ksD(k)}, the key name.`;
+}
+function ksSigText(k){const s=ksSharpsOf(k);return s.length?s.map(ksD).join(' '):'no sharps';}
+function ksCountText(n){return n===0?'NO SHARPS':n===1?'1 SHARP':n+' SHARPS';}
+
+let ksMode='study',ksIdx=0,ksFlipped=false,ksFront='key',ksShuffled=false,ksDeck=KS_KEYS.map(x=>x.k);
+let ksStats={right:0,total:0,streak:0,best:0};
+try{ksStats.best=Number(localStorage.getItem('gtKsBest')||0)||0;}catch(e){}
+const ksWeights={};KS_KEYS.forEach(x=>ksWeights[x.k]=1);
+let ksCur=null,ksAnswered=false,ksTap=[],ksLast=null;
+
+function openKS(){
+  renderKSOrder([]);
+  setKSMode(ksMode);
+  document.getElementById('ksOverlay').classList.add('open');
+}
+function closeKS(){document.getElementById('ksOverlay').classList.remove('open');}
+
+function renderKSOrder(lit,hide){
+  const litSet=new Set(lit);
+  document.getElementById('ksOrderWrap').style.display=hide?'none':'contents';
+  document.getElementById('ksDrillHint').style.display=hide?'inline':'none';
+  document.getElementById('ksOrder').innerHTML=KS_SHARPS.map((s,i)=>
+    `<span class="ks-order-chip${litSet.has(s)?' lit':''}"><span class="ks-order-num">${i+1}</span>${ksD(s)}</span>`).join('');
+}
+
+function setKSMode(m){
+  ksMode=m;
+  document.getElementById('ksModeStudy').classList.toggle('active',m==='study');
+  document.getElementById('ksModeDrill').classList.toggle('active',m==='drill');
+  document.getElementById('ksStudy').style.display=m==='study'?'flex':'none';
+  document.getElementById('ksDrill').style.display=m==='drill'?'flex':'none';
+  if(m==='study')renderKSCard();
+  else{if(!ksCur)ksNewQuestion();else renderKSQuestion();renderKSStats();}
+}
+
+// ── Study mode ──
+function setKSFront(f){ksFront=f;ksFlipped=false;
+  document.getElementById('ksFrontKey').classList.toggle('active',f==='key');
+  document.getElementById('ksFrontSharps').classList.toggle('active',f==='sharps');
+  renderKSCard();}
+function toggleKSShuffle(){
+  ksShuffled=!ksShuffled;
+  document.getElementById('ksShuffleToggle').classList.toggle('active',ksShuffled);
+  ksDeck=KS_KEYS.map(x=>x.k);
+  if(ksShuffled){for(let i=ksDeck.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[ksDeck[i],ksDeck[j]]=[ksDeck[j],ksDeck[i]];}}
+  ksIdx=0;ksFlipped=false;renderKSCard();
+}
+function flipKS(){ksFlipped=!ksFlipped;renderKSCard();}
+function stepKS(d){ksIdx=(ksIdx+d+ksDeck.length)%ksDeck.length;ksFlipped=false;renderKSCard();}
+
+function renderKSCard(){
+  const k=ksDeck[ksIdx],e=ksKey(k),sharps=ksSharpsOf(k);
+  const chips=sharps.length?sharps.map(s=>`<span class="ks-chip">${ksD(s)}</span>`).join(''):'<span class="ks-chip none">none</span>';
+  const scale=ksScale(k).map((n,i)=>`<span class="ks-scale-note${i===0?' root':''}">${n}</span>`).join('');
+  let front,back;
+  if(ksFront==='key'){
+    front=`<div class="ks-card-big">${ksD(k)} MAJOR</div><div class="ks-card-prompt">How many sharps, which ones, and what is the relative minor?</div>`;
+    back=`<div class="ks-card-mid">${ksD(k)} MAJOR</div>
+      <div class="ks-card-big">${ksCountText(e.n)}</div>
+      <div class="ks-chip-row">${chips}</div>
+      <div class="ks-card-line">Relative minor: <b>${ksD(e.rel)} minor</b></div>
+      <div class="ks-card-line">Scale: <span class="ks-scale">${scale}</span></div>
+      <div class="ks-card-trick">${ksTrick(k)}</div>`;
+  } else {
+    front=`<div class="ks-card-big">${ksCountText(e.n)}</div><div class="ks-chip-row">${chips}</div><div class="ks-card-prompt">Which major key is this? What is its relative minor?</div>`;
+    back=`<div class="ks-card-mid">${ksCountText(e.n)}: ${ksSigText(k)}</div>
+      <div class="ks-card-big">${ksD(k)} MAJOR</div>
+      <div class="ks-card-line">Relative minor: <b>${ksD(e.rel)} minor</b></div>
+      <div class="ks-card-line">Scale: <span class="ks-scale">${scale}</span></div>
+      <div class="ks-card-trick">${ksTrick(k)}</div>`;
+  }
+  const card=document.getElementById('ksCard');
+  card.innerHTML=(ksFlipped?back:front)+`<div class="ks-card-flip">${ksFlipped?'TAP TO HIDE':'TAP TO REVEAL'}</div>`;
+  card.classList.toggle('flipped',ksFlipped);
+  document.getElementById('ksCount').textContent=`${ksIdx+1} / ${ksDeck.length}`;
+  renderKSOrder(ksFlipped||ksFront==='sharps'?sharps:[]);
+}
+
+// ── Drill mode ──
+function ksPickKey(exclude){
+  const pool=KS_KEYS.map(x=>x.k).filter(k=>k!==exclude);
+  const tot=pool.reduce((a,k)=>a+ksWeights[k],0);let r=Math.random()*tot;
+  for(const k of pool){r-=ksWeights[k];if(r<=0)return k;}
+  return pool[pool.length-1];
+}
+function ksNewQuestion(){
+  const types=['count','whichKey','spell','relMin','relMaj'];
+  let k,t,guard=0;
+  do{
+    k=ksPickKey(ksLast?ksLast.k:null);
+    t=types[Math.floor(Math.random()*types.length)];
+    if(t==='spell'&&k==='C')t='count';
+    guard++;
+  }while(ksLast&&ksLast.k===k&&ksLast.t===t&&guard<10);
+  ksCur={k,t};ksLast={k,t};ksAnswered=false;ksTap=[];
+  renderKSQuestion();
+}
+function renderKSQuestion(){
+  const {k,t}=ksCur,e=ksKey(k);
+  let q='',opts='';
+  const optBtn=(val,label)=>`<button class="ks-opt" data-val="${val}" onclick="ksAnswer('${val}')">${label}</button>`;
+  if(t==='count'){
+    q=`How many sharps are in <b>${ksD(k)} major</b>?`;
+    for(let i=0;i<=7;i++)opts+=optBtn(String(i),String(i));
+  } else if(t==='whichKey'){
+    q=`Which major key has <b>${e.n===0?'no sharps':e.n===1?'1 sharp':e.n+' sharps'}</b>?`;
+    KS_KEYS.forEach(x=>opts+=optBtn(x.k,ksD(x.k)+' major'));
+  } else if(t==='relMin'){
+    q=`What is the relative minor of <b>${ksD(k)} major</b>?`;
+    KS_KEYS.forEach(x=>opts+=optBtn(x.rel,ksD(x.rel)+' minor'));
+  } else if(t==='relMaj'){
+    q=`What is the relative major of <b>${ksD(e.rel)} minor</b>?`;
+    KS_KEYS.forEach(x=>opts+=optBtn(x.k,ksD(x.k)+' major'));
+  } else if(t==='spell'){
+    q=`Tap the sharps in <b>${ksD(k)} major</b>, in order. Then press CHECK.`;
+    KS_SHARPS.forEach(s=>opts+=`<button class="ks-opt" data-val="${s}" onclick="ksTapSharp('${s}')">${ksD(s)}</button>`);
+  }
+  document.getElementById('ksQ').innerHTML=q;
+  document.getElementById('ksOpts').innerHTML=opts;
+  document.getElementById('ksTapRow').style.display=t==='spell'?'flex':'none';
+  document.getElementById('ksCheckBtn').style.display=t==='spell'&&!ksAnswered?'inline-block':'none';
+  document.getElementById('ksClearBtn').style.display=t==='spell'&&!ksAnswered?'inline-block':'none';
+  document.getElementById('ksNextBtn').style.display=ksAnswered?'inline-block':'none';
+  if(!ksAnswered)document.getElementById('ksFb').innerHTML='';
+  renderKSTap();
+  renderKSOrder([],!ksAnswered);
+}
+function renderKSTap(){
+  const el=document.getElementById('ksTap');
+  el.innerHTML=ksTap.length?ksTap.map(s=>`<span class="ks-chip">${ksD(s)}</span>`).join(''):'<span class="ks-tap-empty">Your answer appears here</span>';
+}
+function ksTapSharp(s){if(ksAnswered)return;if(ksTap.length<7)ksTap.push(s);renderKSTap();}
+function ksClearTap(){if(ksAnswered)return;ksTap=[];renderKSTap();}
+function ksCheckSpell(){if(ksAnswered)return;ksAnswer(ksTap.join(','));}
+
+function ksCorrectVal(){
+  const {k,t}=ksCur,e=ksKey(k);
+  if(t==='count')return String(e.n);
+  if(t==='whichKey'||t==='relMaj')return k;
+  if(t==='relMin')return e.rel;
+  return ksSharpsOf(k).join(',');
+}
+function ksExplain(){
+  const {k}=ksCur,e=ksKey(k);
+  return `${ksD(k)} major has ${e.n===0?'no sharps':ksCountText(e.n).toLowerCase()+': '+ksSigText(k)}. Relative minor: ${ksD(e.rel)} minor. ${ksTrick(k)}`;
+}
+function ksAnswer(val){
+  if(ksAnswered)return;
+  const correct=ksCorrectVal(),ok=val===correct,k=ksCur.k;
+  ksAnswered=true;ksStats.total++;
+  if(ok){ksStats.right++;ksStats.streak++;ksWeights[k]=Math.max(1,ksWeights[k]-1);}
+  else{ksStats.streak=0;ksWeights[k]=Math.min(6,ksWeights[k]+2);}
+  if(ksStats.streak>ksStats.best){ksStats.best=ksStats.streak;try{localStorage.setItem('gtKsBest',String(ksStats.best));}catch(e){}}
+  if(ksCur.t!=='spell'){
+    document.querySelectorAll('#ksOpts .ks-opt').forEach(b=>{
+      if(b.dataset.val===correct)b.classList.add('right');
+      else if(b.dataset.val===val)b.classList.add('wrong');
+      b.disabled=true;
+    });
+  } else {
+    document.querySelectorAll('#ksOpts .ks-opt').forEach(b=>b.disabled=true);
+  }
+  const fb=document.getElementById('ksFb');
+  fb.innerHTML=`<div class="ks-fb-head ${ok?'right':'wrong'}">${ok?'CORRECT':'NOT QUITE'}</div><div class="ks-fb-body">${ksExplain()}</div>`;
+  renderKSOrder(ksSharpsOf(k));
+  document.getElementById('ksCheckBtn').style.display='none';
+  document.getElementById('ksClearBtn').style.display='none';
+  document.getElementById('ksNextBtn').style.display='inline-block';
+  renderKSStats();
+}
+function renderKSStats(){
+  const pct=ksStats.total?Math.round(ksStats.right/ksStats.total*100):0;
+  document.getElementById('ksStats').innerHTML=
+    `<span class="ks-stat"><span class="ks-stat-lbl">Score</span>${ksStats.right} / ${ksStats.total}${ksStats.total?' ('+pct+'%)':''}</span>
+     <span class="ks-stat"><span class="ks-stat-lbl">Streak</span>${ksStats.streak}</span>
+     <span class="ks-stat"><span class="ks-stat-lbl">Best Streak</span>${ksStats.best}</span>`;
+  const weak=KS_KEYS.filter(x=>ksWeights[x.k]>1).sort((a,b)=>ksWeights[b.k]-ksWeights[a.k]);
+  document.getElementById('ksWeak').innerHTML=weak.length
+    ?`<span class="ks-stat-lbl">Keys to work on</span>${weak.map(x=>`<span class="ks-chip weak">${ksD(x.k)}</span>`).join('')}<span class="ks-weak-hint">These come up more often until you get them right.</span>`
+    :`<span class="ks-stat-lbl">Keys to work on</span><span class="ks-weak-hint">None yet. Missed keys show up here.</span>`;
+}
+function ksResetStats(){
+  ksStats.right=0;ksStats.total=0;ksStats.streak=0;
+  KS_KEYS.forEach(x=>ksWeights[x.k]=1);
+  renderKSStats();ksNewQuestion();
+}
+
+document.addEventListener('keydown',e=>{
+  const ov=document.getElementById('ksOverlay');
+  if(!ov||!ov.classList.contains('open'))return;
+  if(e.key==='Escape'){closeKS();return;}
+  if(ksMode==='study'){
+    if(e.key===' '){e.preventDefault();flipKS();}
+    else if(e.key==='ArrowRight'){e.preventDefault();stepKS(1);}
+    else if(e.key==='ArrowLeft'){e.preventDefault();stepKS(-1);}
+  } else if(e.key==='Enter'){
+    e.preventDefault();
+    if(ksAnswered)ksNewQuestion();else if(ksCur&&ksCur.t==='spell')ksCheckSpell();
+  }
+});
 
 </script>
 
