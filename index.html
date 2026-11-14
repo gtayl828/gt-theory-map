@@ -638,6 +638,64 @@ h1 {
   .tools-drop{min-width:260px;}
 }
 
+/* ── Modes Explorer ── */
+.mo-modal{max-width:1500px;}
+.mo-keys{display:flex;gap:4px;flex-wrap:wrap;}
+.mo-key{font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 9px;border-radius:3px;border:1.5px solid #383630;background:#1d1c18;color:var(--text-dim);cursor:pointer;transition:all 0.1s;}
+.mo-key:hover{color:var(--text);border-color:var(--text-dim);}
+.mo-key.active{background:#302008;border-color:#e09030;color:#ffc060;}
+.mo-body{display:flex;flex-direction:column;gap:14px;padding:16px 20px 18px;}
+.mo-hint{font-size:13px;color:var(--text-dim);letter-spacing:0.3px;}
+.mo-modes{display:grid;grid-template-columns:repeat(7,1fr);gap:6px;}
+.mo-mode{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:9px 12px;border-radius:6px;border:1.5px solid #383630;background:#1d1c18;cursor:pointer;text-align:left;transition:all 0.1s;}
+.mo-mode:hover{border-color:var(--text-dim);}
+.mo-mode-num{font-family:var(--mono-font);font-size:10px;color:var(--text-dim);}
+.mo-mode-name{font-family:var(--display-font);font-size:17px;letter-spacing:2px;color:var(--text);text-transform:uppercase;}
+.mo-mode-root{font-size:11px;color:var(--text-dim);text-transform:capitalize;}
+.mo-mode.active{background:#302008;border-color:#e09030;}
+.mo-mode.active .mo-mode-name{color:#ffc060;}
+.mo-mode.mo-t-major{border-top:3px solid #70b840;}
+.mo-mode.mo-t-minor{border-top:3px solid #9060d0;}
+.mo-mode.mo-t-diminished{border-top:3px solid #c03030;}
+.mo-info{display:flex;flex-direction:column;gap:8px;padding:12px 18px;background:#1d1c18;border:1px solid #2c2b25;border-left:5px solid #e09030;border-radius:6px;}
+.mo-title{font-family:var(--display-font);font-size:44px;font-weight:700;letter-spacing:4px;color:#ffc060;line-height:1;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+.mo-type{font-size:14px;letter-spacing:3px;padding:3px 9px;border-radius:3px;border:1.5px solid;}
+.mo-type.mo-t-major{color:#a0e060;border-color:#70b840;}
+.mo-type.mo-t-minor{color:#c090ff;border-color:#9060d0;}
+.mo-type.mo-t-diminished{color:#ff6060;border-color:#c03030;}
+.mo-chips{display:flex;gap:6px;flex-wrap:wrap;}
+.mo-chip{display:flex;flex-direction:column;align-items:center;min-width:48px;padding:5px 8px;border-radius:5px;border:1.5px solid;}
+.mo-chip.ch{outline:2px dashed #ffffff;outline-offset:2px;}
+.mo-chip-note{font-family:var(--mono-font);font-size:17px;font-weight:700;}
+.mo-chip-deg{font-family:var(--mono-font);font-size:11px;opacity:0.85;}
+.mo-line{font-size:14px;color:var(--text);}
+.mo-line b{color:var(--text-dim);font-weight:400;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-right:6px;}
+.mo-ch-tag{font-family:var(--mono-font);font-weight:700;padding:1px 6px;border:1.5px dashed #ffffff;border-radius:3px;}
+.mo-neck-controls{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.mo-pos{font-family:var(--mono-font);font-size:12px;font-weight:700;letter-spacing:1px;padding:6px 12px;border-radius:4px;border:1.5px solid var(--border2);background:var(--surface2);color:var(--text-dim);cursor:pointer;}
+.mo-pos:hover{color:var(--text);}
+.mo-pos.active{background:#1e1a08;border-color:var(--accent);color:var(--accent);}
+.mo-pos-note{font-size:13px;color:var(--text-dim);}
+.mo-pos-shape{font-family:var(--display-font);font-size:22px;font-weight:700;letter-spacing:3px;color:#a0e060;margin-right:6px;}
+.mo-neck{border-radius:6px;}
+.mo-foot{font-size:11px;color:var(--text-dim);letter-spacing:1px;text-align:center;}
+@media (max-width:900px){.mo-modes{grid-template-columns:repeat(4,1fr);}}
+@media (max-width:700px){
+  .mo-modes{grid-template-columns:repeat(2,1fr);}
+  .mo-title{font-size:32px;}
+  .mo-body{padding:12px;}
+}
+.mo-pos .pos-btn-shape{font-family:var(--display-font);font-size:14px;letter-spacing:1px;margin-left:6px;}
+@media (max-width:700px){
+  .mo-mode{padding:6px 10px;}
+  .mo-mode-name{font-size:14px;letter-spacing:1px;}
+  .mo-chip{min-width:40px;padding:4px 6px;}
+  .mo-chip-note{font-size:15px;}
+}
+
+/* Note names switch: the Chord Builder now follows the global switch */
+#cbFlatToggle{display:none !important;}
+#spHint{flex:1;min-width:220px;}
 </style>
 </head>
 <body>
@@ -656,6 +714,7 @@ h1 {
         <button onclick="closeTools();openCB()"><span class="tools-name" style="color:#60d880">Chord Builder</span><span class="tools-desc">Place notes and name the chord</span></button>
         <button onclick="closeTools();openCP()"><span class="tools-name" style="color:#7090d8">Chord Progressions</span><span class="tools-desc">90 progressions in every key</span></button>
         <button onclick="closeTools();openKS()"><span class="tools-name" style="color:#d890d8">Key Sig Trainer</span><span class="tools-desc">Flashcards and drill for the sharp keys</span></button>
+        <button onclick="closeTools();openMO()"><span class="tools-name" style="color:#ffc060">Modes Explorer</span><span class="tools-desc">See and compare all seven modes</span></button>
       </div>
     </div>
   </div>
@@ -731,10 +790,16 @@ h1 {
       <button class="dot-label-btn"        id="lblNote"   onclick="setDotLabel('note')"  >NOTE</button>
       <button class="dot-label-btn"        id="lblDegree" onclick="setDotLabel('degree')">DEGREE</button>
     </div>
-      <div class="flat-toggle-wrap" id="flatToggle" onclick="toggleFlats()">
-      <span class="flat-toggle-label">Show Flats</span>
-      <div class="flat-toggle-switch"><div class="flat-toggle-knob"></div></div>
+
     </div>
+    <div class="tab-row">
+      <span class="tab-row-label">Note names:</span>
+      <div class="dot-label-wrap">
+        <button class="dot-label-btn" id="sp_sharps" onclick="setSpellMode('sharps')">SHARPS</button>
+        <button class="dot-label-btn" id="sp_flats" onclick="setSpellMode('flats')">FLATS</button>
+        <button class="dot-label-btn" id="sp_correct" onclick="setSpellMode('correct')">CORRECT</button>
+      </div>
+      <span class="tab-hint" id="spHint"></span>
     </div>
     <div class="tab-row">
       <span class="tab-row-label">Triad colors:</span>
@@ -898,6 +963,48 @@ const CHR = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 const FLAT = {'C#':'D♭','D#':'E♭','F#':'G♭','G#':'A♭','A#':'B♭'};
 const dn = n => FLAT[n] ? `${n.replace('#','♯')}/${FLAT[n]}` : n;
 
+// ── NOTE SPELLING ENGINE ──────────────────────────────────────────────
+// Three modes, set in the Display tab: sharps (every black key a sharp),
+// flats (every black key a flat) and correct (named for the key you are in).
+let spellMode='sharps';
+try{const v=localStorage.getItem('gtSpellMode');if(v==='sharps'||v==='flats'||v==='correct')spellMode=v;}catch(e){}
+const SP_LET='CDEFGAB',SP_NAT=[0,2,4,5,7,9,11],SP_MAJ=[0,2,4,5,7,9,11];
+// Key names used in Correct mode (C# major chosen over Db major)
+const KEY_MAJ=['C','C#','D','Eb','E','F','F#','G','Ab','A','Bb','B'];
+const KEY_MIN=['C','C#','D','D#','E','F','F#','G','G#','A','Bb','B'];
+function spPc(n){let pc=SP_NAT[SP_LET.indexOf(n[0])];for(const ch of n.slice(1)){if(ch==='#')pc++;else if(ch==='b')pc--;}return (pc%12+12)%12;}
+function spName(li,pc){let d=((pc-SP_NAT[li])%12+12)%12;if(d>6)d-=12;return SP_LET[li]+(d===2?'##':d===1?'#':d===-1?'b':d===-2?'bb':'');}
+// Name the note that sits at a scale degree (like 'b3' or '#5') above a root
+function spDeg(root,deg){
+  const m=deg.match(/^([#b]*)(\d+)$/),n=parseInt(m[2]);let acc=0;
+  for(const ch of m[1])acc+=ch==='#'?1:-1;
+  const li=(SP_LET.indexOf(root[0])+n-1)%7;
+  const pc=(spPc(root)+SP_MAJ[(n-1)%7]+acc+120)%12;
+  return spName(li,pc);
+}
+function spFmt(n){return n[0]+n.slice(1).replace('##','\u{1D12A}').replace('bb','\u{1D12B}').replace('#','♯').replace('b','♭');}
+const SP_DEGS={maj:['1','2','3','4','5','6','7'],min:['1','2','b3','4','5','b6','b7']};
+const spCache={};
+function spKeyRoot(pc,q){return q==='maj'?KEY_MAJ[pc]:KEY_MIN[pc];}
+function spCtxFor(pc,q){
+  const k=pc+q;if(spCache[k])return spCache[k];
+  const root=spKeyRoot(pc,q),map={};let flat=false;
+  SP_DEGS[q].forEach(d=>{const n=spDeg(root,d);map[spPc(n)]=n;if(n.length>1&&n[1]==='b')flat=true;});
+  return spCache[k]={root,map,flat};
+}
+let spOverride=null;
+function spWith(ctx,fn){const prev=spOverride;spOverride=ctx;try{return fn();}finally{spOverride=prev;}}
+function spSimple(pc,dir){const n=CHR[pc];if(dir==='flats'&&FLAT[n])return FLAT[n];return n.replace('#','♯');}
+// Turn written note names inside a string into plain sharps or flats
+function spConvert(str,dir){
+  return str.replace(/([A-G])(\u{1D12A}|\u{1D12B}|♯|♭)/gu,(m,l,a)=>{
+    const pc=SP_NAT[SP_LET.indexOf(l)]+(a==='♯'?1:a==='♭'?-1:a==='\u{1D12A}'?2:-2);
+    return spSimple((pc%12+12)%12,dir);
+  });
+}
+// A key's name for display
+function spKeyName(pc,q){return spellMode==='correct'?spFmt(spKeyRoot(pc,q)):spSimple(pc,spellMode);}
+
 const STRINGS = [
   {name:'E',open:4},{name:'A',open:9},{name:'D',open:2},
   {name:'G',open:7},{name:'B',open:11},{name:'e',open:4},
@@ -992,9 +1099,7 @@ function getDiatonicMajor(root) {
   const suffix=['','m','m','','','m','dim'];
   return scaleSteps.map((step,i)=>{
     const noteIdx=(r+step)%12;
-    const noteName=CHR[noteIdx];
-    const flatNames={'C#':'Db','D#':'Eb','F#':'Gb','G#':'Ab','A#':'Bb'};
-    const display=flatNames[noteName]||noteName;
+    const display=spellMode==='correct'?spFmt(spDeg(KEY_MAJ[r],String(i+1))):spSimple(noteIdx,spellMode);
     return{roman:romans[i],romanStyle:romanStyle[i],name:display+suffix[i],type:qualities[i],fullType:qualities[i]==='maj'?'Major':qualities[i]==='min'?'Minor':'Diminished'};
   });
 }
@@ -1103,7 +1208,7 @@ function renderDiatonic(key){
   const chords=getDiatonicMajor(key);
   const keySig=KEY_SIGS[key]||'None';
   const flatDisplay={'C#':'D♭','D#':'E♭','F#':'F♯','G#':'A♭','A#':'B♭'};
-  const displayKey=flatDisplay[key]||key;
+  const displayKey=spKeyName(CHR.indexOf(key),'maj');
   document.getElementById('diatonicTitle').textContent=`${displayKey} Major`;
   document.getElementById('diatonicTitle').className='diatonic-title';
   document.getElementById('diatonicSubtitle').textContent='Diatonic chords — Roman numerals';
@@ -1135,9 +1240,37 @@ window.addEventListener('orientationchange',()=>setTimeout(applyNeckZoom,200));
 window.addEventListener('resize',applyNeckZoom);
 
 // ── Flats Toggle ──────────────────────────────────────────────────────
-let showFlats=false;
+let showFlats=(spellMode==='flats');
 function toggleFlats(){showFlats=!showFlats;document.getElementById('flatToggle').classList.toggle('active',showFlats);render();}
-function noteName(chrIdx){const n=CHR[chrIdx];if(showFlats&&FLAT[n])return FLAT[n];return n.replace('#','♯');}
+function noteName(chrIdx){
+  if(spellMode==='correct'){
+    const c=spOverride||spCtxFor(CHR.indexOf(state.key),state.quality);
+    const n=c.map[chrIdx];if(n)return spFmt(n);
+    return spSimple(chrIdx,c.flat?'flats':'sharps');
+  }
+  return spSimple(chrIdx,spellMode);
+}
+const SP_HINTS={
+  sharps:'Every black key is named with a sharp. Easiest to read while learning.',
+  flats:'Every black key is named with a flat.',
+  correct:'Every note is named the way it is written in the key you are in, so each letter appears once. C minor shows E\u266d, A\u266d and B\u266d.'
+};
+function spUpdateUI(){
+  ['sharps','flats','correct'].forEach(k=>{const b=document.getElementById('sp_'+k);if(b)b.classList.toggle('active',spellMode===k);});
+  const h=document.getElementById('spHint');if(h)h.textContent=SP_HINTS[spellMode];
+}
+function setSpellMode(m){
+  spellMode=m;showFlats=(m==='flats');
+  try{localStorage.setItem('gtSpellMode',m);}catch(e){}
+  spUpdateUI();
+  render();
+  if(activeTriadScale)updateTriadLegend();
+  if(cofSelectedKey)renderDiatonic(cofSelectedKey);
+  if(typeof trActiveKey!=='undefined'&&trActiveKey){buildTRKeyGrid();selectTRKey(trActiveKey);}
+  if(typeof renderCP==='function'){buildCPKeyGrid();renderCP();}
+  if(typeof renderCBNeck==='function'){buildCBRG();renderCBNeck();updateCBResult();}
+  if(typeof renderMO==='function'){const o=document.getElementById('moOverlay');if(o&&o.classList.contains('open'))renderMO();}
+}
 
 // ── Dot Label Mode ────────────────────────────────────────────────────
 let dotLabelMode='fret';
@@ -1273,10 +1406,11 @@ function updatePosUI(posInfo){
     b.classList.toggle('active',v===scalePos);
   });
   document.getElementById('posHideToggle').classList.toggle('active',scaleHideNotes);
-  const r=CHR.indexOf(state.key),keyName=noteName(r);
+  const r=CHR.indexOf(state.key);
   let html='';
   ['major','minor','pent','blues'].forEach(m=>{
     if(!scaleModes.has(m)||!posInfo[m])return;
+    const keyName=spKeyName(r,m==='major'?'maj':'min');
     const info=posInfo[m],col=POS_MODE_TEXT[m],bord=POS_MODE_COLORS[m];
     let big,detail,note='';
     if(info.full){
@@ -1288,7 +1422,7 @@ function updatePosUI(posInfo){
       const unit=(m==='pent'||m==='blues')?'Box':'Position';
       detail=`${keyName} ${POS_MODE_NAMES[m]} &middot; ${unit} ${scalePos} &middot; Frets ${info.lo}&ndash;${info.hi}`;
       if(m==='minor'){
-        const rel=noteName((r+3)%12);
+        const rel=spellMode==='correct'?spFmt(spDeg(spKeyRoot(r,'min'),'b3')):spSimple((r+3)%12,spellMode);
         note=`Same notes as ${rel} major. This is the ${rel} major ${MINOR_TO_MAJ_SHAPE[shape]} shape, with ${keyName} as the root.`;
       } else if(m==='pent'){
         note=`Same area of the neck as the ${keyName} minor scale ${shape} shape, without the 2nd and 6th.`;
@@ -1311,12 +1445,18 @@ function updatePosUI(posInfo){
 document.addEventListener('keydown',e=>{
   if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;
   const t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.tagName==='SELECT'))return;
-  if(['ksOverlay','cbOverlay','cpOverlay','trOverlay'].some(id=>{const el=document.getElementById(id);return el&&el.classList.contains('open');}))return;
+  if(['ksOverlay','cbOverlay','cpOverlay','trOverlay','moOverlay'].some(id=>{const el=document.getElementById(id);return el&&el.classList.contains('open');}))return;
   const wrap=document.getElementById('posWrap');
   if(!wrap||wrap.style.display==='none')return;
   e.preventDefault();stepScalePos(e.key==='ArrowRight'?1:-1);
 });
 
+function scaleNoteName(mode,pc,r){
+  if(spellMode!=='correct')return noteName(pc);
+  const root=spKeyRoot(r,mode==='major'?'maj':'min');
+  const deg=SCALE_DEGREE_LABELS[mode][(pc-r+12)%12];
+  return deg?spFmt(spDeg(root,deg)):noteName(pc);
+}
 function buildMultiScaleSVG(root){
   const r=CHR.indexOf(root);
   const posInfo={};
@@ -1348,14 +1488,14 @@ function buildMultiScaleSVG(root){
       if(hits.length===1){
         const{deg}=hits[0],c=SCALE_DOT_COLORS[deg]||SCALE_DOT_COLORS['1'];
         s+=`<circle cx="${x}" cy="${y}" r="17" fill="${c.fill}" stroke="${c.stroke}" stroke-width="2.5"/>`;
-        const lbl=dotLabelMode==='note'?noteName(chrIdx):dotLabelMode==='fret'?(f===0?'O':String(f)):deg;
+        const lbl=dotLabelMode==='note'?scaleNoteName(hits[0].mode,chrIdx,r):dotLabelMode==='fret'?(f===0?'O':String(f)):deg;
         s+=`<text x="${x}" y="${y+5}" text-anchor="middle" font-family="Courier New,monospace" font-size="11" font-weight="700" fill="${c.text}">${lbl}</text>`;
       } else {
         const h1=hits[0],h2=hits[1],c1=SCALE_DOT_COLORS[h1.deg]||SCALE_DOT_COLORS['1'],c2=SCALE_DOT_COLORS[h2.deg]||SCALE_DOT_COLORS['1'],R=17;
         s+=`<path d="M${x},${y-R} A${R},${R} 0 0,0 ${x},${y+R} Z" fill="${c1.fill}" stroke="${c1.stroke}" stroke-width="2"/>`;
         s+=`<path d="M${x},${y-R} A${R},${R} 0 0,1 ${x},${y+R} Z" fill="${c2.fill}" stroke="${c2.stroke}" stroke-width="2"/>`;
         s+=`<circle cx="${x}" cy="${y}" r="${R}" fill="none" stroke="${OVERLAP_DOT.stroke}" stroke-width="1.5"/>`;
-        const lbl=dotLabelMode==='note'?noteName(chrIdx):dotLabelMode==='fret'?(f===0?'O':String(f)):(chrIdx===r?'1':'★');
+        const lbl=dotLabelMode==='note'?scaleNoteName(hits[0].mode,chrIdx,r):dotLabelMode==='fret'?(f===0?'O':String(f)):(chrIdx===r?'1':'★');
         s+=`<text x="${x}" y="${y+5}" text-anchor="middle" font-family="Courier New,monospace" font-size="11" font-weight="700" fill="${OVERLAP_DOT.text}">${lbl}</text>`;
       }
     }
@@ -1370,13 +1510,13 @@ const MIN_DIATONIC=[{step:0,q:'min',roman:'i'},{step:2,q:'dim',roman:'ii°'},{st
 
 function renderFormulaStrip(){
   const r=CHR.indexOf(state.key),dispKey=noteName(r);
-  document.getElementById('majFormulaTitle').textContent=`${dispKey} MAJOR SCALE — CHORDS`;
-  document.getElementById('minFormulaTitle').textContent=`${dispKey} MINOR SCALE — CHORDS`;
+  document.getElementById('majFormulaTitle').textContent=`${spKeyName(r,'maj')} MAJOR SCALE — CHORDS`;
+  document.getElementById('minFormulaTitle').textContent=`${spKeyName(r,'min')} MINOR SCALE — CHORDS`;
   function buildStrip(containerId,diatonic){
     const container=document.getElementById(containerId);
     container.innerHTML='<span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:60px;align-self:center;">Chords:</span>';
     diatonic.forEach(({step,q,roman})=>{
-      const noteIdx=(r+step)%12,chordRoot=noteName(noteIdx);
+      const stripQ=containerId==='minChordStrip'?'min':'maj',noteIdx=(r+step)%12,chordRoot=spWith(spCtxFor(r,stripQ),()=>noteName(noteIdx));
       const suffix=q==='maj'?'':q==='min'?'m':'°';
       const label=`${roman} ${chordRoot}${suffix}`;
       const cls=q==='maj'?'tr-cq-maj':q==='min'?'tr-cq-min':'tr-cq-dim';
@@ -1391,7 +1531,7 @@ function renderFormulaStrip(){
       btn.onclick=()=>{
         const chordQuality=q==='maj'?'maj':'min';
         if(formulaChordState&&formulaChordState.root===noteIdx&&formulaChordState.label===label){formulaChordState=null;}
-        else{formulaChordState={root:noteIdx,quality:chordQuality,label,isDim:q==='dim'};scaleModes.clear();activeTriadScale=null;document.getElementById('btnPent').className='scale-btn';document.getElementById('btnBlues').className='scale-btn';document.getElementById('btnMaj').className='scale-btn';document.getElementById('btnMinor').className='scale-btn';['EAD','ADG','DGB','GBE'].forEach(s=>{const b=document.getElementById('btnTriad'+s);if(b)b.className='triad-str-btn';});document.querySelector('.inv-filter').style.opacity='1';document.querySelector('.inv-filter').style.pointerEvents='auto';document.getElementById('scaleLegend').style.display='none';document.getElementById('triadScaleLegend').style.display='none';}
+        else{formulaChordState={root:noteIdx,quality:chordQuality,label,isDim:q==='dim',stripQ};scaleModes.clear();activeTriadScale=null;document.getElementById('btnPent').className='scale-btn';document.getElementById('btnBlues').className='scale-btn';document.getElementById('btnMaj').className='scale-btn';document.getElementById('btnMinor').className='scale-btn';['EAD','ADG','DGB','GBE'].forEach(s=>{const b=document.getElementById('btnTriad'+s);if(b)b.className='triad-str-btn';});document.querySelector('.inv-filter').style.opacity='1';document.querySelector('.inv-filter').style.pointerEvents='auto';document.getElementById('scaleLegend').style.display='none';document.getElementById('triadScaleLegend').style.display='none';}
         renderFormulaStrip();renderNeck();renderInfoBar();
       };
       container.appendChild(btn);
@@ -1574,7 +1714,7 @@ function afterNeckRender(){
 function renderNeck(){
   let html;
   if(activeTriadScale) html=buildTriadScaleSVG(state.key,activeTriadScale);
-  else if(formulaChordState) html=buildFormulaChordSVG(formulaChordState.root,formulaChordState.quality,formulaChordState.isDim);
+  else if(formulaChordState) html=spWith(spCtxFor(CHR.indexOf(state.key),formulaChordState.stripQ||state.quality),()=>buildFormulaChordSVG(formulaChordState.root,formulaChordState.quality,formulaChordState.isDim));
   else if(scaleModes.size>0) html=buildMultiScaleSVG(state.key);
   else html=buildNeckSVG(triadTones(state.key,state.quality),state.quality,state.filters);
   document.getElementById('neckWrap').innerHTML=html;
@@ -1593,9 +1733,9 @@ function renderInfoBar(){
   const rn=noteName(ri),tn=noteName(ti),fn=noteName(fi);
   const keyCol=isMin?'var(--third-min)':'var(--root)',dispKey=noteName(r);
   if(formulaChordState){
-    const fc=formulaChordState,fcRoot=noteName(fc.root);
+    const fc=formulaChordState,spPrev=spOverride;spOverride=spCtxFor(r,fc.stripQ||state.quality);const fcRoot=noteName(fc.root);
     const fcTones=fc.isDim?[fc.root,(fc.root+3)%12,(fc.root+6)%12]:triadTones(CHR[fc.root],fc.quality);
-    const[fa,fb,fc2]=fcTones.map(i=>noteName(i));
+    const[fa,fb,fc2]=fcTones.map(i=>noteName(i));spOverride=spPrev;
     const qCls=fc.isDim?'tn':fc.quality==='maj'?'tm':'tn';
     document.getElementById('infoBar').innerHTML=`<div class="info-key" style="color:${fc.isDim?'#ff6060':fc.quality==='maj'?'var(--root)':'var(--third-min)'}">${fc.label}</div><div class="chips"><div class="chip r">${fa}</div><span class="chip-lbl">root</span><div class="chip ${qCls}">${fb}</div><span class="chip-lbl">${fc.isDim?'min 3rd':fc.quality==='maj'?'major 3rd':'minor 3rd'}</span><div class="chip f">${fc2}</div><span class="chip-lbl">${fc.isDim?'b5':'5th'}</span><span style="font-size:11px;color:var(--text-dim);margin-left:8px;letter-spacing:1px;">← click chord again or change key to exit</span></div>`;
     return;
@@ -1627,7 +1767,7 @@ render();drawCOF(null);setTimeout(applyNeckZoom,150);
 const TR_KEYS=['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
 // TR_FLAT intentionally excludes F# and C# — those always display as F♯/C♯, never G♭/D♭
 const TR_FLAT={'D#':'E♭','G#':'A♭','A#':'B♭'};
-function trDN(n){return (TR_FLAT[n]||n).replace('#','♯');}
+function trDN(n){if(spellMode==='sharps')return n.replace('#','\u266f');if(spellMode==='flats')return FLAT[n]||n;return (TR_FLAT[n]||n).replace('#','\u266f');}
 
 // ── Enharmonic conversion ─────────────────────────────────────────────
 let trShowEnharmonic=false;
@@ -1642,6 +1782,7 @@ const ENHARM_MAP=[
 ];
 
 function applyEnharmonic(str){
+  if(spellMode!=='correct') return spConvert(str,spellMode);
   if(!trShowEnharmonic) return str;
   let out=str;
   for(const[from,to] of ENHARM_MAP) out=out.split(from).join(to);
@@ -1952,7 +2093,28 @@ const CB_UNK={fill:'#1a1816',stroke:'#484030',text:'#7a7468',label:'?'};
 const CB_CT=[['maj',[0,4,7]],['min',[0,3,7]],['dim',[0,3,6]],['aug',[0,4,8]],['sus2',[0,2,7]],['sus4',[0,5,7]],['maj7',[0,4,7,11]],['m7',[0,3,7,10]],['7',[0,4,7,10]],['dim7',[0,3,6,9]],['m7b5',[0,3,6,10]],['aug7',[0,4,8,10]],['6',[0,4,7,9]],['m6',[0,3,7,9]],['add9',[0,4,7,2]],['madd9',[0,3,7,2]],['7sus4',[0,5,7,10]],['maj9',[0,2,4,7,11]],['m9',[0,2,3,7,10]],['9',[0,2,4,7,10]]];
 const CB_SC={'Major':[0,2,4,5,7,9,11],'Nat Minor':[0,2,3,5,7,8,10],'Min Pent':[0,3,5,7,10],'Maj Pent':[0,2,4,7,9],'Blues':[0,3,5,6,7,10],'Dorian':[0,2,3,5,7,9,10],'Mixolydian':[0,2,4,5,7,9,10],'Lydian':[0,2,4,6,7,9,11]};
 let cbDots=new Map(),cbRoot=null,cbLM='note',cbSF=false;
-function cbNN(i){const S=['C','C\u266f','D','D\u266f','E','F','F\u266f','G','G\u266f','A','A\u266f','B'];const F=['C','D\u266d','D','E\u266d','E','F','G\u266d','G','A\u266d','A','B\u266d','B'];return cbSF?F[i]:S[i];}
+function cbNN(i){
+  if(spellMode==='correct'&&cbRoot!==null)return spFmt(cbCorrect(i));
+  return spSimple(i,spellMode==='flats'?'flats':'sharps');
+}
+// Spell a note against the chord's root, using the chord's own shape
+function cbCorrect(pc){
+  const notes=new Set([...cbDots.values()].map(d=>(d.chrIdx-cbRoot+12)%12));
+  const minorish=notes.has(3)&&!notes.has(4);
+  const root=spKeyRoot(cbRoot,minorish?'min':'maj');
+  const st=(pc-cbRoot+12)%12;
+  const DEG={0:'1',1:'b2',2:'2',3:'b3',4:'3',5:'4',6:'b5',7:'5',8:'b6',9:'6',10:'b7',11:'7'};
+  let deg=DEG[st];
+  if(st===8&&notes.has(4)&&!notes.has(7))deg='#5';
+  if(st===9&&notes.has(3)&&notes.has(6)&&!notes.has(10)&&!notes.has(11))deg='bb7';
+  if(st===6&&notes.has(7))deg='#4';
+  if(st===3&&notes.has(4))deg='#2';
+  return spDeg(root,deg);
+}
+function cbKeyName(k,modeName){
+  if(spellMode!=='correct')return spSimple(k,spellMode);
+  return spFmt(spKeyRoot(k,['Major','Lydian','Mixolydian'].includes(modeName)?'maj':'min'));
+}
 function cbFX(f){return f===0?CB_PAD_L-14:CB_PAD_L+CB_NUT_W+(f-0.5)*CB_FRET_W;}
 function cbFLX(f){return CB_PAD_L+CB_NUT_W+f*CB_FRET_W;}
 function cbSY(si){return CB_PAD_T+(5-si)*CB_STR_H;}
@@ -1961,7 +2123,7 @@ function closeCB(){document.getElementById('cbOverlay').classList.remove('open')
 function clearCB(){cbDots.clear();renderCBNeck();updateCBResult();}
 function setCBLabel(m){cbLM=m;document.getElementById('cbLblNote').classList.toggle('active',m==='note');document.getElementById('cbLblInterval').classList.toggle('active',m==='interval');document.getElementById('cbLblFret').classList.toggle('active',m==='fret');renderCBNeck();}
 function toggleCBFlats(){cbSF=!cbSF;document.getElementById('cbFlatToggle').classList.toggle('active',cbSF);buildCBRG();renderCBNeck();updateCBResult();}
-function buildCBRG(){const g=document.getElementById('cbRootGrid');g.innerHTML='';for(let i=0;i<12;i++){const b=document.createElement('button');b.className='cb-root-btn'+(cbRoot===i?' active':'');b.textContent=cbNN(i);b.onclick=()=>{cbRoot=cbRoot===i?null:i;buildCBRG();renderCBNeck();updateCBResult();};g.appendChild(b);}}
+function buildCBRG(){const g=document.getElementById('cbRootGrid');g.innerHTML='';for(let i=0;i<12;i++){const b=document.createElement('button');b.className='cb-root-btn'+(cbRoot===i?' active':'');b.textContent=spellMode==='correct'?(FLAT[CHR[i]]?CHR[i].replace('#','\u266f')+'/'+FLAT[CHR[i]]:CHR[i]):cbNN(i);b.onclick=()=>{cbRoot=cbRoot===i?null:i;buildCBRG();renderCBNeck();updateCBResult();};g.appendChild(b);}}
 function renderCBNeck(){
   let s=`<svg width="${CB_W}" height="${CB_H}" viewBox="0 0 ${CB_W} ${CB_H}" xmlns="http://www.w3.org/2000/svg" style="display:block;">`;
   s+=`<rect width="${CB_W}" height="${CB_H}" fill="#0e0d0b" rx="6"/>`;
@@ -2022,7 +2184,7 @@ function updateCBResult(){
       if(chrArr.every(n=>scale.includes(n))){
         const degIdx=scale.indexOf(cbRoot);
         if(degIdx>=0){
-          keyMatches.push({key:KEY_NAMES[k],mode:mode.name,roman:mode.romans[degIdx],qual:mode.quals[degIdx]});
+          keyMatches.push({key:cbKeyName(k,mode.name),mode:mode.name,roman:mode.romans[degIdx],qual:mode.quals[degIdx]});
         }
       }
     }
@@ -2364,6 +2526,244 @@ document.addEventListener('keydown',e=>{
 
 </script>
 
+<!-- MODES EXPLORER MODAL -->
+<div class="cb-overlay" id="moOverlay" onclick="if(event.target===this)closeMO()">
+  <div class="cb-modal mo-modal">
+    <div class="cb-header" style="border-bottom-color:#e09030;">
+      <div>
+        <div class="cb-title" style="color:#ffc060;">MODES EXPLORER</div>
+        <div class="cb-subtitle">The seven modes of the major scale &middot; note names follow the Note names switch in the Display tab</div>
+      </div>
+      <button class="cb-close" onclick="closeMO()">&#10005; CLOSE</button>
+    </div>
+
+    <div class="cb-controls">
+      <span class="cb-ctrl-label">Compare</span>
+      <div class="cb-lbl-wrap">
+        <button class="cb-lbl-btn" id="moViewNotes" onclick="setMOView('notes')">SAME NOTES</button>
+        <button class="cb-lbl-btn" id="moViewRoot" onclick="setMOView('root')">SAME ROOT</button>
+      </div>
+      <div class="cb-sep"></div>
+      <span class="cb-ctrl-label" id="moKeyLabel">Parent major key</span>
+      <div class="mo-keys" id="moKeys"></div>
+    </div>
+
+    <div class="mo-body">
+      <div class="mo-hint" id="moHint"></div>
+      <div class="mo-modes" id="moModes"></div>
+      <div class="mo-info" id="moInfo"></div>
+
+      <div class="mo-neck-controls">
+        <span class="cb-ctrl-label">Position</span>
+        <button class="mo-pos" data-pos="full" onclick="setMOPos('full')">FULL NECK</button>
+        <button class="mo-pos" data-pos="1" onclick="setMOPos(1)">1<span class="pos-btn-shape">E</span></button>
+        <button class="mo-pos" data-pos="2" onclick="setMOPos(2)">2<span class="pos-btn-shape">D</span></button>
+        <button class="mo-pos" data-pos="3" onclick="setMOPos(3)">3<span class="pos-btn-shape">C</span></button>
+        <button class="mo-pos" data-pos="4" onclick="setMOPos(4)">4<span class="pos-btn-shape">A</span></button>
+        <button class="mo-pos" data-pos="5" onclick="setMOPos(5)">5<span class="pos-btn-shape">G</span></button>
+        <div class="cb-lbl-wrap" style="margin-left:auto;">
+          <button class="cb-lbl-btn" id="moLbl_degree" onclick="setMOLabel('degree')">DEGREE</button>
+          <button class="cb-lbl-btn" id="moLbl_note" onclick="setMOLabel('note')">NOTE</button>
+          <button class="cb-lbl-btn" id="moLbl_fret" onclick="setMOLabel('fret')">FRET#</button>
+        </div>
+      </div>
+      <div class="mo-pos-note" id="moPosNote"></div>
+      <div class="cb-neck-wrap mo-neck" id="moNeck"></div>
+      <div class="mo-foot">Arrow keys step through the modes &middot; Esc closes</div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── MODES EXPLORER ────────────────────────────────────────────────────
+// Correct spelling lives here: every mode is spelled so each letter appears once.
+const MO_MODES=[
+  {name:'Ionian',     ivs:[0,2,4,5,7,9,11], ch:6, type:'Major',      sound:'The major scale. Bright, settled and happy.'},
+  {name:'Dorian',     ivs:[0,2,3,5,7,9,10], ch:5, type:'Minor',      sound:'Minor, but brighter and smoother because of the natural 6. Funk, jazz and Latin rock.'},
+  {name:'Phrygian',   ivs:[0,1,3,5,7,8,10], ch:1, type:'Minor',      sound:'Dark minor with a tense b2 right above the root. Spanish and metal sounds.'},
+  {name:'Lydian',     ivs:[0,2,4,6,7,9,11], ch:3, type:'Major',      sound:'Major, but dreamy and floating because of the #4. Film score sound.'},
+  {name:'Mixolydian', ivs:[0,2,4,5,7,9,10], ch:6, type:'Major',      sound:'Major with a b7. Bluesy, classic rock and country.'},
+  {name:'Aeolian',    ivs:[0,2,3,5,7,8,10], ch:5, type:'Minor',      sound:'The natural minor scale. Sad and serious.'},
+  {name:'Locrian',    ivs:[0,1,3,5,6,8,10], ch:4, type:'Diminished', sound:'Unstable and dark because of the b5. Rarely used as a home key.'}
+];
+const MO_LETTERS='CDEFGAB',MO_NAT=[0,2,4,5,7,9,11],MO_MAJ=[0,2,4,5,7,9,11];
+const MO_DOT_COLORS=Object.assign({},SCALE_DOT_COLORS,{
+  'b2':{fill:'#0a1428',stroke:'#3a70b0',text:'#6aa8f0'},
+  '#4':{fill:'#2a1048',stroke:'#c080ff',text:'#e0c0ff'}
+});
+const moDisp=n=>spellMode==='correct'?spFmt(n):spSimple(spPc(n),spellMode);
+const moSpellRoot=(rn,ivs)=>moSpellFrom(SP_LET.indexOf(rn[0]),spPc(rn),ivs).names;
+
+function moDegLabel(ivs,i){const d=ivs[i]-MO_MAJ[i];return (d===-1?'b':d===1?'#':'')+(i+1);}
+function moSpellFrom(li,rootPc,ivs){
+  const names=[];let acc=0;
+  for(let i=0;i<7;i++){
+    const L=(li+i)%7,target=(rootPc+ivs[i])%12;
+    let d=((target-MO_NAT[L])%12+12)%12;if(d>6)d-=12;
+    if(Math.abs(d)>1)return null;
+    names.push(MO_LETTERS[L]+(d===1?'#':d===-1?'b':''));acc+=Math.abs(d);
+  }
+  return {names,acc};
+}
+// Best spelling: fewest sharps/flats, a natural root letter if possible, sharps on a tie
+function moSpell(rootPc,ivs){
+  let best=null;
+  for(let li=0;li<7;li++){
+    let d=((rootPc-MO_NAT[li])%12+12)%12;if(d>6)d-=12;
+    if(Math.abs(d)>1)continue;
+    const sp=moSpellFrom(li,rootPc,ivs);if(!sp)continue;
+    const sharps=sp.names.some(n=>n.includes('#'));
+    const score=sp.acc*2+(d!==0?1:0)+(sharps?0:0.5);
+    if(!best||score<best.score)best={names:sp.names,score};
+  }
+  return best.names;
+}
+
+let moView='notes',moKey=0,moRoot=0,moIdx=0,moLabel='degree',moPos='full';
+
+function openMO(){document.getElementById('moOverlay').classList.add('open');renderMO();}
+function closeMO(){document.getElementById('moOverlay').classList.remove('open');}
+function setMOView(v){moView=v;renderMO();}
+function setMOMode(i){moIdx=i;renderMO();}
+function stepMOMode(d){moIdx=(moIdx+d+7)%7;renderMO();}
+function setMOKey(pc){if(moView==='notes')moKey=pc;else moRoot=pc;renderMO();}
+function setMOLabel(l){moLabel=l;renderMO();}
+function setMOPos(p){moPos=p;renderMO();}
+
+// Everything about the current selection
+function moState(){
+  const m=MO_MODES[moIdx];
+  let rootPc,parentPc,names;
+  if(moView==='notes'){
+    parentPc=moKey;
+    const parent=moSpellRoot(KEY_MAJ[parentPc],MO_MAJ);
+    names=parent.slice(moIdx).concat(parent.slice(0,moIdx));
+    rootPc=(parentPc+MO_MAJ[moIdx])%12;
+  } else {
+    rootPc=moRoot;
+    parentPc=((rootPc-MO_MAJ[moIdx])%12+12)%12;
+    names=moIdx===0?moSpellRoot(KEY_MAJ[rootPc],m.ivs):moIdx===5?moSpellRoot(KEY_MIN[rootPc],m.ivs):moSpell(rootPc,m.ivs);
+  }
+  const pk=(7-moIdx)%7,parentNames=moView==='notes'?moSpellRoot(KEY_MAJ[parentPc],MO_MAJ):names.slice(pk).concat(names.slice(0,pk));
+  const pcName={};m.ivs.forEach((iv,i)=>{pcName[(rootPc+iv)%12]=names[i];});
+  const pcDeg={};m.ivs.forEach((iv,i)=>{pcDeg[(rootPc+iv)%12]=moDegLabel(m.ivs,i);});
+  return {m,rootPc,parentPc,names,parentNames,pcName,pcDeg,chPc:(rootPc+m.ivs[m.ch])%12};
+}
+
+function moCompareText(m){
+  if(m.name==='Ionian')return 'This is the major scale itself.';
+  if(m.name==='Aeolian')return 'This is the natural minor scale itself.';
+  const isMaj=m.ivs[2]===4,base=isMaj?MO_MODES[0]:MO_MODES[5];
+  const diffs=[];
+  for(let i=0;i<7;i++)if(m.ivs[i]!==base.ivs[i]){
+    const l=moDegLabel(m.ivs,i);
+    diffs.push(l.length===1?'a natural '+l:'a '+l);
+  }
+  return `Like ${isMaj?'the major scale':'natural minor'}, but with ${diffs.join(' and ')}.`;
+}
+
+function moNeckSVG(st){
+  const set=new Set(st.m.ivs.map(i=>(st.rootPc+i)%12));
+  // which dots to show
+  let dots=null,lo=0,hi=FRETS,shapeName='';
+  if(moPos!=='full'){
+    const p=moPos-1,shape=POS_SHAPES[p];shapeName=shape;
+    const R=lowEFret(st.parentPc);
+    const raw=q=>{const pts=[];MAJ_CAGED[POS_SHAPES[q]].forEach((o,si)=>o.forEach(x=>pts.push([si,R+x])));return pts;};
+    const base=p===0?0:fitPosPts(raw(0),0).lo;
+    const fit=fitPosPts(raw(p),base);
+    dots=new Set(fit.pts.map(([s,f])=>`${s}_${f}`));lo=fit.lo;hi=fit.hi;
+  }
+  let s=buildNeckBase();
+  for(let si=0;si<STR_COUNT;si++){
+    for(let f=0;f<=FRETS;f++){
+      const pc=(STRINGS[si].open+f)%12;
+      if(!set.has(pc))continue;
+      if(dots&&!dots.has(`${si}_${f}`))continue;
+      const x=f===0?PAD_L-14:fretSlotX(f),y=strY(si);
+      const deg=st.pcDeg[pc];
+      const c=MO_DOT_COLORS[deg]||MO_DOT_COLORS[deg.replace(/[#b]/g,'')]||MO_DOT_COLORS['1'];
+      if(pc===st.chPc&&moIdx!==0&&moIdx!==5)s+=`<circle cx="${x}" cy="${y}" r="22" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="4 3" opacity="0.85"/>`;
+      if(pc===st.rootPc)s+=`<circle cx="${x}" cy="${y}" r="21" fill="none" stroke="#e8c84a" stroke-width="1.5" opacity="0.7"/>`;
+      s+=`<circle cx="${x}" cy="${y}" r="17" fill="${c.fill}" stroke="${c.stroke}" stroke-width="2.5"/>`;
+      const lbl=moLabel==='note'?moDisp(st.pcName[pc]):moLabel==='fret'?(f===0?'O':String(f)):deg.replace('#','♯');
+      s+=`<text x="${x}" y="${y+5}" text-anchor="middle" font-family="Courier New,monospace" font-size="11" font-weight="700" fill="${c.text}">${lbl}</text>`;
+    }
+  }
+  if(dots){
+    // crop the drawing to the position so it fits any screen
+    const x1=Math.max(0,(lo===0?PAD_L-40:fretLineX(lo-1))-34),x2=Math.min(W,fretLineX(hi)+18),cw=x2-x1;
+    for(let si=0;si<STR_COUNT;si++)s+=`<text x="${x1+12}" y="${strY(si)+5}" font-family="Courier New,monospace" font-size="13" font-weight="600" fill="#6a6458">${STRINGS[si].name}</text>`;
+    s=s.replace(`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"`,`<svg width="${cw}" height="${H}" viewBox="${x1} 0 ${cw} ${H}" style="width:100%;max-width:${cw*1.15}px;height:auto;display:block;margin:0 auto;"`);
+  }
+  s+='</svg>';
+  return {svg:s,lo,hi,shapeName};
+}
+
+function renderMO(){
+  const st=moState(),m=st.m;
+  document.getElementById('moViewNotes').classList.toggle('active',moView==='notes');
+  document.getElementById('moViewRoot').classList.toggle('active',moView==='root');
+  // key / root picker
+  const sel=moView==='notes'?moKey:moRoot;
+  document.getElementById('moKeyLabel').textContent=moView==='notes'?'Parent major key':'Root note';
+  let kh='';
+  for(let pc=0;pc<12;pc++){
+    let lbl;
+    if(moView==='notes')lbl=moDisp(KEY_MAJ[pc]);
+    else lbl=CHR[pc].includes('#')?moDisp(CHR[pc])+'/'+FLAT[CHR[pc]]:CHR[pc];
+    kh+=`<button class="mo-key${pc===sel?' active':''}" onclick="setMOKey(${pc})">${lbl}</button>`;
+  }
+  document.getElementById('moKeys').innerHTML=kh;
+  // mode buttons
+  let mh='';
+  MO_MODES.forEach((mm,i)=>{
+    let rootName;
+    if(moView==='notes')rootName=moSpellRoot(KEY_MAJ[moKey],MO_MAJ)[i];
+    else rootName=i===0?KEY_MAJ[moRoot]:i===5?KEY_MIN[moRoot]:moSpell(moRoot,mm.ivs)[0];
+    mh+=`<button class="mo-mode${i===moIdx?' active':''} mo-t-${mm.type.toLowerCase()}" onclick="setMOMode(${i})"><span class="mo-mode-num">${i+1}</span><span class="mo-mode-name">${mm.name}</span><span class="mo-mode-root">${moDisp(rootName)} ${mm.name.toLowerCase()}</span></button>`;
+  });
+  document.getElementById('moModes').innerHTML=mh;
+  // info card
+  const rootDisp=moDisp(st.names[0]),parentDisp=moDisp(st.parentNames[0]);
+  const noteChips=st.names.map((n,i)=>{
+    const deg=moDegLabel(m.ivs,i),c=MO_DOT_COLORS[deg]||MO_DOT_COLORS[deg.replace(/[#b]/g,'')];
+    const isCh=i===m.ch&&moIdx!==0&&moIdx!==5;
+    return `<span class="mo-chip${isCh?' ch':''}" style="background:${c.fill};border-color:${c.stroke};color:${c.text}"><span class="mo-chip-note">${moDisp(n)}</span><span class="mo-chip-deg">${deg.replace('#','♯')}</span></span>`;
+  }).join('');
+  const chDeg=moDegLabel(m.ivs,m.ch).replace('#','♯');
+  const rel=moView==='notes'
+    ?`Same notes as ${parentDisp} major. ${rootDisp} is note ${moIdx+1} of that scale, so make ${rootDisp} home.`
+    :`Parent key: ${parentDisp} major. ${rootDisp} is note ${moIdx+1} of ${parentDisp} major.`;
+  document.getElementById('moInfo').innerHTML=`
+    <div class="mo-title"><span>${rootDisp} ${m.name.toUpperCase()}</span><span class="mo-type mo-t-${m.type.toLowerCase()}">${m.type.toUpperCase()}</span></div>
+    <div class="mo-chips">${noteChips}</div>
+    <div class="mo-line"><b>Sound:</b> ${m.sound}</div>
+    <div class="mo-line"><b>Compared:</b> ${moCompareText(m)}${moIdx!==0&&moIdx!==5?` The <span class="mo-ch-tag">${chDeg}</span> is the note that gives it its sound, circled with a dashed ring on the neck.`:''}</div>
+    <div class="mo-line"><b>Key:</b> ${rel}</div>`;
+  // label + position controls
+  ['degree','note','fret'].forEach(l=>document.getElementById('moLbl_'+l).classList.toggle('active',moLabel===l));
+  document.querySelectorAll('.mo-pos').forEach(b=>{const v=b.dataset.pos==='full'?'full':Number(b.dataset.pos);b.classList.toggle('active',v===moPos);});
+  const neck=moNeckSVG(st);
+  document.getElementById('moNeck').innerHTML=neck.svg;
+  document.getElementById('moPosNote').innerHTML=moPos==='full'
+    ?`Full neck: every ${rootDisp} ${m.name} note. Gold rings mark ${rootDisp}, the home note.`
+    :`<b class="mo-pos-shape">${neck.shapeName} SHAPE</b> of ${parentDisp} major &middot; frets ${neck.lo}&ndash;${neck.hi} &middot; same dots for every mode of ${parentDisp} major. Only the home note changes.`;
+  document.getElementById('moHint').textContent=moView==='notes'
+    ?'Step through the modes: the dots stay put and only the home note moves. To hear a mode, play these notes over a drone or chord on its root.'
+    :'Step through the modes: the root stays put and the notes around it change. This is how each mode sounds different from the others.';
+}
+
+document.addEventListener('keydown',e=>{
+  const ov=document.getElementById('moOverlay');
+  if(!ov||!ov.classList.contains('open'))return;
+  if(e.key==='Escape'){closeMO();return;}
+  if(e.key==='ArrowRight'){e.preventDefault();stepMOMode(1);}
+  else if(e.key==='ArrowLeft'){e.preventDefault();stepMOMode(-1);}
+});
+
+</script>
+
 <!-- CHORD BUILDER MODAL -->
 <div class="cb-overlay" id="cbOverlay" onclick="if(event.target===this)closeCB()">
   <div class="cb-modal">
@@ -2618,6 +3018,13 @@ const CP_MINOR_QUALS = {
   'V':'maj','bII':'maj','bVII':'maj'
 };
 
+function cpSpell(rootIdx, deg, quality, noteIdx) {
+  const m = deg.match(/^([b#]?)([ivIV]+)/);
+  const NUM = {i:1,ii:2,iii:3,iv:4,v:5,vi:6,vii:7};
+  const n = m ? NUM[m[2].toLowerCase()] : 1;
+  const root = spKeyRoot(rootIdx, quality === 'maj' ? 'maj' : 'min');
+  return spName((SP_LET.indexOf(root[0]) + n - 1) % 7, noteIdx);
+}
 function cpChordName(rootKey, deg, quality) {
   const steps = quality === 'maj' ? CP_MAJOR_STEPS : CP_MINOR_STEPS;
   const quals = quality === 'maj' ? CP_MAJOR_QUALS : CP_MINOR_QUALS;
@@ -2625,7 +3032,7 @@ function cpChordName(rootKey, deg, quality) {
   if (rootIdx < 0 || steps[deg] === undefined) return deg;
   const noteIdx = (rootIdx + steps[deg]) % 12;
   const noteChr = CP_CHR[noteIdx];
-  const noteName = (CP_FLAT_NAMES[noteChr] || noteChr).replace('b', '\u266d');
+  const noteName = spellMode==='correct' ? spFmt(cpSpell(rootIdx, deg, quality, noteIdx)) : spSimple(noteIdx, spellMode);
   const q = quals[deg] || 'maj';
   if (q === 'maj') return noteName;
   if (q === 'min') return noteName + 'm';
@@ -2652,7 +3059,7 @@ function buildCPKeyGrid() {
   KEYS.forEach(k => {
     const btn = document.createElement('button');
     btn.className = 'cp-key-btn' + (k === cpActiveKey ? ' active' : '');
-    btn.textContent = DISP[k] || k;
+    btn.textContent = spKeyName(CP_CHR.indexOf(k), cpQuality === 'maj' ? 'maj' : 'min');
     btn.onclick = () => { cpActiveKey = k; buildCPKeyGrid(); renderCP(); };
     grid.appendChild(btn);
   });
@@ -2662,6 +3069,7 @@ function setCPQuality(q) {
   cpQuality = q;
   document.getElementById('cpQMaj').className = 'cp-q-btn' + (q === 'maj' ? ' act-maj' : '');
   document.getElementById('cpQMin').className = 'cp-q-btn' + (q === 'min' ? ' act-min' : '');
+  buildCPKeyGrid();
   renderCP();
 }
 
@@ -2705,5 +3113,5 @@ function renderCP() {
 }
 </script>
 
-<script>setViewTab(viewTab,true);restoreCollapse();</script>
+<script>setViewTab(viewTab,true);restoreCollapse();spUpdateUI();</script>
 </body></html>
