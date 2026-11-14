@@ -21,7 +21,7 @@
   --fifth-bg:     #0e1e38;
   --text:         #d8d2c4;
   --text-dim:     #7a7468;
-  --text-faint:   #2e2c26;
+  --text-faint:   #6a6458;
   --accent:       #e8c84a;
   --display-font: 'Impact','Haettenschweiler','Arial Narrow Bold','Franklin Gothic Heavy',sans-serif;
   --mono-font:    'Courier New','Consolas',monospace;
@@ -593,6 +593,51 @@ h1 {
 .ks-weak-hint{font-size:12px;color:var(--text-dim);}
 @media (max-width:700px){.ks-card-big{font-size:40px;}.ks-q{font-size:18px;}}
 
+
+/* ── Cleanup: tabs, tools menu, legends ── */
+.view-panel{width:100%;max-width:1740px;background:var(--surface);border:1px solid var(--border);border-radius:8px;overflow:hidden;}
+.view-tabs{display:flex;border-bottom:1px solid var(--border);background:#121110;}
+.view-tab{flex:1;font-family:var(--display-font);font-size:16px;letter-spacing:3px;padding:12px 10px;background:transparent;border:none;border-bottom:3px solid transparent;color:var(--text-dim);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.1s;}
+.view-tab:hover{color:var(--text);}
+.view-tab.active{color:var(--accent);border-bottom-color:var(--accent);background:var(--surface);}
+.tab-dot{width:8px;height:8px;border-radius:50%;background:transparent;display:inline-block;}
+.tab-dot.on{background:var(--accent);box-shadow:0 0 6px var(--accent);}
+.tab-panel{display:flex;flex-direction:column;gap:12px;padding:14px 18px;}
+.tab-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.tab-row .inv-filter,.tab-row .neck-zoom-wrap{background:none;border:none;padding:0;margin:0;width:auto;max-width:none;}
+.tab-row-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:110px;}
+.tab-hint{font-size:12px;color:var(--text-dim);letter-spacing:0.5px;}
+.legend-note{color:var(--text-dim);font-size:12px;}
+.tools-menu{position:relative;}
+.tools-btn{font-family:var(--display-font);font-size:18px;letter-spacing:4px;padding:10px 26px;border-radius:6px;border:1.5px solid var(--accent);background:#1e1a08;color:var(--accent);cursor:pointer;display:flex;align-items:center;gap:10px;}
+.tools-btn:hover{background:#2a2410;}
+.tools-caret{font-size:12px;}
+.tools-drop{display:none;position:absolute;right:0;top:calc(100% + 6px);z-index:50;min-width:300px;background:#1a1916;border:1px solid var(--border2);border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.6);padding:6px;flex-direction:column;}
+.tools-menu.open .tools-drop{display:flex;}
+.tools-drop button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;text-align:left;padding:10px 14px;border:none;border-radius:5px;background:transparent;cursor:pointer;}
+.tools-drop button:hover{background:#25231e;}
+.tools-name{font-family:var(--display-font);font-size:16px;letter-spacing:2px;text-transform:uppercase;}
+.tools-desc{font-size:12px;color:var(--text-dim);}
+.collapse-panel{width:100%;max-width:1740px;background:var(--surface);border:1px solid var(--border);border-radius:8px;}
+.collapse-head{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 24px;background:transparent;border:none;cursor:pointer;font-family:var(--display-font);font-size:15px;letter-spacing:3px;color:var(--accent);text-align:left;}
+.collapse-head:hover{background:#1c1b17;}
+.collapse-sub{font-family:var(--body-font);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);margin-left:14px;}
+.collapse-caret{font-size:13px;color:var(--text-dim);transition:transform 0.15s;}
+.collapse-panel.open .collapse-caret{transform:rotate(180deg);}
+.collapse-body{display:none;}
+.collapse-panel.open .collapse-body{display:block;}
+@media (max-width:700px){
+  .collapse-sub{display:block;margin-left:0;margin-top:4px;}
+  .header h1{font-size:34px;letter-spacing:3px;}
+  .inv-btn{font-size:14px;padding:6px 12px;}
+  .triad-str-btn{font-size:11px;padding:6px 10px;}
+  .header-sub{font-size:11px;letter-spacing:2px;}
+  .view-tab{font-size:14px;letter-spacing:2px;padding:11px 4px;}
+  .tab-row-label{min-width:0;width:100%;}
+  .tools-btn{font-size:15px;padding:8px 18px;}
+  .tools-drop{min-width:260px;}
+}
+
 </style>
 </head>
 <body>
@@ -604,69 +649,15 @@ h1 {
     <span class="header-sub">Triad Visualizer · Circle of Fifths · Full Neck · All Positions</span>
   </div>
   <div class="header-btns">
-  <button class="tr-open-btn" onclick="openTR()">KEY THEORY REFERENCE</button>
-  <button class="tr-open-btn" onclick="openCB()" style="background:#1a2a1a;border-color:#40a860;color:#60d880;">CHORD BUILDER</button>
-  <button class="tr-open-btn" onclick="openCP()" style="background:#1a1a2a;border-color:#4060a8;color:#7090d8;">CHORD PROGRESSIONS</button>
-  <button class="tr-open-btn ks-open" onclick="openKS()">KEY SIG TRAINER</button>
-  </div>
-</div>
-
-<!-- SCALE FORMULA PANEL -->
-<div id="formulaPanel" style="width:100%;max-width:1740px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 24px;display:flex;gap:32px;flex-wrap:wrap;">
-  <div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:260px;">
-    <div style="font-family:var(--display-font);font-size:15px;letter-spacing:3px;color:var(--accent)" id="majFormulaTitle">C MAJOR SCALE — CHORDS</div>
-    <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
-      <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:60px;">Steps:</span>
-      <div class="tr-step tr-step-W" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div class="tr-step tr-step-W" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div class="tr-step tr-step-H" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#1c1038;border-color:#6040b0;color:#9a78e8;">H</div><div class="tr-step tr-step-W" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div class="tr-step tr-step-W" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div class="tr-step tr-step-W" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div class="tr-step tr-step-H" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#1c1038;border-color:#6040b0;color:#9a78e8;">H</div>
+    <div class="tools-menu" id="toolsMenu">
+      <button class="tools-btn" onclick="toggleTools(event)">TOOLS<span class="tools-caret">&#9662;</span></button>
+      <div class="tools-drop">
+        <button onclick="closeTools();openTR()"><span class="tools-name" style="color:#4ab8f0">Key Theory Reference</span><span class="tools-desc">Scales, intervals and chords for any key</span></button>
+        <button onclick="closeTools();openCB()"><span class="tools-name" style="color:#60d880">Chord Builder</span><span class="tools-desc">Place notes and name the chord</span></button>
+        <button onclick="closeTools();openCP()"><span class="tools-name" style="color:#7090d8">Chord Progressions</span><span class="tools-desc">90 progressions in every key</span></button>
+        <button onclick="closeTools();openKS()"><span class="tools-name" style="color:#d890d8">Key Sig Trainer</span><span class="tools-desc">Flashcards and drill for the sharp keys</span></button>
+      </div>
     </div>
-    <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;" id="majChordStrip"><span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:60px;align-self:center;">Chords:</span></div>
-  </div>
-  <div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:260px;">
-    <div style="font-family:var(--display-font);font-size:15px;letter-spacing:3px;color:#9a78e8" id="minFormulaTitle">C MINOR SCALE — CHORDS</div>
-    <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
-      <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:60px;">Steps:</span>
-      <div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#1c1038;border-color:#6040b0;color:#9a78e8;">H</div><div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#1c1038;border-color:#6040b0;color:#9a78e8;">H</div><div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div>
-    </div>
-    <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;" id="minChordStrip"><span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:60px;align-self:center;">Chords:</span></div>
-  </div>
-</div>
-
-<!-- KEY SIGNATURE MNEMONICS -->
-<div style="width:100%;max-width:1740px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 24px;display:flex;gap:40px;flex-wrap:wrap;">
-  <div style="flex:1;min-width:300px;">
-    <div style="font-family:var(--display-font);font-size:14px;letter-spacing:3px;color:var(--accent);margin-bottom:4px;">SHARPS KEY SIGNATURES</div>
-    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
-      <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:italic;letter-spacing:0.3px;"><span style="color:#e8c84a;font-weight:700;font-style:normal;">F</span>ather&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">C</span>harles&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">G</span>oes&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">D</span>own&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">A</span>nd&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">E</span>nds&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">B</span>attle</div>
-      <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:italic;letter-spacing:0.3px;"><span style="color:#e8c84a;font-weight:700;font-style:normal;">C</span>ats&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">G</span>et&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">D</span>izzy&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">A</span>fter&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">E</span>ating&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">B</span>ig&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">F</span>at&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">C</span>hickens</div>
-    </div>
-    <table style="border-collapse:collapse;width:100%;font-size:12px;">
-      <tbody><tr style="border-bottom:1px solid #2c2b25;"><th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">KEY</th><th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">#</th><th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">SHARPS</th></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">C</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">0</td><td style="padding:4px 8px;color:var(--text-dim);font-style:italic;">none</td></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">G</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">1</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">F♯</span></td></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">D</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">2</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯</span> <span style="color:#e8c84a;font-weight:700;">C♯</span></td></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">A</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">3</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯</span> <span style="color:#e8c84a;font-weight:700;">G♯</span></td></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">E</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">4</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯</span> <span style="color:#e8c84a;font-weight:700;">D♯</span></td></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">B</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">5</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯ D♯</span> <span style="color:#e8c84a;font-weight:700;">A♯</span></td></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">F♯</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">6</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯ D♯ A♯</span> <span style="color:#e8c84a;font-weight:700;">E♯</span></td></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#e8c84a;font-weight:700;">C♯</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">7</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#8a8060;">F♯ C♯ G♯ D♯ A♯ E♯</span> <span style="color:#e8c84a;font-weight:700;">B♯</span></td></tr>
-      </tbody></table>
-  </div>
-  <div style="flex:1;min-width:300px;">
-    <div style="font-family:var(--display-font);font-size:14px;letter-spacing:3px;color:#9a78e8;margin-bottom:4px;">FLATS KEY SIGNATURES</div>
-    <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
-      <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:italic;letter-spacing:0.3px;"><span style="color:#9a78e8;font-weight:700;font-style:normal;">B</span>attle&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">E</span>nds&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">A</span>nd&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">D</span>own&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">G</span>oes&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">C</span>harles'&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">F</span>ather</div>
-      <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:normal;letter-spacing:0.5px;font-family:var(--mono-font);font-weight:700;gap:2px;"><span style="color:#9a78e8;">F</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">B</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">E</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">A</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">D</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">G</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">C</span></div>
-    </div>
-    <table style="border-collapse:collapse;width:100%;font-size:12px;">
-      <tbody><tr style="border-bottom:1px solid #2c2b25;"><th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">KEY</th><th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">#</th><th style="text-align:left;padding:4px 8px;font-size:10px;letter-spacing:2px;color:var(--text-faint);font-weight:600;">FLATS</th></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">F</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">1</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">B♭</span></td></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">B♭</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">2</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭</span> <span style="color:#9a78e8;font-weight:700;">E♭</span></td></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">E♭</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">3</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭</span> <span style="color:#9a78e8;font-weight:700;">A♭</span></td></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">A♭</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">4</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭</span> <span style="color:#9a78e8;font-weight:700;">D♭</span></td></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">D♭</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">5</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭ D♭</span> <span style="color:#9a78e8;font-weight:700;">G♭</span></td></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">G♭</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">6</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭ D♭ G♭</span> <span style="color:#9a78e8;font-weight:700;">C♭</span></td></tr>
-      <tr><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#9a78e8;font-weight:700;">C♭</span><span style="color:var(--text-dim);"> maj</span></td><td style="padding:4px 8px;color:var(--text-dim);font-family:var(--mono-font);">7</td><td style="padding:4px 8px;font-family:var(--mono-font);"><span style="color:#7060a0;">B♭ E♭ A♭ D♭ G♭ C♭</span> <span style="color:#9a78e8;font-weight:700;">F♭</span></td></tr>
-      </tbody></table>
   </div>
 </div>
 
@@ -695,55 +686,71 @@ h1 {
   </div>
 </div>
 
-<!-- INV FILTER -->
-<div class="inv-filter">
+<!-- VIEW TABS -->
+<div class="view-panel">
+  <div class="view-tabs" id="viewTabs">
+    <button class="view-tab active" data-tab="triads" onclick="setViewTab('triads')">TRIADS<span class="tab-dot" id="tabDotTriads"></span></button>
+    <button class="view-tab" data-tab="scales" onclick="setViewTab('scales')">SCALES<span class="tab-dot" id="tabDotScales"></span></button>
+    <button class="view-tab" data-tab="display" onclick="setViewTab('display')">DISPLAY</button>
+  </div>
+
+  <div class="tab-panel" data-panel="triads">
+    <div class="tab-row">
+      <div class="inv-filter">
   <span class="inv-label-txt">Show:</span>
   <button class="inv-btn a-root" data-inv="root">Root Position</button>
   <button class="inv-btn" data-inv="first">1st Inversion</button>
   <button class="inv-btn a-second" data-inv="second">2nd Inversion</button>
 </div>
-
-<!-- SCALE MODE + LABEL TOGGLE -->
-<div class="scale-mode-wrap">
-  <span class="scale-mode-label">Scale View:</span>
-  <button class="scale-btn" id="btnPent" onclick="toggleScale('pent')">Pentatonic</button>
-  <button class="scale-btn" id="btnBlues" onclick="toggleScale('blues')">Blues Scale</button>
-  <button class="scale-btn" id="btnMaj" onclick="toggleScale('major')">Major Scale</button>
-  <button class="scale-btn" id="btnMinor" onclick="toggleScale('minor')">Minor Scale</button>
-  <div style="margin-left:auto;display:flex;align-items:center;gap:10px;">
-    <div class="dot-label-wrap">
-      <button class="dot-label-btn active" id="lblFret"   onclick="setDotLabel('fret')"  >FRET#</button>
-      <button class="dot-label-btn"        id="lblNote"   onclick="setDotLabel('note')"  >NOTE</button>
-      <button class="dot-label-btn"        id="lblDegree" onclick="setDotLabel('degree')">DEGREE</button>
     </div>
-    <div class="flat-toggle-wrap" id="flatToggle" onclick="toggleFlats()">
-      <span class="flat-toggle-label">Show Flats</span>
-      <div class="flat-toggle-switch"><div class="flat-toggle-knob"></div></div>
-    </div>
-  </div>
-</div>
-
-<!-- DIATONIC SCALE ROW -->
-<div class="triad-scale-wrap">
-  <span class="triad-scale-label">Diatonic Scale:</span>
+    <div class="tab-row">
+      <span class="tab-row-label">Diatonic Scale:</span>
   <button class="triad-str-btn" id="btnTriadEAD" onclick="toggleTriadScale('EAD')">String Set 1 (E·A·D)</button>
   <button class="triad-str-btn" id="btnTriadADG" onclick="toggleTriadScale('ADG')">String Set 2 (A·D·G)</button>
   <button class="triad-str-btn" id="btnTriadDGB" onclick="toggleTriadScale('DGB')">String Set 3 (D·G·B)</button>
   <button class="triad-str-btn" id="btnTriadGBE" onclick="toggleTriadScale('GBE')">String Set 4 (G·B·E)</button>
-  <div class="dot-label-wrap" style="margin-left:auto;">
+    </div>
+  </div>
+
+  <div class="tab-panel" data-panel="scales" style="display:none">
+    <div class="tab-row">
+      <span class="tab-row-label">Scale:</span>
+  <button class="scale-btn" id="btnPent" onclick="toggleScale('pent')">Pentatonic</button>
+  <button class="scale-btn" id="btnBlues" onclick="toggleScale('blues')">Blues Scale</button>
+  <button class="scale-btn" id="btnMaj" onclick="toggleScale('major')">Major Scale</button>
+  <button class="scale-btn" id="btnMinor" onclick="toggleScale('minor')">Minor Scale</button>
+    </div>
+    <div class="tab-hint">Pick one or more scales, then step through the shapes with the Position bar above the neck. Going back to Triads hides the scale, and it comes back when you return here.</div>
+  </div>
+
+  <div class="tab-panel" data-panel="display" style="display:none">
+    <div class="tab-row">
+      <span class="tab-row-label">Dot labels:</span>
+      <div class="dot-label-wrap">
+      <button class="dot-label-btn active" id="lblFret"   onclick="setDotLabel('fret')"  >FRET#</button>
+      <button class="dot-label-btn"        id="lblNote"   onclick="setDotLabel('note')"  >NOTE</button>
+      <button class="dot-label-btn"        id="lblDegree" onclick="setDotLabel('degree')">DEGREE</button>
+    </div>
+      <div class="flat-toggle-wrap" id="flatToggle" onclick="toggleFlats()">
+      <span class="flat-toggle-label">Show Flats</span>
+      <div class="flat-toggle-switch"><div class="flat-toggle-knob"></div></div>
+    </div>
+    </div>
+    <div class="tab-row">
+      <span class="tab-row-label">Triad colors:</span>
+      <div class="dot-label-wrap">
     <button class="dot-label-btn active" id="btnColorCof"     onclick="setTriadColorMode('cof')"    >CoF Colors</button>
     <button class="dot-label-btn"        id="btnColorQuality" onclick="setTriadColorMode('quality')" >Quality Colors</button>
   </div>
-</div>
-
-<!-- TRIAD SCALE LEGEND -->
-<div class="triad-scale-legend" id="triadScaleLegend"></div>
-
-<!-- NECK ZOOM -->
-<div class="neck-zoom-wrap" id="neckZoomWrap">
+    </div>
+    <div class="tab-row">
+      <div class="neck-zoom-wrap" id="neckZoomWrap">
   <span class="neck-zoom-label">Neck Zoom:</span>
   <input class="neck-zoom-slider" id="neckZoom" type="range" min="30" max="100" value="100" oninput="updateNeckZoom(this.value)">
   <span class="neck-zoom-val" id="neckZoomVal">100%</span>
+</div>
+    </div>
+  </div>
 </div>
 
 <!-- SCALE POSITIONS -->
@@ -768,7 +775,9 @@ h1 {
 
 <div class="neck-wrap" id="neckWrap" style="min-height:214px;"></div>
 
-<!-- SCALE LEGEND -->
+<!-- LEGENDS (one shows at a time) -->
+<!-- TRIAD SCALE LEGEND -->
+<div class="triad-scale-legend" id="triadScaleLegend"></div>
 <div id="scaleLegend" style="display:none;width:100%;max-width:1740px;background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:10px 16px;flex-wrap:wrap;gap:12px;align-items:center;">
   <span style="font-size:11px;letter-spacing:2px;color:var(--text-dim);text-transform:uppercase;">Scale Degrees:</span>
   <span style="font-family:var(--mono-font);font-size:12px;background:#35290a;border:1.5px solid #e8c84a;color:#ffe080;padding:3px 8px;border-radius:3px;">1 — Root</span>
@@ -781,13 +790,59 @@ h1 {
   <span id="scaleLegendOverlap" style="display:none;font-family:var(--mono-font);font-size:12px;background:#1a1040;border:1.5px solid #c0a0ff;color:#e0d0ff;padding:3px 8px;border-radius:3px;">★ — Overlap</span>
 </div>
 
-<!-- LEGEND -->
 <div class="legend">
   <div class="leg-item"><div class="leg-dot" style="background:var(--root-bg);border-color:var(--root-str)"></div><span style="color:var(--root)">Root (1)</span></div>
   <div class="leg-item"><div class="leg-dot" style="background:var(--third-maj-bg);border-color:#2a8058"></div><span style="color:var(--third-maj)">Major 3rd</span></div>
   <div class="leg-item"><div class="leg-dot" style="background:var(--third-min-bg);border-color:#6040b0"></div><span style="color:var(--third-min)">Minor 3rd</span></div>
   <div class="leg-item"><div class="leg-dot" style="background:var(--fifth-bg);border-color:#2a5898"></div><span style="color:var(--fifth)">Perfect 5th</span></div>
-  <span style="color:var(--text-faint);font-size:11px;margin-left:auto">Numbers inside dots = fret · O = open string</span>
+  <span class="legend-note" style="margin-left:auto">Numbers inside dots = fret · O = open string</span>
+</div>
+
+<!-- KEY SIGNATURE MNEMONICS (drop-down) -->
+<div class="collapse-panel" id="ksMnemonicPanel">
+  <button class="collapse-head" onclick="toggleCollapse('ksMnemonicPanel')">
+    <span>KEY SIGNATURE MNEMONICS<span class="collapse-sub">Order of sharps and flats</span></span>
+    <span class="collapse-caret">&#9662;</span>
+  </button>
+  <div class="collapse-body">
+<!-- KEY SIGNATURE MNEMONICS (tables moved to the Key Sig Trainer) -->
+<div style="display:flex;gap:18px 40px;flex-wrap:wrap;padding:4px 24px 18px;">
+  <div style="flex:1;min-width:300px;">
+    <div style="font-family:var(--display-font);font-size:14px;letter-spacing:3px;color:var(--accent);margin-bottom:4px;">SHARPS KEY SIGNATURES</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:italic;letter-spacing:0.3px;"><span style="color:#e8c84a;font-weight:700;font-style:normal;">F</span>ather&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">C</span>harles&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">G</span>oes&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">D</span>own&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">A</span>nd&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">E</span>nds&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">B</span>attle</div>
+      <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:italic;letter-spacing:0.3px;"><span style="color:#e8c84a;font-weight:700;font-style:normal;">C</span>ats&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">G</span>et&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">D</span>izzy&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">A</span>fter&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">E</span>ating&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">B</span>ig&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">F</span>at&nbsp;<span style="color:#e8c84a;font-weight:700;font-style:normal;">C</span>hickens</div>
+    </div>
+  </div>
+  <div style="flex:1;min-width:300px;">
+    <div style="font-family:var(--display-font);font-size:14px;letter-spacing:3px;color:#9a78e8;margin-bottom:4px;">FLATS KEY SIGNATURES</div>
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:italic;letter-spacing:0.3px;"><span style="color:#9a78e8;font-weight:700;font-style:normal;">B</span>attle&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">E</span>nds&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">A</span>nd&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">D</span>own&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">G</span>oes&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">C</span>harles'&nbsp;<span style="color:#9a78e8;font-weight:700;font-style:normal;">F</span>ather</div>
+      <div style="display:inline-flex;align-items:center;padding:7px 13px;border-radius:5px;border:1.5px solid #38362e;background:#1d1c18;font-size:13px;color:#7a7468;font-style:normal;letter-spacing:0.5px;font-family:var(--mono-font);font-weight:700;gap:2px;"><span style="color:#9a78e8;">F</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">B</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">E</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">A</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">D</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">G</span><span style="color:#7a7468;">·</span><span style="color:#9a78e8;">C</span></div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+
+<!-- SCALE FORMULA PANEL -->
+<div id="formulaPanel" style="width:100%;max-width:1740px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 24px;display:flex;gap:32px;flex-wrap:wrap;">
+  <div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:260px;">
+    <div style="font-family:var(--display-font);font-size:15px;letter-spacing:3px;color:var(--accent)" id="majFormulaTitle">C MAJOR SCALE — CHORDS</div>
+    <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
+      <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:60px;">Steps:</span>
+      <div class="tr-step tr-step-W" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div class="tr-step tr-step-W" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div class="tr-step tr-step-H" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#1c1038;border-color:#6040b0;color:#9a78e8;">H</div><div class="tr-step tr-step-W" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div class="tr-step tr-step-W" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div class="tr-step tr-step-W" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div class="tr-step tr-step-H" style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#1c1038;border-color:#6040b0;color:#9a78e8;">H</div>
+    </div>
+    <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;" id="majChordStrip"><span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:60px;align-self:center;">Chords:</span></div>
+  </div>
+  <div style="display:flex;flex-direction:column;gap:8px;flex:1;min-width:260px;">
+    <div style="font-family:var(--display-font);font-size:15px;letter-spacing:3px;color:#9a78e8" id="minFormulaTitle">C MINOR SCALE — CHORDS</div>
+    <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;">
+      <span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:60px;">Steps:</span>
+      <div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#1c1038;border-color:#6040b0;color:#9a78e8;">H</div><div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#1c1038;border-color:#6040b0;color:#9a78e8;">H</div><div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div><div style="font-family:var(--mono-font);font-size:12px;font-weight:700;padding:5px 10px;border-radius:3px;border:1.5px solid;min-width:34px;text-align:center;background:#0d2e1c;border-color:#2a8058;color:#52c48a;">W</div>
+    </div>
+    <div style="display:flex;gap:5px;align-items:center;flex-wrap:wrap;" id="minChordStrip"><span style="font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);min-width:60px;align-self:center;">Chords:</span></div>
+  </div>
 </div>
 
 <!-- CIRCLE OF FIFTHS -->
@@ -1070,7 +1125,7 @@ function renderDiatonic(key){
 // ── Neck Zoom ─────────────────────────────────────────────────────────
 function updateNeckZoom(val){
   const svg=document.querySelector('#neckWrap svg');
-  if(svg){svg.style.transform='scale('+(val/100)+')';svg.style.transformOrigin='top left';const h=parseFloat(svg.getAttribute('height')||300);document.getElementById('neckWrap').style.minHeight=(h*val/100)+'px';}
+  if(svg){const w=parseFloat(svg.getAttribute('width')||1400),h=parseFloat(svg.getAttribute('height')||300);svg.style.width=(w*val/100)+'px';svg.style.height=(h*val/100)+'px';document.getElementById('neckWrap').style.minHeight='0';}
   document.getElementById('neckZoomVal').textContent=val+'%';
   const slider=document.getElementById('neckZoom');
   if(slider){const pct=((val-30)/(100-30))*100;slider.style.background='linear-gradient(to right, var(--accent) 0%, var(--accent) '+pct+'%, #383630 '+pct+'%, #383630 100%)';}
@@ -1108,6 +1163,7 @@ const scaleModes=new Set();
 let formulaChordState=null;
 
 function toggleScale(mode){
+  if(!restoringScales)savedScales=[];
   if(scaleModes.has(mode)){scaleModes.delete(mode);}
   else{scaleModes.add(mode);formulaChordState=null;activeTriadScale=null;['EAD','ADG','DGB','GBE'].forEach(s=>{const btn=document.getElementById('btnTriad'+s);if(btn)btn.className='triad-str-btn';});document.getElementById('triadScaleLegend').style.display='none';}
   const anyScale=scaleModes.size>0;
@@ -1362,7 +1418,7 @@ function buildNeckBase(){
     const x=fretLineX(df)-FRET_W/2;
     if(DOUBLE.has(df)){s+=`<circle cx="${x}" cy="${strY(1)}" r="7" fill="#222018"/>`;s+=`<circle cx="${x}" cy="${strY(4)}" r="7" fill="#222018"/>`;}
     else{s+=`<circle cx="${x}" cy="${strY(2)+(STR_H/2)}" r="7" fill="#222018"/>`;}
-    s+=`<text x="${x}" y="${PAD_T-20}" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">${df}</text>`;
+    s+=`<text x="${x}" y="${PAD_T-20}" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#6a6458">${df}</text>`;
   }
   s+=`<rect x="${PAD_L}" y="${PAD_T-10}" width="${NUT_W}" height="${(STR_COUNT-1)*STR_H+20}" fill="#b0a060" rx="2"/>`;
   for(let f=1;f<=FRETS;f++){const x=fretLineX(f);s+=`<line x1="${x}" y1="${PAD_T-10}" x2="${x}" y2="${PAD_T+(STR_COUNT-1)*STR_H+10}" stroke="#2a2820" stroke-width="1.5"/>`;}
@@ -1453,6 +1509,68 @@ function updateTriadLegend(){
   });
 }
 
+
+// ── Cleanup: view tabs ──
+let viewTab='triads';
+try{viewTab=localStorage.getItem('gtViewTab')||'triads';}catch(e){}
+let savedScales=[],restoringScales=false;
+function setViewTab(t,init){
+  viewTab=t;
+  try{localStorage.setItem('gtViewTab',t);}catch(e){}
+  document.querySelectorAll('.view-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));
+  document.querySelectorAll('.tab-panel').forEach(p=>p.style.display=p.dataset.panel===t?'flex':'none');
+  if(init)return;
+  // The neck follows the tab: Triads shows triads, Scales shows scales. Display changes nothing.
+  restoringScales=true;
+  if(t==='triads'&&scaleModes.size>0){const keep=[...scaleModes];keep.forEach(m=>toggleScale(m));savedScales=keep;}
+  if(t==='scales'){
+    if(activeTriadScale)toggleTriadScale(activeTriadScale);
+    if(scaleModes.size===0&&savedScales.length){const back=savedScales;savedScales=[];back.forEach(m=>toggleScale(m));}
+  }
+  restoringScales=false;
+}
+// ── Cleanup: drop-down panels (open/closed is remembered) ──
+function toggleCollapse(id){
+  const el=document.getElementById(id);if(!el)return;
+  const open=el.classList.toggle('open');
+  try{localStorage.setItem('gtCollapse_'+id,open?'1':'0');}catch(e){}
+}
+function restoreCollapse(){
+  document.querySelectorAll('.collapse-panel').forEach(el=>{
+    let v=null;try{v=localStorage.getItem('gtCollapse_'+el.id);}catch(e){}
+    el.classList.toggle('open',v==='1');
+  });
+}
+// ── Cleanup: tools menu ──
+function toggleTools(e){e.stopPropagation();document.getElementById('toolsMenu').classList.toggle('open');}
+function closeTools(){document.getElementById('toolsMenu').classList.remove('open');}
+document.addEventListener('click',e=>{const m=document.getElementById('toolsMenu');if(m&&!m.contains(e.target))m.classList.remove('open');});
+// ── Cleanup: after every neck render ──
+function afterNeckRender(){
+  const anyScale=scaleModes.size>0&&!activeTriadScale&&!formulaChordState;
+  const leg=document.querySelector('.legend');
+  if(leg)leg.style.display=(anyScale||activeTriadScale)?'none':'flex';
+  const dS=document.getElementById('tabDotScales'),dT=document.getElementById('tabDotTriads');
+  if(dS)dS.classList.toggle('on',anyScale);
+  if(dT)dT.classList.toggle('on',!!activeTriadScale);
+  // On phones, scroll the neck so the selected position is in view
+  if(anyScale&&scalePos!=='full'&&window.innerWidth<700){
+    const info=buildMultiScaleSVG.lastPosInfo||{};
+    const keys=Object.keys(info);if(!keys.length)return;
+    const lo=Math.min(...keys.map(k=>info[k].lo)),hi=Math.max(...keys.map(k=>info[k].hi));
+    setTimeout(()=>{
+      // Zoom the neck so the whole position fits the phone screen, then scroll to it
+      const wrap=document.getElementById('neckWrap');
+      const x1=lo===0?PAD_L-40:fretLineX(lo-1),x2=fretLineX(hi)+10;
+      const avail=wrap.clientWidth-40;
+      const z=Math.max(0.3,Math.min(1,avail/(x2-x1)));
+      const slider=document.getElementById('neckZoom');
+      slider.value=Math.round(z*100);updateNeckZoom(slider.value);
+      wrap.scrollTo({left:Math.max(0,x1*z-10),behavior:'smooth'});
+    },120);
+  }
+}
+
 function renderNeck(){
   let html;
   if(activeTriadScale) html=buildTriadScaleSVG(state.key,activeTriadScale);
@@ -1462,6 +1580,7 @@ function renderNeck(){
   document.getElementById('neckWrap').innerHTML=html;
   updatePosUI(scaleModes.size>0&&!activeTriadScale&&!formulaChordState?(buildMultiScaleSVG.lastPosInfo||{}):{});
   setTimeout(applyNeckZoom,50);
+  afterNeckRender();
 }
 
 // ── App State ─────────────────────────────────────────────────────────
@@ -1847,7 +1966,7 @@ function renderCBNeck(){
   let s=`<svg width="${CB_W}" height="${CB_H}" viewBox="0 0 ${CB_W} ${CB_H}" xmlns="http://www.w3.org/2000/svg" style="display:block;">`;
   s+=`<rect width="${CB_W}" height="${CB_H}" fill="#0e0d0b" rx="6"/>`;
   s+=`<rect x="${CB_PAD_L}" y="${CB_PAD_T-12}" width="${CB_NUT_W+CB_FRETS*CB_FRET_W}" height="${5*CB_STR_H+24}" fill="#181610" rx="3"/>`;
-  for(const df of [3,5,7,9,12]){if(df>CB_FRETS)continue;const x=cbFLX(df)-CB_FRET_W/2;if(df===12){s+=`<circle cx="${x}" cy="${cbSY(1)}" r="7" fill="#222018"/>`;s+=`<circle cx="${x}" cy="${cbSY(4)}" r="7" fill="#222018"/>`;}else s+=`<circle cx="${x}" cy="${cbSY(2)+CB_STR_H/2}" r="7" fill="#222018"/>`;s+=`<text x="${x}" y="${CB_PAD_T-20}" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#282622">${df}</text>`;}
+  for(const df of [3,5,7,9,12]){if(df>CB_FRETS)continue;const x=cbFLX(df)-CB_FRET_W/2;if(df===12){s+=`<circle cx="${x}" cy="${cbSY(1)}" r="7" fill="#222018"/>`;s+=`<circle cx="${x}" cy="${cbSY(4)}" r="7" fill="#222018"/>`;}else s+=`<circle cx="${x}" cy="${cbSY(2)+CB_STR_H/2}" r="7" fill="#222018"/>`;s+=`<text x="${x}" y="${CB_PAD_T-20}" text-anchor="middle" font-family="Courier New,monospace" font-size="12" fill="#6a6458">${df}</text>`;}
   s+=`<rect x="${CB_PAD_L}" y="${CB_PAD_T-10}" width="${CB_NUT_W}" height="${5*CB_STR_H+20}" fill="#b0a060" rx="2"/>`;
   for(let f=1;f<=CB_FRETS;f++){const x=cbFLX(f);s+=`<line x1="${x}" y1="${CB_PAD_T-10}" x2="${x}" y2="${CB_PAD_T+5*CB_STR_H+10}" stroke="#2a2820" stroke-width="1.5"/>`;}
   for(let si=0;si<6;si++){const y=cbSY(si),th=3.0-(5-si)*0.42;s+=`<line x1="${CB_PAD_L}" y1="${y}" x2="${CB_PAD_L+CB_NUT_W+CB_FRETS*CB_FRET_W}" y2="${y}" stroke="#484030" stroke-width="${th}"/>`;s+=`<text x="${CB_PAD_L-10}" y="${y+5}" text-anchor="end" font-family="Courier New,monospace" font-size="14" font-weight="600" fill="#3a3628">${CB_STRS[si].name}</text>`;}
@@ -2586,4 +2705,5 @@ function renderCP() {
 }
 </script>
 
+<script>setViewTab(viewTab,true);restoreCollapse();</script>
 </body></html>
