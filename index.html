@@ -808,13 +808,6 @@ h1 {
     <button class="dot-label-btn"        id="btnColorQuality" onclick="setTriadColorMode('quality')" >Quality Colors</button>
   </div>
     </div>
-    <div class="tab-row">
-      <div class="neck-zoom-wrap" id="neckZoomWrap">
-  <span class="neck-zoom-label">Neck Zoom:</span>
-  <input class="neck-zoom-slider" id="neckZoom" type="range" min="30" max="100" value="100" oninput="updateNeckZoom(this.value)">
-  <span class="neck-zoom-val" id="neckZoomVal">100%</span>
-</div>
-    </div>
   </div>
 </div>
 
@@ -836,6 +829,13 @@ h1 {
     </div>
   </div>
   <div class="pos-labels" id="posLabels"></div>
+</div>
+
+<!-- NECK ZOOM (always visible, directly above the neck) -->
+<div class="neck-zoom-wrap" id="neckZoomWrap">
+  <span class="neck-zoom-label">Neck Zoom:</span>
+  <input class="neck-zoom-slider" id="neckZoom" type="range" min="30" max="100" value="100" oninput="updateNeckZoom(this.value)">
+  <span class="neck-zoom-val" id="neckZoomVal">100%</span>
 </div>
 
 <div class="neck-wrap" id="neckWrap" style="min-height:214px;"></div>
