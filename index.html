@@ -696,6 +696,118 @@ h1 {
 /* Note names switch: the Chord Builder now follows the global switch */
 #cbFlatToggle{display:none !important;}
 #spHint{flex:1;min-width:220px;}
+/* ── Daily Training ── */
+.dt-modal{max-width:1300px;}
+.dt-tabs{display:flex;border-bottom:1px solid var(--border);background:#121110;}
+.dt-tab{flex:1;font-family:var(--display-font);font-size:15px;letter-spacing:3px;padding:12px 8px;background:transparent;border:none;border-bottom:3px solid transparent;color:var(--text-dim);cursor:pointer;}
+.dt-tab:hover{color:var(--text);}
+.dt-tab.active{color:#80e8a0;border-bottom-color:#40b870;background:var(--surface);}
+.dt-body{flex-direction:column;gap:14px;padding:18px 20px 22px;}
+.dt-date{font-family:var(--display-font);font-size:30px;letter-spacing:3px;color:var(--text);}
+.dt-head-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px;}
+.dt-pill{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:12px;border:1px solid var(--border2);color:var(--text-dim);}
+.dt-complete{margin-top:10px;padding:10px 14px;border-radius:6px;background:#0d2e1c;border:1px solid #40b870;color:#80e8a0;font-family:var(--display-font);letter-spacing:2px;font-size:15px;}
+.dt-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+.dt-card{display:flex;flex-direction:column;gap:6px;align-items:flex-start;text-align:left;padding:12px 14px;border-radius:8px;border:1.5px solid #383630;border-top-width:4px;background:#1d1c18;cursor:pointer;color:var(--text);}
+.dt-card:hover{border-color:var(--text-dim);}
+.dt-card.sel{background:#232118;border-color:#e8c84a;}
+.dt-card-slot{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text-dim);}
+.dt-card-title{font-size:15px;font-weight:700;line-height:1.3;}
+.dt-card-status{font-size:11px;letter-spacing:2px;color:var(--text-dim);}
+.dt-card.done .dt-card-status{color:#52c48a;}
+.dt-player{display:flex;flex-direction:column;gap:12px;padding:16px 18px;background:#161512;border:1px solid #2c2b25;border-radius:8px;}
+.dt-ex-title{font-family:var(--display-font);font-size:28px;letter-spacing:2px;color:#e8c84a;line-height:1.15;}
+.dt-ex-desc{font-size:14px;color:var(--text);}
+.dt-steps{margin:0 0 0 20px;padding:0;font-size:14px;line-height:1.6;color:var(--text);}
+.dt-controls{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+.dt-lbl{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);}
+.dt-count{font-family:var(--mono-font);font-size:13px;color:var(--text-dim);margin-left:6px;}
+.dt-btn{font-family:var(--display-font);font-size:13px;letter-spacing:2px;padding:8px 14px;border-radius:4px;border:1.5px solid var(--border2);background:transparent;color:var(--text-dim);cursor:pointer;}
+.dt-btn:hover{border-color:var(--accent);color:var(--accent);}
+.dt-btn.dt-play{background:#1e1a08;border-color:var(--accent);color:var(--accent);min-width:90px;font-size:15px;}
+.dt-btn.dt-go{background:#0d2e1c;border-color:#40b870;color:#80e8a0;}
+.dt-btn.dt-danger:hover{border-color:#c03030;color:#ff6060;}
+.dt-neck{border-radius:6px;overflow-x:auto;}
+.dt-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.dt-rate{display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px solid #2c2b25;}
+.dt-rate-q{font-size:14px;color:var(--text);}
+.dt-rate-btns{display:flex;gap:8px;flex-wrap:wrap;}
+.dt-rate-btn{font-family:var(--display-font);font-size:16px;letter-spacing:3px;padding:10px 26px;border-radius:5px;border:1.5px solid #383630;background:#1d1c18;color:var(--text);cursor:pointer;}
+.dt-rate-btn.easy:hover,.dt-rate-btn.easy.on{background:#0d2e1c;border-color:#40b870;color:#80e8a0;}
+.dt-rate-btn.ok:hover,.dt-rate-btn.ok.on{background:#1e1a08;border-color:#e8c84a;color:#e8c84a;}
+.dt-rate-btn.hard:hover,.dt-rate-btn.hard.on{background:#300808;border-color:#c03030;color:#ff8080;}
+.dt-rate-hint{font-size:12px;color:var(--text-dim);}
+.dt-levelup{padding:10px 14px;border-radius:6px;background:#1e1a08;border:1px solid #e8c84a;color:#e8c84a;font-family:var(--display-font);letter-spacing:2px;}
+.dt-stats{display:flex;gap:10px;flex-wrap:wrap;}
+.dt-stat{display:flex;flex-direction:column;padding:10px 18px;border-radius:6px;background:#1d1c18;border:1px solid #2c2b25;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);}
+.dt-stat span{font-family:var(--display-font);font-size:32px;color:#80e8a0;letter-spacing:1px;}
+.dt-hist-wrap{display:grid;grid-template-columns:320px 1fr;gap:16px;align-items:start;}
+.dt-cal{padding:12px;border-radius:8px;background:#161512;border:1px solid #2c2b25;}
+.dt-cal-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;font-family:var(--display-font);letter-spacing:2px;color:var(--text);}
+.dt-cal-nav .dt-btn{padding:4px 8px;font-size:11px;}
+.dt-cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+.dt-cal-h{font-size:10px;color:var(--text-dim);text-align:center;letter-spacing:1px;}
+.dt-cal-d{aspect-ratio:1;border-radius:4px;border:1px solid #2c2b25;background:#1d1c18;color:var(--text-dim);font-family:var(--mono-font);font-size:12px;cursor:default;}
+.dt-cal-d[onclick]{cursor:pointer;}
+.dt-cal-d.full{background:#0d2e1c;border-color:#40b870;color:#80e8a0;font-weight:700;}
+.dt-cal-d.part{background:#1e1a08;border-color:#a08020;color:#e8c84a;}
+.dt-cal-d.open{border-color:#484540;color:var(--text);}
+.dt-cal-d.today{outline:2px solid #e8c84a;outline-offset:1px;}
+.dt-cal-d.sel{box-shadow:0 0 0 2px #ffffff inset;}
+.dt-cal-key{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:10px;font-size:11px;color:var(--text-dim);}
+.dt-cal-key .k{width:12px;height:12px;border-radius:3px;display:inline-block;border:1px solid #484540;}
+.dt-cal-key .k.full{background:#0d2e1c;border-color:#40b870;}
+.dt-cal-key .k.part{background:#1e1a08;border-color:#a08020;}
+.dt-hist-list{display:flex;flex-direction:column;gap:10px;align-items:flex-start;}
+.dt-hist-day{width:100%;padding:10px 14px;border-radius:8px;background:#161512;border:1px solid #2c2b25;display:flex;flex-direction:column;gap:6px;}
+.dt-hist-date{font-family:var(--display-font);letter-spacing:2px;color:var(--text);display:flex;gap:10px;align-items:center;flex-wrap:wrap;}
+.dt-hist-state{font-size:11px;padding:2px 8px;border-radius:10px;border:1px solid;}
+.dt-hist-state.full{color:#80e8a0;border-color:#40b870;}
+.dt-hist-state.part{color:#e8c84a;border-color:#a08020;}
+.dt-hist-ex{display:grid;grid-template-columns:170px 1fr 90px;gap:10px;font-size:13px;color:var(--text);align-items:baseline;}
+.dt-hist-ex.notdone{opacity:0.5;}
+.dt-hist-area{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;}
+.dt-hist-rate{font-family:var(--mono-font);font-size:11px;font-weight:700;text-align:right;color:var(--text-dim);}
+.dt-hist-rate.easy{color:#80e8a0;}.dt-hist-rate.ok{color:#e8c84a;}.dt-hist-rate.hard{color:#ff8080;}
+.dt-empty{font-size:14px;color:var(--text-dim);}
+.dt-prog-intro{font-size:14px;color:var(--text);}
+.dt-prog{display:grid;grid-template-columns:200px auto 1fr;gap:16px;align-items:center;padding:12px 16px;border-radius:8px;background:#161512;border:1px solid #2c2b25;border-left:5px solid;}
+.dt-prog-name{font-family:var(--display-font);font-size:18px;letter-spacing:2px;}
+.dt-prog-lv{display:flex;gap:5px;}
+.dt-lv{width:26px;height:26px;border-radius:4px;border:1.5px solid #383630;display:flex;align-items:center;justify-content:center;font-family:var(--mono-font);font-size:12px;font-weight:700;color:var(--text-dim);}
+.dt-lv.on{color:#141210;}
+.dt-prog-info{font-size:13px;color:var(--text-dim);}
+.dt-code{width:100%;min-height:90px;resize:vertical;font-family:var(--mono-font);font-size:11px;padding:10px;border-radius:6px;background:#141312;border:1px solid #383630;color:var(--text);word-break:break-all;}
+.dt-msg{font-size:13px;color:#80e8a0;}
+.dt-sep{height:1px;background:#2c2b25;margin:4px 0;}
+@media (max-width:900px){.dt-cards{grid-template-columns:1fr;}.dt-hist-wrap{grid-template-columns:1fr;}.dt-prog{grid-template-columns:1fr;gap:8px;}}
+@media (max-width:700px){.dt-tab{font-size:12px;letter-spacing:1px;padding:11px 4px;}.dt-body{padding:12px;}.dt-ex-title{font-size:22px;}.dt-date{font-size:22px;}.dt-hist-ex{grid-template-columns:1fr;gap:2px;}.dt-hist-rate{text-align:left;}.dt-rate-btn{padding:10px 18px;}}
+
+.dt-add{display:flex;gap:6px;flex-wrap:wrap;align-items:center;padding:10px 12px;border-radius:8px;border:1px dashed #484540;}
+.dt-add .dt-lbl{margin-right:4px;}
+.dt-chip{font-family:var(--display-font);font-size:12px;letter-spacing:1.5px;padding:6px 11px;border-radius:14px;border:1.5px solid var(--border2);background:#1d1c18;color:var(--text-dim);cursor:pointer;}
+.dt-chip:hover{background:#25231e;}
+.dt-chip.on{background:#25231e;box-shadow:0 0 0 1px currentColor inset;color:var(--text);}
+.dt-chip.surprise{border-color:#80e8a0;color:#80e8a0;}
+.dt-chip.review{border-color:#ffffff;color:#ffffff;}
+.dt-tag{font-family:var(--mono-font);font-size:10px;font-weight:700;letter-spacing:1px;padding:1px 6px;border-radius:3px;margin-right:6px;border:1px solid;}
+.dt-tag.review{color:#ffffff;border-color:#ffffff;}
+.dt-tag.bonus{color:#80e8a0;border-color:#40b870;}
+.dt-tag.practice{color:#c090ff;border-color:#9060d0;}
+.dt-note{font-size:12px;color:var(--text-dim);}
+.dt-ret{display:grid;grid-template-columns:170px 1fr auto auto;gap:12px;align-items:center;padding:10px 14px;border-radius:8px;background:#161512;border:1px solid #2c2b25;}
+.dt-ret-title{font-size:14px;color:var(--text);}
+.dt-ret-meta{font-size:12px;color:var(--text-dim);}
+.dt-cal-d.bonus{position:relative;}
+.dt-cal-d.bonus::after{content:'';position:absolute;top:3px;right:3px;width:6px;height:6px;border-radius:50%;background:#80e8a0;}
+.dt-cal-key .k.bonusk{border-radius:50%;width:8px;height:8px;background:#80e8a0;border-color:#80e8a0;}
+.dt-hdr-btn{margin-top:12px;align-self:flex-start;display:inline-flex;align-items:center;gap:12px;font-family:var(--display-font);font-size:17px;letter-spacing:4px;padding:9px 18px;border-radius:6px;border:1.5px solid #40b870;background:#0d2e1c;color:#80e8a0;cursor:pointer;}
+.dt-hdr-btn:hover{background:#12402a;}
+.dt-hdr-status{font-family:var(--body-font);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--text-dim);padding-left:12px;border-left:1px solid #2e6a48;}
+.dt-hdr-status.part{color:#e8c84a;}
+.dt-hdr-status.done{color:#80e8a0;}
+@media (max-width:700px){.dt-ret{grid-template-columns:1fr;gap:4px;}.dt-hdr-btn{font-size:14px;letter-spacing:2px;padding:8px 12px;}}
+
 </style>
 </head>
 <body>
@@ -705,11 +817,13 @@ h1 {
   <div class="header-text">
     <h1>Greg's Guitar Theory Map</h1>
     <span class="header-sub">Triad Visualizer · Circle of Fifths · Full Neck · All Positions</span>
+    <button class="dt-hdr-btn" onclick="openDT()">DAILY TRAINING<span class="dt-hdr-status" id="dtHdrStatus"></span></button>
   </div>
   <div class="header-btns">
     <div class="tools-menu" id="toolsMenu">
       <button class="tools-btn" onclick="toggleTools(event)">TOOLS<span class="tools-caret">&#9662;</span></button>
       <div class="tools-drop">
+        <button onclick="closeTools();openDT()"><span class="tools-name" style="color:#80e8a0">Daily Training</span><span class="tools-desc">Today's exercises, with a follow-along neck</span></button>
         <button onclick="closeTools();openTR()"><span class="tools-name" style="color:#4ab8f0">Key Theory Reference</span><span class="tools-desc">Scales, intervals and chords for any key</span></button>
         <button onclick="closeTools();openCB()"><span class="tools-name" style="color:#60d880">Chord Builder</span><span class="tools-desc">Place notes and name the chord</span></button>
         <button onclick="closeTools();openCP()"><span class="tools-name" style="color:#7090d8">Chord Progressions</span><span class="tools-desc">90 progressions in every key</span></button>
@@ -1445,7 +1559,7 @@ function updatePosUI(posInfo){
 document.addEventListener('keydown',e=>{
   if(e.key!=='ArrowLeft'&&e.key!=='ArrowRight')return;
   const t=e.target;if(t&&(t.tagName==='INPUT'||t.tagName==='TEXTAREA'||t.tagName==='SELECT'))return;
-  if(['ksOverlay','cbOverlay','cpOverlay','trOverlay','moOverlay'].some(id=>{const el=document.getElementById(id);return el&&el.classList.contains('open');}))return;
+  if(['ksOverlay','cbOverlay','cpOverlay','trOverlay','moOverlay','dtOverlay'].some(id=>{const el=document.getElementById(id);return el&&el.classList.contains('open');}))return;
   const wrap=document.getElementById('posWrap');
   if(!wrap||wrap.style.display==='none')return;
   e.preventDefault();stepScalePos(e.key==='ArrowRight'?1:-1);
@@ -2774,6 +2888,718 @@ document.addEventListener('keydown',e=>{
 
 </script>
 
+<!-- DAILY TRAINING MODAL -->
+<div class="cb-overlay" id="dtOverlay" onclick="if(event.target===this)closeDT()">
+  <div class="cb-modal dt-modal">
+    <div class="cb-header" style="border-bottom-color:#40b870;">
+      <div>
+        <div class="cb-title" style="color:#80e8a0;">DAILY TRAINING</div>
+        <div class="cb-subtitle">A fresh set every day, aimed at your weak spots &middot; saved as you go</div>
+      </div>
+      <button class="cb-close" onclick="closeDT()">&#10005; CLOSE</button>
+    </div>
+    <div class="dt-tabs">
+      <button class="dt-tab active" data-tab="today" onclick="setDTTab('today')">TODAY</button>
+      <button class="dt-tab" data-tab="history" onclick="setDTTab('history')">HISTORY</button>
+      <button class="dt-tab" data-tab="progress" onclick="setDTTab('progress')">PROGRESS</button>
+      <button class="dt-tab" data-tab="retired" onclick="setDTTab('retired')">RETIRED</button>
+      <button class="dt-tab" data-tab="backup" onclick="setDTTab('backup')">BACKUP</button>
+    </div>
+    <div class="dt-body" id="dt_today">
+      <div id="dtHead"></div>
+      <div class="dt-cards" id="dtCards"></div>
+      <div class="dt-add" id="dtAdd"></div>
+      <div class="dt-player" id="dtPlayer"></div>
+    </div>
+    <div class="dt-body" id="dt_history" style="display:none"></div>
+    <div class="dt-body" id="dt_progress" style="display:none"></div>
+    <div class="dt-body" id="dt_retired" style="display:none"></div>
+    <div class="dt-body" id="dt_backup" style="display:none"></div>
+  </div>
+</div>
+
+<script>
+// ── DAILY TRAINING ────────────────────────────────────────────────────
+// Each day builds a fresh set of exercises from templates (new keys,
+// positions, string sets and modes every time), aimed at weak areas.
+// Completed work is saved in this browser (localStorage) with a backup code.
+const DT_AREAS={
+  fretnotes:{name:'Fretboard Notes',color:'#4ab8f0'},
+  positions:{name:'Scale Positions',color:'#70b840'},
+  chordtones:{name:'Chord Tones',color:'#e8c84a'},
+  theory:{name:'Theory',color:'#d890d8'},
+  modes:{name:'Modes by Ear',color:'#ffc060'},
+  technique:{name:'Technique',color:'#ff8a60'}
+};
+// Weekly focus rotation. Scale positions was the biggest gap, so it comes up twice.
+const DT_FOCUS=['positions','chordtones','theory','positions','modes','technique'];
+const DT_SLOTS=['Warm-up','Main','Apply'];
+const DT_LEVEL_UP=3; // Easy ratings needed to unlock the next level
+const DT_KEYS={1:[0,7,2,9,4],2:[0,7,2,9,4,11,6,5],3:[0,1,2,3,4,5,6,7,8,9,10,11],4:[0,1,2,3,4,5,6,7,8,9,10,11]};
+const DT_TEMPO={slow:60,medium:80,fast:100};
+const DT_STORE='gtTraining';
+
+// ── storage ──
+function dtFresh(){const areas={};Object.keys(DT_AREAS).forEach(a=>areas[a]={level:1,easy:0,done:0,hard:0});return {v:1,days:{},areas,items:{}};}
+function dtLoad(){
+  try{const d=JSON.parse(localStorage.getItem(DT_STORE)||'null');if(d&&d.v===1&&d.days&&d.areas){Object.keys(DT_AREAS).forEach(a=>{if(!d.areas[a])d.areas[a]={level:1,easy:0,done:0,hard:0};});if(!d.items)d.items={};return d;}}catch(e){}
+  return dtFresh();
+}
+let dtData=dtLoad();
+function dtSave(){try{localStorage.setItem(DT_STORE,JSON.stringify(dtData));}catch(e){}}
+function dtToday(){const d=new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function dtDayNum(k){return Math.floor(Date.parse(k+'T12:00:00Z')/86400000);}
+function dtAddDays(k,n){const d=new Date(k+'T12:00:00');d.setDate(d.getDate()+n);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');}
+function dtItemId(area,ex){return 'x'+dtHash(area+'|'+ex.title);}
+function dtCoreDone(day){return day.plan.filter(x=>!x.bonus).every(x=>x.done);}
+function dtDue(k){return Object.values(dtData.items).filter(i=>!i.retired&&i.due&&i.due<=k).sort((a,b)=>a.due<b.due?-1:a.due>b.due?1:0);}
+
+// ── seeded random, so a day's plan is stable and swaps are repeatable ──
+function dtHash(s){let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return h>>>0;}
+function dtRng(seed){let a=seed;return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296;};}
+const dtPick=(rng,arr)=>arr[Math.floor(rng()*arr.length)];
+
+// ── note helpers ──
+const DT_DEG={0:'1',1:'b2',2:'2',3:'b3',4:'3',5:'4',6:'b5',7:'5',8:'b6',9:'6',10:'b7',11:'7'};
+const dtPitch=n=>OPEN_ABS[n.si]+n.f;
+const dtPcOf=n=>(STRINGS[n.si].open+n.f)%12;
+function dtKeyName(pc,q){return spKeyName(pc,q||'maj');}
+function dtNoteName(pc,ex){
+  if(ex.names&&ex.names[pc]&&spellMode==='correct')return spFmt(ex.names[pc]);
+  if(spellMode==='correct'){const c=spCtxFor(ex.key,ex.q||'maj');if(c.map[pc])return spFmt(c.map[pc]);return spSimple(pc,c.flat?'flats':'sharps');}
+  return spSimple(pc,spellMode);
+}
+function dtPos(mode,r,p){
+  const base=p===0?0:fitPosPts(rawPosPts(mode,r,0),0).lo;
+  const fit=fitPosPts(rawPosPts(mode,r,p),base);
+  return fit.pts.map(([si,f])=>({si,f})).sort((a,b)=>dtPitch(a)-dtPitch(b));
+}
+const dtUpDown=pts=>pts.concat(pts.slice(0,-1).reverse());
+// Place a run of pitches inside a fret window, moving up the strings as you go
+function dtPlace(pitches,lo,hi){
+  const out=[];let cur=0;
+  pitches.forEach(p=>{
+    let done=false;
+    for(let si=cur;si<STR_COUNT&&!done;si++){const f=p-OPEN_ABS[si];if(f>=lo&&f<=hi&&f>=0&&f<=FRETS){out.push({si,f});cur=si;done=true;}}
+    if(!done)for(let si=0;si<STR_COUNT&&!done;si++){const f=p-OPEN_ABS[si];if(f>=0&&f<=FRETS){out.push({si,f});cur=si;done=true;}}
+  });
+  return out;
+}
+// Every note of a set of pitch classes inside a fret window, low to high
+function dtWindow(pcs,lo,hi){
+  const set=new Set(pcs),pitches=[];
+  for(let p=OPEN_ABS[0]+lo;p<=OPEN_ABS[5]+hi;p++)if(set.has(p%12))pitches.push(p);
+  return dtPlace(pitches,lo,hi).filter(n=>n.f>=lo-1&&n.f<=hi+1);
+}
+function dtTag(seq,root){return seq.map(n=>Object.assign({},n,{deg:DT_DEG[(dtPcOf(n)-root+12)%12]}));}
+function dtSpan(pts){const fs=pts.map(n=>n.f);return {lo:Math.min(...fs),hi:Math.max(...fs)};}
+const DT_SCALE=[0,2,4,5,7,9,11];
+function dtChord(r,deg,seventh){const idx=[deg,deg+2,deg+4].concat(seventh?[deg+6]:[]);return idx.map(i=>(r+DT_SCALE[i%7])%12);}
+function dtChordName(r,deg,ex){const q=['','m','m','','','m','°'][deg];return dtNoteName((r+DT_SCALE[deg])%12,ex)+q;}
+
+// ── exercise templates, one generator per area ──
+const DT_GEN={
+  fretnotes(rng,lv){
+    const nat=[0,2,4,5,7,9,11];
+    const pc=dtPick(rng,lv===1?nat:[...Array(12).keys()]);
+    const ex={key:pc,q:'maj',root:pc};const N=dtKeyName(pc);
+    let seq=[];
+    if(lv<=2){
+      const top=lv===1?12:15;
+      [0,1,2,3,4,5].forEach(si=>{for(let f=0;f<=top;f++)if((STRINGS[si].open+f)%12===pc)seq.push({si,f});});
+      ex.title=`Find every ${N} on the neck, frets 0 to ${top}`;
+      ex.desc=`Fretboard speed builder: the same drill as "find every C" from your assessment. String by string, low to high.`;
+      ex.steps=['Say the note name out loud every time you play it.','Go string by string from the low E up.','Run it again with Show Whole Shape off, so only the current note shows.'];
+    } else if(lv===3){
+      const fifth=(pc+7)%12;
+      [0,1,2,3,4,5].forEach(si=>{for(let f=0;f<=12;f++)if((STRINGS[si].open+f)%12===pc)seq.push({si,f});});
+      [0,1,2,3,4,5].forEach(si=>{for(let f=0;f<=12;f++)if((STRINGS[si].open+f)%12===fifth)seq.push({si,f,alt:1});});
+      ex.title=`Find every ${N}, then every ${dtNoteName(fifth,ex)} (its 5th)`;
+      ex.desc=`Two notes this time: the root everywhere, then its 5th everywhere.`;
+      ex.steps=[`Play every ${N} on the neck, low string to high.`,`Then every ${dtNoteName(fifth,ex)}. Notice it always sits one string up and two frets over from ${N}, except across the G and B strings, where it's three frets.`,'Say each name out loud.'];
+    } else {
+      const lo=1+Math.floor(rng()*8),hi=lo+4;
+      [0,1,2,3,4,5].forEach(si=>{for(let f=lo;f<=hi;f++)if((STRINGS[si].open+f)%12===pc){seq.push({si,f});break;}});
+      ex.title=`Play ${N} on every string between frets ${lo} and ${hi}`;
+      ex.desc=`Find the same note in one area of the neck without moving your hand.`;
+      ex.steps=[`Keep your hand around frets ${lo} to ${hi}.`,`Play ${N} on each string, low to high, then back down.`,'Say the note and string each time ("A on the D string").'];
+      seq=dtUpDown(seq);
+    }
+    ex.seq=dtTag(seq,pc);
+    return ex;
+  },
+  positions(rng,lv){
+    const r=dtPick(rng,DT_KEYS[lv]);
+    const pent=lv<=2&&rng()<0.3;
+    const p=Math.floor(rng()*(lv===1?2:5));
+    const mode=pent?'pent':'major',q=pent?'min':'maj';
+    const ex={key:r,q,root:r,link:{scale:mode,pos:p+1}};
+    const K=dtKeyName(r,q),shape=POS_SHAPES[p];
+    const label=pent?`${K} minor pentatonic`:`${K} major scale`;
+    const pts=dtPos(mode,r,p);
+    if(lv<=2){
+      ex.seq=dtUpDown(pts);
+      ex.title=`${label}: ${shape} shape`;
+      ex.desc=`Position ${p+1}, up and back down.`;
+      ex.steps=[`Find the ${K} roots in the shape first (gold rings).`,'Play up and back down, one note per click.',`Turn off Show Whole Shape and play it from memory.`];
+    } else if(lv===3){
+      const p2=(p+1)%5,pts2=dtPos(mode,r,p2);
+      ex.seq=pts.concat(pts2.slice().reverse());
+      ex.title=`${label}: connect the ${shape} shape to the ${POS_SHAPES[p2]} shape`;
+      ex.desc=`Up through one shape, then down through the next one.`;
+      ex.steps=[`Play the ${shape} shape going up.`,`Shift into the ${POS_SHAPES[p2]} shape and come back down.`,'Notice which notes the two shapes share.'];
+      ex.link.pos=p+1;
+    } else {
+      const s=[];for(let i=0;i+2<pts.length;i++){s.push(pts[i],pts[i+2]);}
+      ex.seq=s;
+      ex.title=`${label} in 3rds: ${shape} shape`;
+      ex.desc=`Skip a note each time: 1-3, 2-4, 3-5 and so on, up the shape.`;
+      ex.steps=['Play two notes at a time, skipping one scale note in between.','Keep it slow and even.','This pattern is the start of hearing chords inside the scale.'];
+    }
+    ex.seq=dtTag(ex.seq,r);
+    return ex;
+  },
+  chordtones(rng,lv){
+    const r=dtPick(rng,DT_KEYS[Math.min(lv,3)]);
+    const p=Math.floor(rng()*(lv===1?2:5));
+    const pos=dtPos('major',r,p),{lo,hi}=dtSpan(pos);
+    const ex={key:r,q:'maj',root:r,link:{scale:'major',pos:p+1}};
+    const K=dtKeyName(r),shape=POS_SHAPES[p];
+    const roleTag=(seq,chordRoot,pcs)=>seq.map(n=>Object.assign({},n,{deg:DT_DEG[(dtPcOf(n)-chordRoot+12)%12],croot:chordRoot}));
+    if(lv===1){
+      const d=dtPick(rng,[0,3,4,5]),c=dtChord(r,d),cr=(r+DT_SCALE[d])%12,CN=dtChordName(r,d,ex),minor=d===5;
+      ex.seq=roleTag(dtUpDown(pos.filter(n=>c.includes(dtPcOf(n)))),cr,c);
+      ex.title=`${CN} arpeggio inside the ${K} major ${shape} shape`;
+      ex.desc=`Only the root, 3rd and 5th of ${CN}, taken from the scale shape you know.`;
+      ex.steps=['Switch the labels to DEGREE: you will see 1, '+(minor?'b3':'3')+' and 5. Say each one as you play it.','Up and back down.',`Find every 3rd in the shape. That is the note that makes ${CN} ${minor?'minor':'major'}.`];
+    } else if(lv===2){
+      let s=[];[0,3,4].forEach(d=>{const c=dtChord(r,d);s=s.concat(roleTag(pos.filter(n=>c.includes(dtPcOf(n))),(r+DT_SCALE[d])%12,c));});
+      ex.seq=s;
+      ex.title=`I, IV and V arpeggios in ${K} (${shape} shape)`;
+      ex.desc=`${dtChordName(r,0,ex)}, ${dtChordName(r,3,ex)} and ${dtChordName(r,4,ex)} without leaving the position.`;
+      ex.steps=['Each chord goes up once through the shape.','Say the chord name when you switch.','Notice how few frets you move between chords.'];
+    } else if(lv===3){
+      const prog=dtPick(rng,[[0,5,3,4],[0,4,5,3],[5,3,0,4],[0,3,4,3],[1,4,0,0]]);
+      const mid=(dtPitch(pos[0])+dtPitch(pos[pos.length-1]))/2;
+      const s=prog.map(d=>{const c=dtChord(r,d),third=c[1];const cands=pos.filter(n=>dtPcOf(n)===third).sort((a,b)=>Math.abs(dtPitch(a)-mid)-Math.abs(dtPitch(b)-mid));const n=cands[0];return Object.assign({},n,{deg:'3',croot:(r+DT_SCALE[d])%12,cname:dtChordName(r,d,ex)});});
+      ex.seq=s;
+      ex.title=`Land on the 3rd: ${prog.map(d=>dtChordName(r,d,ex)).join(' - ')}`;
+      ex.desc=`One target note per chord: its 3rd, all inside the ${shape} shape.`;
+      ex.steps=['Loop it: each click is one chord change.','Once the targets feel easy, fill in scale notes on your own and land on the lit 3rd as each chord arrives.','Try this progression in the Chord Progressions tool for a backing reference.'];
+    } else {
+      const imaj=[r,(r+4)%12,(r+7)%12,(r+11)%12],i7=[r,(r+4)%12,(r+7)%12,(r+10)%12];
+      ex.seq=roleTag(dtWindow(imaj,lo,hi),r,imaj).concat(roleTag(dtWindow(i7,lo,hi),r,i7).map(n=>Object.assign(n,{alt:1})));
+      ex.title=`maj7 vs dom7: ${K}maj7 then ${K}7`;
+      ex.desc=`Same root, 3rd and 5th. Only the 7th changes: a major 7 (${dtNoteName((r+11)%12,ex)}), then a flat 7 (${spellMode==='correct'?spFmt(spDeg(KEY_MAJ[r],'b7')):dtNoteName((r+10)%12,ex)}).`;
+      ex.steps=[`First pass is ${K}maj7, second pass is ${K}7.`,'Listen for the 7th dropping one fret.','This was the C7 vs Cmaj7 question from your assessment.'];
+    }
+    return ex;
+  },
+  theory(rng,lv){
+    const kinds=lv===1?['sharps','relative','drill']:lv===2?['sharps','relative','drill','maj7']:['sharps','relative','maj7','relative'];
+    const kind=dtPick(rng,kinds);
+    if(kind==='drill'){
+      return {key:0,q:'maj',root:0,seq:[],action:'ks',title:'Key Sig Trainer: 10 in a row',desc:'A quick theory round in the drill.',steps:['Open the Key Sig Trainer drill with the button below.','Keep going until your streak reaches 10.','Come back and rate how it went.']};
+    }
+    if(kind==='maj7')return DT_GEN.chordtones(rng,4);
+    const sharpKeys=lv===1?[7,2,9,4]:[7,2,9,4,11,6,1];
+    const r=dtPick(rng,sharpKeys),K=dtKeyName(r);
+    const ex={key:r,q:'maj',root:r,link:{scale:'major',pos:1}};
+    const pts=dtPos('major',r,0);
+    if(kind==='sharps'){
+      const nat=new Set([0,2,4,5,7,9,11]);
+      ex.seq=dtTag(dtUpDown(pts),r).map(n=>Object.assign(n,{hl:!nat.has(dtPcOf(n))}));
+      const kk=ksKey(KEY_MAJ[r]),sh=KS_SHARPS.slice(0,kk?kk.n:0);
+      ex.title=`Find the sharps in ${K} major`;
+      ex.desc=`${K} major has ${sh.length} sharp${sh.length===1?'':'s'}: ${sh.map(ksD).join(' ')}. They are outlined in pink on the neck.`;
+      ex.steps=['Before you play, say the sharps in order (F C G D A E B).','Play the scale and say each sharp out loud when you reach it.',`Check: the last sharp is a half step below ${K}.`];
+    } else {
+      const rel=(r+9)%12,R2=dtKeyName(rel,'min');
+      const up=pts,iRel=up.findIndex(n=>dtPcOf(n)===rel);
+      ex.seq=dtTag(up,r).concat(dtTag(up.slice(iRel),rel).map(n=>Object.assign(n,{alt:1})));
+      ex.title=`Relative minor: ${K} major, then ${R2} minor`;
+      ex.desc=`Same notes, different home. ${R2} is 3 frets below ${K}.`;
+      ex.steps=[`Play ${K} major up from ${K}.`,`Then play the same notes starting from ${R2}, 3 frets lower on the same string.`,`Find ${R2} and ${K} on the low E string: they are always 3 frets apart.`];
+    }
+    return ex;
+  },
+  modes(rng,lv){
+    const pairs={1:[[1,5]],2:[[4,0],[1,5]],3:[[3,0],[2,5],[4,0]],4:[[1,5],[2,5],[3,0],[4,0],[6,5]]};
+    const [mi,base]=dtPick(rng,pairs[lv]);
+    const cand=[...Array(12).keys()].filter(pc=>{const f=lowEFret(pc);return f>=3&&f<=10;});
+    const r=dtPick(rng,cand),R=lowEFret(r);
+    const m=MO_MODES[mi],b=MO_MODES[base];
+    const run=ivs=>{const ps=ivs.map(i=>OPEN_ABS[0]+R+i).concat([OPEN_ABS[0]+R+12]);return dtUpDown(dtPlace(ps,R-1,R+4));};
+    const names={};
+    try{const sp=mi===0?moSpellRoot(KEY_MAJ[r],m.ivs):mi===5?moSpellRoot(KEY_MIN[r],m.ivs):moSpell(r,m.ivs);m.ivs.forEach((iv,i)=>names[(r+iv)%12]=sp[i]);
+        const sb=base===0?moSpellRoot(KEY_MAJ[r],b.ivs):moSpellRoot(KEY_MIN[r],b.ivs);b.ivs.forEach((iv,i)=>{const pc=(r+iv)%12;if(!names[pc])names[pc]=sb[i];});}catch(e){}
+    const ex={key:r,q:base===0?'maj':'min',root:r,names,drone:r,sound:true,action:'mo',moIdx:mi};
+    const RN=names[r]&&spellMode==='correct'?spFmt(names[r]):dtNoteName(r,ex);
+    const chPc=(r+m.ivs[m.ch])%12;
+    ex.seq=dtTag(run(b.ivs),r).concat(dtTag(run(m.ivs),r).map(n=>Object.assign(n,{alt:1,ch:dtPcOf(n)===chPc})));
+    const bName=base===0?'major':'natural minor';
+    ex.title=`${RN} ${m.name} vs ${RN} ${bName}`;
+    ex.desc=`${m.sound} The drone holds ${RN} so you can hear the difference.`;
+    ex.steps=[`Turn on the drone. Play ${RN} ${bName} first.`,`Then ${RN} ${m.name}. One note changes: the ${moDegLabel(m.ivs,m.ch).replace('#','♯')}, circled with a dashed ring.`,'Sing or hum that note against the drone until you can hear it coming.'];
+    return ex;
+  },
+  technique(rng,lv){
+    const r=dtPick(rng,DT_KEYS[Math.min(lv+1,3)]),p=Math.floor(rng()*5);
+    const shape=POS_SHAPES[p];
+    if(lv===1){
+      const pts=dtPos('major',r,p),K=dtKeyName(r);
+      const s=[];dtUpDown(pts).forEach(n=>{s.push(n,Object.assign({},n,{alt:1}));});
+      return {key:r,q:'maj',root:r,link:{scale:'major',pos:p+1},seq:dtTag(s,r),title:`Alternate picking: ${K} major, ${shape} shape`,desc:'Two picks per note: down, up. Every note, the whole way.',steps:['Strict down-up picking, never two downs in a row.','Keep the pick motion small.','Speed up only when every note sounds even.']};
+    }
+    const mode=lv===3?'pent':'major',q=lv===3?'min':'maj',K=dtKeyName(r,q);
+    const pts=dtPos(mode,r,p),by={};pts.forEach(n=>{(by[n.si]=by[n.si]||[]).push(n);});
+    let s=[];
+    if(lv<=3){
+      [[0,2],[1,3],[2,4],[3,5]].forEach(([a,b2])=>{s=s.concat(by[a]||[],by[b2]||[]);});
+      return {key:r,q,root:r,link:{scale:mode,pos:p+1},seq:dtTag(s,r),title:`String skipping: ${K} ${mode==='pent'?'minor pentatonic':'major'}, ${shape} shape`,desc:'Play one string, skip one, play the next. Low E with D, A with G, D with B, G with high e.',steps:['Mute the string you skip with your picking hand palm or a fretting finger.','Aim for a clean jump with no extra string noise.','Go slow. Accuracy first.']};
+    }
+    for(let i=0;i+3<pts.length;i++)s.push(pts[i],pts[i+1],pts[i+2],pts[i+3]);
+    return {key:r,q:'maj',root:r,link:{scale:'major',pos:p+1},seq:dtTag(s,r),title:`Groups of four: ${K} major, ${shape} shape`,desc:'1-2-3-4, 2-3-4-5, 3-4-5-6 and so on, up the shape.',steps:['Accent the first note of each group of four.','Alternate pick the whole way.','A classic warm-up that builds speed and position memory at once.']};
+  }
+};
+
+// ── plans ──
+function dtGen(area,seed){
+  const rng=dtRng(dtHash(seed)),lv=dtData.areas[area].level;
+  const ex=DT_GEN[area](rng,lv);ex.area=area;ex.level=lv;
+  ex.seq=(ex.seq||[]).filter(n=>n&&n.si!=null&&n.f!=null&&n.f>=0&&n.f<=FRETS);
+  return ex;
+}
+// Fresh picks skip anything already in today's plan, in review, or retired
+function dtAvoidSet(day){
+  const t=new Set();
+  Object.values(dtData.items).forEach(i=>{if(i.retired||i.due)t.add(i.area+'|'+i.ex.title);});
+  if(day)day.plan.forEach(e=>t.add(e.area+'|'+e.ex.title));
+  return t;
+}
+function dtGenFresh(area,seed,avoid){
+  let ex=null;
+  for(let i=0;i<12;i++){ex=dtGen(area,i?seed+'#'+i:seed);if(!avoid.has(area+'|'+ex.title))return ex;}
+  return ex;
+}
+function dtFocus(k){return DT_FOCUS[Math.floor(dtDayNum(k)/7)%DT_FOCUS.length];}
+function dtRecentHard(area,k){
+  const n=dtDayNum(k);let c=0;
+  Object.entries(dtData.days).forEach(([dk,d])=>{if(n-dtDayNum(dk)<=7&&n>=dtDayNum(dk))d.plan.forEach(e=>{if(e.area===area&&e.rating==='hard')c++;});});
+  return c;
+}
+function dtMakeDay(k){
+  const focus=dtFocus(k);
+  const others=['positions','chordtones','theory','modes','technique'].filter(a=>a!==focus);
+  const rng=dtRng(dtHash(k+'apply'));
+  const w=others.map(a=>1+(a==='positions'||a==='chordtones'?0.5:0)+2*Math.min(2,dtRecentHard(a,k)));
+  let x=rng()*w.reduce((s,v)=>s+v,0),apply=others[others.length-1];
+  for(let i=0;i<others.length;i++){x-=w[i];if(x<=0){apply=others[i];break;}}
+  const areas=['fretnotes',focus,apply];
+  const due=dtDue(k),avoid=dtAvoidSet(null),plan=[];
+  areas.forEach((area,i)=>{
+    if(i===2&&due.length){const it=due[0];plan.push({slot:'Apply',area:it.area,swap:0,done:false,rating:null,at:null,review:true,itemId:it.id,ex:it.ex});return;}
+    const ex=dtGenFresh(area,k+'|'+i+'|0',avoid);avoid.add(area+'|'+ex.title);
+    plan.push({slot:DT_SLOTS[i],area,swap:0,done:false,rating:null,at:null,ex});
+  });
+  return {focus,complete:false,plan};
+}
+function dtDay(){const k=dtToday();if(!dtData.days[k]){dtData.days[k]=dtMakeDay(k);dtSave();}return dtData.days[k];}
+
+// ── UI state ──
+let dtTab='today',dtSel=0,dtStep=0,dtPlaying=false,dtTimer=null,dtTempo='slow',dtClickOn=true,dtDroneOn=false,dtSoundOn=false,dtLoop=true,dtShowAll=true,dtLabel='note',dtCalMonth=null,dtHistSel=null,dtLevelMsg='',dtResetArm=false;
+function dtEx(){return dtDay().plan[dtSel].ex;}
+
+function dtUpdateHdr(){
+  const el=document.getElementById('dtHdrStatus');if(!el)return;
+  const day=dtData.days[dtToday()];
+  if(!day){el.textContent='Not started today';el.className='dt-hdr-status';return;}
+  const core=day.plan.filter(x=>!x.bonus),n=core.filter(x=>x.done).length,b=day.plan.filter(x=>x.bonus&&x.done).length;
+  el.textContent=dtCoreDone(day)?'Complete today'+(b?' + '+b+' bonus':''):n+' of '+core.length+' done today';
+  el.className='dt-hdr-status'+(dtCoreDone(day)?' done':n?' part':'');
+}
+function openDT(){
+  const day=dtDay();
+  const firstOpen=day.plan.findIndex(e=>!e.done);dtSel=firstOpen<0?0:firstOpen;
+  dtStep=0;dtLevelMsg='';
+  document.getElementById('dtOverlay').classList.add('open');
+  setDTTab('today');
+}
+function closeDT(){dtStop();dtDroneStop();dtDroneOn=false;dtUpdateHdr();document.getElementById('dtOverlay').classList.remove('open');}
+function setDTTab(t){
+  dtTab=t;if(t!=='today')dtStop();
+  document.querySelectorAll('.dt-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===t));
+  ['today','history','progress','retired','backup'].forEach(x=>document.getElementById('dt_'+x).style.display=x===t?'flex':'none');
+  if(t!=='today'){dtDroneStop();dtDroneOn=false;}
+  if(t==='today')renderDTToday();else if(t==='history')renderDTHistory();else if(t==='progress')renderDTProgress();else if(t==='retired')renderDTRetired();else renderDTBackup();
+}
+function dtSelect(i){dtStop();dtDroneStop();dtSel=i;dtStep=0;dtLevelMsg='';const ex=dtEx();dtDroneOn=false;dtSoundOn=!!ex.sound;renderDTToday();}
+
+// ── today ──
+function renderDTToday(){
+  const day=dtDay(),k=dtToday(),core=day.plan.filter(e=>!e.bonus),doneN=core.filter(e=>e.done).length,bonusN=day.plan.filter(e=>e.bonus&&e.done).length;
+  const d=new Date(k+'T12:00:00');
+  document.getElementById('dtHead').innerHTML=`
+    <div class="dt-date">${d.toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric'})}</div>
+    <div class="dt-head-row">
+      <span class="dt-pill" style="border-color:${DT_AREAS[day.focus].color};color:${DT_AREAS[day.focus].color}">This week: ${DT_AREAS[day.focus].name}</span>
+      <span class="dt-pill">${doneN} of ${core.length} done${bonusN?' + '+bonusN+' bonus':''}</span>
+      <span class="dt-pill">Streak: ${dtStreak()} day${dtStreak()===1?'':'s'}</span>
+    </div>
+    ${day.complete?`<div class="dt-complete">TODAY'S TRAINING IS COMPLETE. It's saved in your history. Feeling inspired? Add more below.</div>`:''}`;
+  document.getElementById('dtCards').innerHTML=day.plan.map((e,i)=>`
+    <button class="dt-card${i===dtSel?' sel':''}${e.done?' done':''}" onclick="dtSelect(${i})" style="border-top-color:${DT_AREAS[e.area].color}">
+      <span class="dt-card-slot">${e.review?'<span class="dt-tag review">REVIEW</span>':e.practice?'<span class="dt-tag practice">RETIRED PRACTICE</span>':e.bonus?'<span class="dt-tag bonus">BONUS</span>':''}${e.slot} &middot; <span style="color:${DT_AREAS[e.area].color}">${DT_AREAS[e.area].name}</span> &middot; Level ${e.ex.level}</span>
+      <span class="dt-card-title">${e.ex.title}</span>
+      <span class="dt-card-status">${e.done?'DONE &middot; rated '+e.rating.toUpperCase():'NOT DONE YET'}</span>
+    </button>`).join('');
+  const dueLeft=dtDue(k).filter(it=>!day.plan.some(x=>x.itemId===it.id));
+  document.getElementById('dtAdd').innerHTML=`
+    <span class="dt-lbl">Add an exercise</span>
+    <button class="dt-chip surprise" onclick="dtAddBonus('surprise')">SURPRISE ME</button>
+    ${Object.entries(DT_AREAS).map(([id,a])=>`<button class="dt-chip" style="border-color:${a.color};color:${a.color}" onclick="dtAddBonus('${id}')">${a.name.toUpperCase()}</button>`).join('')}
+    ${dueLeft.length?`<button class="dt-chip review" onclick="dtAddBonus('review')">REVIEW (${dueLeft.length} DUE)</button>`:''}`;
+  renderDTPlayer();
+}
+function renderDTPlayer(){
+  const day=dtDay(),e=day.plan[dtSel],ex=e.ex,has=ex.seq.length>0;
+  let actions='';
+  if(ex.link)actions+=`<button class="dt-btn" onclick="dtOpenInMap()">OPEN IN THEORY MAP</button>`;
+  if(ex.action==='ks')actions+=`<button class="dt-btn dt-go" onclick="closeDT();openKS();setKSMode('drill')">OPEN KEY SIG TRAINER DRILL</button>`;
+  if(ex.action==='mo')actions+=`<button class="dt-btn" onclick="dtOpenModes()">OPEN IN MODES EXPLORER</button>`;
+  if(!e.done&&!e.review&&!e.practice)actions+=`<button class="dt-btn" onclick="dtSwap()">NEW VERSION OF THIS EXERCISE</button>`;
+  if(e.review)actions+=`<span class="dt-note">Planned repeat: you rated this ${dtData.items[e.itemId]&&dtData.items[e.itemId].last?dtData.items[e.itemId].last.toUpperCase():'HARD'} last time. Rate it Easy to retire it.</span>`;
+  document.getElementById('dtPlayer').innerHTML=`
+    <div class="dt-ex-title">${ex.title}</div>
+    <div class="dt-ex-desc">${ex.desc}</div>
+    <ol class="dt-steps">${ex.steps.map(s=>`<li>${s}</li>`).join('')}</ol>
+    ${has?`
+    <div class="dt-controls">
+      <button class="dt-btn dt-play" id="dtPlayBtn" onclick="dtToggle()">${dtPlaying?'STOP':'PLAY'}</button>
+      <button class="dt-btn" onclick="dtMove(-1)">PREV NOTE</button>
+      <button class="dt-btn" onclick="dtMove(1)">NEXT NOTE</button>
+      <button class="dt-btn" onclick="dtRestart()">RESTART</button>
+      <span class="dt-count" id="dtCount"></span>
+    </div>
+    <div class="dt-controls">
+      <span class="dt-lbl">Tempo</span>
+      <div class="cb-lbl-wrap">${['slow','medium','fast'].map(t=>`<button class="cb-lbl-btn${dtTempo===t?' active':''}" onclick="dtSetTempo('${t}')">${t.toUpperCase()}</button>`).join('')}</div>
+      ${dtToggleHTML('Click',dtClickOn,'dtClickOn')}
+      ${dtToggleHTML('Hear notes',dtSoundOn,'dtSoundOn')}
+      ${ex.drone!=null?dtToggleHTML('Drone',dtDroneOn,'dtDroneOn'):''}
+      ${dtToggleHTML('Loop',dtLoop,'dtLoop')}
+      ${dtToggleHTML('Show whole shape',dtShowAll,'dtShowAll')}
+      <div class="cb-lbl-wrap" style="margin-left:auto;">
+        <button class="cb-lbl-btn${dtLabel==='note'?' active':''}" onclick="dtSetLabel('note')">NOTE</button>
+        <button class="cb-lbl-btn${dtLabel==='degree'?' active':''}" onclick="dtSetLabel('degree')">DEGREE</button>
+      </div>
+    </div>
+    <div class="cb-neck-wrap dt-neck" id="dtNeck"></div>`:''}
+    <div class="dt-actions">${actions}</div>
+    <div class="dt-rate">
+      <div class="dt-rate-q">${e.done?`Done and saved. Rated <b>${e.rating.toUpperCase()}</b>. You can change the rating:`:'When you have practiced it, mark it done. How did it feel?'}</div>
+      <div class="dt-rate-btns">
+        <button class="dt-rate-btn easy${e.rating==='easy'?' on':''}" onclick="dtRate('easy')">EASY</button>
+        <button class="dt-rate-btn ok${e.rating==='ok'?' on':''}" onclick="dtRate('ok')">OK</button>
+        <button class="dt-rate-btn hard${e.rating==='hard'?' on':''}" onclick="dtRate('hard')">HARD</button>
+      </div>
+      <div class="dt-rate-hint">${e.practice?'Practice of a retired exercise. Hard puts it back into review. Easy or OK keeps it retired.':'Easy retires this exercise and moves the area toward its next level. OK brings it back in about 4 days. Hard brings it back tomorrow.'}</div>
+      ${dtLevelMsg?`<div class="dt-levelup">${dtLevelMsg}</div>`:''}
+    </div>`;
+  if(has)dtRenderNeck();
+}
+function dtToggleHTML(label,on,v){return `<div class="cb-flat-wrap${on?' active':''}" onclick="dtFlip('${v}')"><span class="cb-flat-label">${label}</span><div class="cb-flat-switch"><div class="cb-flat-knob"></div></div></div>`;}
+function dtFlip(v){
+  if(v==='dtClickOn')dtClickOn=!dtClickOn;
+  else if(v==='dtSoundOn')dtSoundOn=!dtSoundOn;
+  else if(v==='dtLoop')dtLoop=!dtLoop;
+  else if(v==='dtShowAll')dtShowAll=!dtShowAll;
+  else if(v==='dtDroneOn'){dtDroneOn=!dtDroneOn;if(dtDroneOn)dtDroneStart(dtEx().drone);else dtDroneStop();}
+  renderDTPlayer();
+}
+function dtSetTempo(t){dtTempo=t;if(dtPlaying){dtStop();dtToggle();}else renderDTPlayer();}
+function dtSetLabel(l){dtLabel=l;renderDTPlayer();}
+
+// ── follow-along neck ──
+function dtRenderNeck(){
+  const ex=dtEx(),seq=ex.seq;if(!seq.length)return;
+  const cur=seq[dtStep],nxt=seq[dtStep+1];
+  const {lo,hi}=dtSpan(seq);
+  let s=buildNeckBase();
+  const drawn={};
+  const dot=(n,kind)=>{
+    const x=n.f===0?PAD_L-14:fretSlotX(n.f),y=strY(n.si),pc=dtPcOf(n);
+    const isRoot=pc===((n.croot!=null)?n.croot:ex.root);
+    const lbl=dtLabel==='note'?dtNoteName(pc,ex):(n.deg||DT_DEG[(pc-ex.root+12)%12]).replace('#','♯');
+    const col=n.alt?{fill:'#24180a',stroke:'#e09030',text:'#ffc060'}:{fill:'#14240e',stroke:'#70b840',text:'#a0e060'};
+    let g='';
+    if(kind==='cur'){
+      g+=`<circle cx="${x}" cy="${y}" r="27" fill="#e8c84a" opacity="0.18"/><circle cx="${x}" cy="${y}" r="21" fill="#e8c84a" stroke="#fff6c8" stroke-width="3"/>`;
+      g+=`<text x="${x}" y="${y+5}" text-anchor="middle" font-family="Courier New,monospace" font-size="13" font-weight="700" fill="#141210">${lbl}</text>`;
+      if(n.cname)g+=`<text x="${x}" y="${y-30}" text-anchor="middle" font-family="Impact,Arial Narrow Bold,sans-serif" font-size="16" fill="#e8c84a">${n.cname}</text>`;
+      return g;
+    }
+    const op=kind==='next'?1:0.55;
+    if(n.ch)g+=`<circle cx="${x}" cy="${y}" r="22" fill="none" stroke="#ffffff" stroke-width="2" stroke-dasharray="4 3" opacity="0.85"/>`;
+    if(n.hl)g+=`<circle cx="${x}" cy="${y}" r="22" fill="none" stroke="#f0b0f0" stroke-width="2.5"/>`;
+    if(isRoot)g+=`<circle cx="${x}" cy="${y}" r="21" fill="none" stroke="#e8c84a" stroke-width="1.5" opacity="0.8"/>`;
+    g+=`<circle cx="${x}" cy="${y}" r="17" fill="${col.fill}" stroke="${kind==='next'?'#ffffff':col.stroke}" stroke-width="${kind==='next'?3:2}" opacity="${op}"/>`;
+    g+=`<text x="${x}" y="${y+4}" text-anchor="middle" font-family="Courier New,monospace" font-size="11" font-weight="700" fill="${col.text}" opacity="${op}">${lbl}</text>`;
+    return g;
+  };
+  if(dtShowAll)seq.forEach((n,i)=>{const key=n.si+'_'+n.f;if(i===dtStep||drawn[key])return;if(cur&&cur.si===n.si&&cur.f===n.f)return;drawn[key]=1;s+=dot(n,nxt&&nxt.si===n.si&&nxt.f===n.f?'next':'rest');});
+  else if(nxt&&!(nxt.si===cur.si&&nxt.f===cur.f))s+=dot(nxt,'next');
+  s+=dot(cur,'cur');
+  const cropped=hi-lo<=7;
+  if(cropped){
+    const x1=Math.max(0,(lo===0?PAD_L-40:fretLineX(lo-1))-34),x2=Math.min(W,fretLineX(hi)+18),cw=x2-x1;
+    for(let si=0;si<STR_COUNT;si++)s+=`<text x="${x1+12}" y="${strY(si)+5}" font-family="Courier New,monospace" font-size="13" font-weight="600" fill="#6a6458">${STRINGS[si].name}</text>`;
+    s=s.replace(`<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}"`,`<svg width="${cw}" height="${H}" viewBox="${x1} 0 ${cw} ${H}" style="width:100%;max-width:${Math.round(cw*1.15)}px;height:auto;display:block;margin:0 auto;"`);
+  }
+  s+='</svg>';
+  const wrap=document.getElementById('dtNeck');wrap.innerHTML=s;
+  // Wide exercises on small screens: keep the lit note in view
+  if(!cropped&&wrap.scrollWidth>wrap.clientWidth){const cx=cur.f===0?PAD_L-14:fretSlotX(cur.f);wrap.scrollTo({left:Math.max(0,cx-wrap.clientWidth/2),behavior:dtPlaying?'smooth':'auto'});}
+  const c=document.getElementById('dtCount');
+  if(c)c.textContent=`Note ${dtStep+1} of ${seq.length}`+(cur.cname?` · chord: ${cur.cname}`:'');
+}
+function dtMove(d){const n=dtEx().seq.length;dtStep=Math.max(0,Math.min(n-1,dtStep+d));dtRenderNeck();dtSoundNote();}
+function dtRestart(){dtStep=0;dtRenderNeck();}
+
+// ── sound: click, note and drone ──
+let dtAC=null,dtDroneNodes=null;
+function dtAudio(){try{if(!dtAC)dtAC=new (window.AudioContext||window.webkitAudioContext)();if(dtAC.state==='suspended')dtAC.resume();}catch(e){dtAC=null;}return dtAC;}
+function dtBeep(freq,dur,vol,type){const ac=dtAudio();if(!ac)return;const o=ac.createOscillator(),g=ac.createGain(),t=ac.currentTime;o.type=type||'square';o.frequency.value=freq;g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(0.0001,t+dur);o.connect(g).connect(ac.destination);o.start(t);o.stop(t+dur+0.02);}
+const dtFreq=m=>440*Math.pow(2,(m-69)/12);
+function dtSoundNote(){if(!dtSoundOn)return;const n=dtEx().seq[dtStep];if(n)dtBeep(dtFreq(dtPitch(n)),0.9,0.18,'triangle');}
+function dtDroneStart(pc){
+  dtDroneStop();const ac=dtAudio();if(!ac)return;
+  const g=ac.createGain();g.gain.value=0.0001;g.gain.exponentialRampToValueAtTime(0.07,ac.currentTime+0.4);g.connect(ac.destination);
+  const m=40+((pc-4+12)%12);
+  const o1=ac.createOscillator(),o2=ac.createOscillator();o1.type='triangle';o2.type='sine';o1.frequency.value=dtFreq(m);o2.frequency.value=dtFreq(m+12);
+  o1.connect(g);o2.connect(g);o1.start();o2.start();dtDroneNodes={g,o1,o2};
+}
+function dtDroneStop(){if(!dtDroneNodes)return;const {g,o1,o2}=dtDroneNodes,ac=dtAC;try{g.gain.exponentialRampToValueAtTime(0.0001,ac.currentTime+0.2);o1.stop(ac.currentTime+0.25);o2.stop(ac.currentTime+0.25);}catch(e){}dtDroneNodes=null;}
+
+// ── playback ──
+function dtToggle(){
+  if(dtPlaying){dtStop();renderDTPlayer();return;}
+  dtAudio();dtPlaying=true;
+  const b=document.getElementById('dtPlayBtn');if(b)b.textContent='STOP';
+  const tick=()=>{
+    const seq=dtEx().seq;
+    if(dtClickOn)dtBeep(dtStep===0?1600:1100,0.03,0.12,'square');
+    dtRenderNeck();dtSoundNote();
+    dtTimer=setTimeout(()=>{
+      if(!dtPlaying)return;
+      if(dtStep>=seq.length-1){if(dtLoop){dtStep=0;}else{dtStop();renderDTPlayer();return;}}
+      else dtStep++;
+      tick();
+    },60000/DT_TEMPO[dtTempo]);
+  };
+  tick();
+}
+function dtStop(){dtPlaying=false;if(dtTimer){clearTimeout(dtTimer);dtTimer=null;}}
+
+// ── completion ──
+function dtRate(rating){
+  const day=dtDay(),e=day.plan[dtSel],a=dtData.areas[e.area];
+  dtLevelMsg='';
+  const wasNew=!e.done;
+  if(!e.done){a.done++;}
+  else if(e.rating==='easy'&&a.easy>0)a.easy--;
+  if(e.done&&e.rating==='hard'&&a.hard>0)a.hard--;
+  e.done=true;e.rating=rating;e.at=new Date().toISOString();
+  if(rating==='easy'){a.easy++;if(a.easy>=DT_LEVEL_UP&&a.level<4){a.level++;a.easy=0;dtLevelMsg=`LEVEL UP: ${DT_AREAS[e.area].name} is now level ${a.level}. New exercises unlocked from tomorrow.`;}}
+  if(rating==='hard')a.hard++;
+  dtItemUpdate(e,rating,wasNew,dtToday());
+  day.complete=dtCoreDone(day);
+  dtSave();
+  const nextOpen=day.plan.findIndex(x=>!x.done);
+  dtStop();
+  if(nextOpen>=0&&!dtLevelMsg){dtSel=nextOpen;dtStep=0;const ex=dtEx();dtSoundOn=!!ex.sound;}
+  renderDTToday();dtUpdateHdr();
+}
+// Spaced repeats: Hard returns tomorrow, OK in about 4 days, Easy retires it
+function dtItemUpdate(e,rating,wasNew,k){
+  const id=e.itemId||dtItemId(e.area,e.ex);e.itemId=id;
+  const it=dtData.items[id]||(dtData.items[id]={id,area:e.area,ex:e.ex,reps:0,first:k,retired:false,due:null,retiredOn:null,last:null,lastOn:null});
+  if(wasNew)it.reps++;
+  it.last=rating;it.lastOn=k;
+  if(e.practice){if(rating==='hard'){it.retired=false;it.retiredOn=null;it.due=dtAddDays(k,1);}return;}
+  if(rating==='easy'){it.retired=true;it.retiredOn=k;it.due=null;}
+  else{it.retired=false;it.retiredOn=null;it.due=dtAddDays(k,rating==='hard'?1:4);}
+}
+function dtAddBonus(kind){
+  const k=dtToday(),day=dtDay(),n=day.plan.filter(x=>x.bonus).length+1;
+  dtStop();dtDroneStop();dtDroneOn=false;
+  let entry;
+  if(kind==='review'){
+    const it=dtDue(k).find(i=>!day.plan.some(x=>x.itemId===i.id));if(!it)return;
+    entry={slot:'Bonus '+n,area:it.area,swap:0,done:false,rating:null,at:null,bonus:true,review:true,itemId:it.id,ex:it.ex};
+  } else {
+    let area=kind;
+    if(kind==='surprise'){
+      const used=new Set(day.plan.map(x=>x.area)),pool=Object.keys(DT_AREAS);
+      const rng=dtRng(dtHash(k+'|surprise|'+n));
+      const w=pool.map(a=>(used.has(a)?0.4:1)+2*Math.min(2,dtRecentHard(a,k)));
+      let x=rng()*w.reduce((s2,v)=>s2+v,0);area=pool[pool.length-1];
+      for(let i=0;i<pool.length;i++){x-=w[i];if(x<=0){area=pool[i];break;}}
+    }
+    entry={slot:'Bonus '+n,area,swap:0,done:false,rating:null,at:null,bonus:true,ex:dtGenFresh(area,k+'|bonus|'+n+'|'+area,dtAvoidSet(day))};
+  }
+  day.plan.push(entry);dtSave();
+  dtSel=day.plan.length-1;dtStep=0;dtLevelMsg='';dtSoundOn=!!entry.ex.sound;
+  renderDTToday();
+  const pl=document.getElementById('dtPlayer');if(pl)pl.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function dtPracticeRetired(id){
+  const it=dtData.items[id];if(!it)return;
+  const day=dtDay(),n=day.plan.filter(x=>x.bonus).length+1;
+  day.plan.push({slot:'Bonus '+n,area:it.area,swap:0,done:false,rating:null,at:null,bonus:true,practice:true,itemId:id,ex:it.ex});
+  dtSave();dtSel=day.plan.length-1;dtStep=0;dtLevelMsg='';dtSoundOn=!!it.ex.sound;
+  setDTTab('today');
+}
+let dtRetFilter='all';
+function dtSetRetFilter(f){dtRetFilter=f;renderDTRetired();}
+function renderDTRetired(){
+  const all=Object.values(dtData.items).filter(i=>i.retired).sort((a,b)=>a.retiredOn<b.retiredOn?1:a.retiredOn>b.retiredOn?-1:0);
+  const list=all.filter(i=>dtRetFilter==='all'||i.area===dtRetFilter);
+  const fmt=k=>new Date(k+'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'});
+  document.getElementById('dt_retired').innerHTML=`
+    <div class="dt-prog-intro">Exercises you rated Easy are retired here. They won't come back on their own, but you can practice any of them whenever you want. If one feels Hard again, it goes back into review.</div>
+    <div class="dt-add">
+      <button class="dt-chip${dtRetFilter==='all'?' on':''}" onclick="dtSetRetFilter('all')">ALL (${all.length})</button>
+      ${Object.entries(DT_AREAS).map(([id,a])=>{const c=all.filter(i=>i.area===id).length;return `<button class="dt-chip${dtRetFilter===id?' on':''}" style="border-color:${a.color};color:${a.color}" onclick="dtSetRetFilter('${id}')">${a.name.toUpperCase()} (${c})</button>`;}).join('')}
+    </div>
+    ${list.length?list.map(i=>`<div class="dt-ret">
+      <span class="dt-hist-area" style="color:${DT_AREAS[i.area].color}">${DT_AREAS[i.area].name} L${i.ex.level}</span>
+      <span class="dt-ret-title">${i.ex.title}</span>
+      <span class="dt-ret-meta">Retired ${fmt(i.retiredOn)} &middot; practiced ${i.reps} time${i.reps===1?'':'s'}</span>
+      <button class="dt-btn dt-go" onclick="dtPracticeRetired('${i.id}')">PRACTICE</button>
+    </div>`).join(''):`<div class="dt-empty">${all.length?'Nothing retired in this area yet.':'Nothing retired yet. Rate an exercise Easy and it lands here.'}</div>`}`;
+}
+function dtSwap(){
+  const k=dtToday(),day=dtDay(),e=day.plan[dtSel];
+  if(e.done)return;
+  dtStop();dtDroneStop();dtDroneOn=false;
+  if(e.review||e.practice)return;
+  e.swap++;e.ex=dtGenFresh(e.area,(e.bonus?k+'|bonus|'+dtSel:k+'|'+dtSel)+'|'+e.swap,dtAvoidSet(day));dtStep=0;
+  dtSave();renderDTToday();
+}
+function dtOpenInMap(){
+  const ex=dtEx(),l=ex.link;if(!l)return;
+  closeDT();
+  [...scaleModes].forEach(m=>toggleScale(m));
+  if(activeTriadScale)toggleTriadScale(activeTriadScale);
+  formulaChordState=null;
+  state.key=CHR[ex.key];state.quality=ex.q==='min'?'min':'maj';
+  setViewTab('scales');
+  toggleScale(l.scale);
+  setScalePos(l.pos);
+  render();
+  const w=document.getElementById('posWrap');if(w)w.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function dtOpenModes(){const ex=dtEx();closeDT();openMO();setMOView('root');setMOKey(ex.key);setMOMode(ex.moIdx);}
+
+// ── history ──
+function dtStreak(){
+  let n=0,d=new Date();
+  const key=x=>x.getFullYear()+'-'+String(x.getMonth()+1).padStart(2,'0')+'-'+String(x.getDate()).padStart(2,'0');
+  if(!(dtData.days[key(d)]&&dtData.days[key(d)].complete))d.setDate(d.getDate()-1);
+  while(dtData.days[key(d)]&&dtData.days[key(d)].complete){n++;d.setDate(d.getDate()-1);}
+  return n;
+}
+function dtCalStep(d){const m=dtCalMonth||new Date();dtCalMonth=new Date(m.getFullYear(),m.getMonth()+d,1);renderDTHistory();}
+function dtShowDay(k){dtHistSel=k;renderDTHistory();}
+function renderDTHistory(){
+  const days=dtData.days,keys=Object.keys(days).sort().reverse();
+  const doneDays=keys.filter(k=>days[k].complete).length;
+  const exDone=keys.reduce((s,k)=>s+days[k].plan.filter(e=>e.done).length,0);
+  const m=dtCalMonth||new Date();const y=m.getFullYear(),mo=m.getMonth();
+  const first=new Date(y,mo,1).getDay(),dim=new Date(y,mo+1,0).getDate(),today=dtToday();
+  let cal='';['S','M','T','W','T','F','S'].forEach(d=>cal+=`<div class="dt-cal-h">${d}</div>`);
+  for(let i=0;i<first;i++)cal+='<div></div>';
+  for(let d=1;d<=dim;d++){
+    const k=y+'-'+String(mo+1).padStart(2,'0')+'-'+String(d).padStart(2,'0'),day=days[k];
+    const cls=day?(day.complete?' full':day.plan.some(e=>e.done)?' part':' open')+(day.plan.some(e=>e.bonus&&e.done)?' bonus':''):'';
+    cal+=`<button class="dt-cal-d${cls}${k===today?' today':''}${k===dtHistSel?' sel':''}" ${day?`onclick="dtShowDay('${k}')"`:'disabled'}>${d}</button>`;
+  }
+  const showKeys=dtHistSel?[dtHistSel]:keys.slice(0,14);
+  const list=showKeys.filter(k=>days[k]).map(k=>{
+    const day=days[k],d=new Date(k+'T12:00:00');
+    return `<div class="dt-hist-day"><div class="dt-hist-date">${d.toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'})}<span class="dt-hist-state ${day.complete?'full':'part'}">${(()=>{const core=day.plan.filter(e=>!e.bonus),b=day.plan.filter(e=>e.bonus&&e.done).length;return (day.complete?'COMPLETE':core.filter(e=>e.done).length+' OF '+core.length+' DONE')+(b?' + '+b+' BONUS':'');})()}</span></div>
+      ${day.plan.map(e=>`<div class="dt-hist-ex${e.done?'':' notdone'}"><span class="dt-hist-area" style="color:${DT_AREAS[e.area].color}">${DT_AREAS[e.area].name} L${e.ex.level}</span><span class="dt-hist-title">${e.review?'<span class="dt-tag review">REVIEW</span>':e.practice?'<span class="dt-tag practice">PRACTICE</span>':e.bonus?'<span class="dt-tag bonus">BONUS</span>':''}${e.ex.title}</span><span class="dt-hist-rate ${e.rating||''}">${e.done?e.rating.toUpperCase():'NOT DONE'}</span></div>`).join('')}</div>`;
+  }).join('')||'<div class="dt-empty">No training saved yet. Finish an exercise on the Today tab and it shows up here.</div>';
+  document.getElementById('dt_history').innerHTML=`
+    <div class="dt-stats">
+      <div class="dt-stat"><span>${dtStreak()}</span>day streak</div>
+      <div class="dt-stat"><span>${doneDays}</span>days complete</div>
+      <div class="dt-stat"><span>${exDone}</span>exercises done</div>
+    </div>
+    <div class="dt-hist-wrap">
+      <div class="dt-cal">
+        <div class="dt-cal-nav"><button class="dt-btn" onclick="dtCalStep(-1)">PREV</button><span>${m.toLocaleDateString(undefined,{month:'long',year:'numeric'})}</span><button class="dt-btn" onclick="dtCalStep(1)">NEXT</button></div>
+        <div class="dt-cal-grid">${cal}</div>
+        <div class="dt-cal-key"><span class="k full"></span>Complete <span class="k part"></span>Started <span class="k open"></span>Opened <span class="k bonusk"></span>Bonus work</div>
+      </div>
+      <div class="dt-hist-list">${dtHistSel?`<button class="dt-btn" onclick="dtHistSel=null;renderDTHistory()">SHOW RECENT DAYS</button>`:''}${list}</div>
+    </div>`;
+}
+function renderDTProgress(){
+  const k=dtToday();
+  const items=Object.values(dtData.items),ret=items.filter(i=>i.retired).length,due=dtDue(k).length,inRev=items.filter(i=>!i.retired&&i.due).length;
+  document.getElementById('dt_progress').innerHTML=`<div class="dt-stats"><div class="dt-stat"><span>${ret}</span>retired</div><div class="dt-stat"><span>${inRev}</span>in review</div><div class="dt-stat"><span>${due}</span>due today</div></div><div class="dt-prog-intro">Each area has 4 levels. Rate an exercise Easy ${DT_LEVEL_UP} times to unlock the next level. Rating Hard brings that area back more often.</div>`+
+  Object.entries(DT_AREAS).map(([id,a])=>{
+    const s=dtData.areas[id],hardWeek=dtRecentHard(id,k);
+    return `<div class="dt-prog" style="border-left-color:${a.color}">
+      <div class="dt-prog-name" style="color:${a.color}">${a.name}</div>
+      <div class="dt-prog-lv">${[1,2,3,4].map(l=>`<span class="dt-lv${l<=s.level?' on':''}" style="${l<=s.level?'background:'+a.color+';border-color:'+a.color:''}">${l}</span>`).join('')}</div>
+      <div class="dt-prog-info">${s.done} done &middot; ${s.level<4?`${s.easy} of ${DT_LEVEL_UP} Easy toward level ${s.level+1}`:'Top level reached'}${hardWeek?` &middot; ${hardWeek} Hard this week`:''}</div>
+    </div>`;}).join('');
+}
+function renderDTBackup(){
+  let code='';try{code=btoa(unescape(encodeURIComponent(JSON.stringify(dtData))));}catch(e){}
+  document.getElementById('dt_backup').innerHTML=`
+    <div class="dt-prog-intro">Your training history is saved in this browser on this device. Copy this code somewhere safe, like a note or an email to yourself, so you can restore it if the browser is cleared, or move it to another device.</div>
+    <textarea class="dt-code" id="dtCode" readonly>${code}</textarea>
+    <div class="dt-actions"><button class="dt-btn dt-go" onclick="dtCopy()">COPY CODE</button><span class="dt-msg" id="dtCopyMsg"></span></div>
+    <div class="dt-sep"></div>
+    <div class="dt-prog-intro">Restore from a backup code. This replaces the history on this device.</div>
+    <textarea class="dt-code" id="dtImport" placeholder="Paste a backup code here"></textarea>
+    <div class="dt-actions"><button class="dt-btn" onclick="dtImport()">RESTORE</button><span class="dt-msg" id="dtImportMsg"></span></div>
+    <div class="dt-sep"></div>
+    <div class="dt-actions"><button class="dt-btn dt-danger" onclick="dtReset()">${dtResetArm?'TAP AGAIN TO ERASE ALL TRAINING HISTORY':'START OVER'}</button></div>`;
+}
+function dtCopy(){
+  const t=document.getElementById('dtCode'),msg=document.getElementById('dtCopyMsg');
+  const ok=()=>{msg.textContent='Copied.';};
+  try{navigator.clipboard.writeText(t.value).then(ok,()=>{t.select();msg.textContent='Selected. Press Ctrl+C (Cmd+C on Mac) to copy.';});}
+  catch(e){t.select();msg.textContent='Selected. Press Ctrl+C (Cmd+C on Mac) to copy.';}
+}
+function dtImport(){
+  const msg=document.getElementById('dtImportMsg'),v=document.getElementById('dtImport').value.trim();
+  try{const d=JSON.parse(decodeURIComponent(escape(atob(v))));if(!d||d.v!==1||!d.days||!d.areas)throw 0;dtData=d;dtSave();{const n=Object.keys(d.days).length;msg.textContent='Restored. '+n+' day'+(n===1?'':'s')+' of history loaded.';}}
+  catch(e){msg.textContent='That code did not work. Make sure you copied all of it.';}
+}
+function dtReset(){
+  if(!dtResetArm){dtResetArm=true;renderDTBackup();setTimeout(()=>{dtResetArm=false;if(dtTab==='backup')renderDTBackup();},4000);return;}
+  dtResetArm=false;dtData=dtFresh();dtSave();renderDTBackup();
+}
+
+document.addEventListener('keydown',e=>{
+  const ov=document.getElementById('dtOverlay');
+  if(!ov||!ov.classList.contains('open'))return;
+  if(e.key==='Escape'){closeDT();return;}
+  if(dtTab!=='today'||!dtEx().seq.length)return;
+  const t=e.target;if(t&&(t.tagName==='TEXTAREA'||t.tagName==='INPUT'))return;
+  if(e.key===' '){e.preventDefault();dtToggle();}
+  else if(e.key==='ArrowRight'){e.preventDefault();dtMove(1);}
+  else if(e.key==='ArrowLeft'){e.preventDefault();dtMove(-1);}
+});
+
+</script>
+
 <!-- CHORD BUILDER MODAL -->
 <div class="cb-overlay" id="cbOverlay" onclick="if(event.target===this)closeCB()">
   <div class="cb-modal">
@@ -3123,5 +3949,5 @@ function renderCP() {
 }
 </script>
 
-<script>setViewTab(viewTab,true);restoreCollapse();spUpdateUI();</script>
+<script>setViewTab(viewTab,true);restoreCollapse();spUpdateUI();dtUpdateHdr();</script>
 </body></html>
